@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiches Théoriques</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js" defer></script>
+    <script src="i18n.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">    <style>
+        /* Specific Theory Override Styles */
+        body {
+            /* Theme Light applied via class in HTML tag */
+            padding-top: 2rem;
+        }
+
+        h1.theory-title {
+            font-size: 3rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .theory-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-style: italic;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Summary TOC Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Search Bar ===== */
+        .theory-search-wrapper {
+            position: relative;
+            max-width: 680px;
+            margin: 0 auto 3rem;
+        }
+        .theory-search-bar {
+            width: 100%;
+            padding: 1rem 3.5rem 1rem 3.5rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-subtle);
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+        }
+        .theory-search-bar:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+        .theory-search-bar::placeholder { color: var(--text-muted); }
+        .theory-search-icon {
+            position: absolute;
+            left: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+        .search-count-badge {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            background: rgba(99,102,241,0.12);
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 700;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        /* Card enhancements */
+        .card-subtitle-small {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin: 0.25rem 0 0;
+            font-style: italic;
+        }
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.7rem;
+        }
+        .card-tag {
+            font-size: 0.68rem;
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--primary-color);
+            padding: 0.15rem 0.55rem;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .bloc-section { transition: opacity 0.2s; }
+        .bloc-section.search-hide { display: none !important; }
+        .theory-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            border: 1px solid var(--glass-border);
+        }
+        .theory-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            border-color: var(--primary-color);
+        }
+        .theory-card.search-hide { display: none !important; }
+        .no-results-msg {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* ===== Fiche Detail View ===== */
+        .fiche-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .fiche-bloc-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.25);
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            margin-bottom: 1.2rem;
+        }
+        .fiche-main-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* Section cards */
+        .flexible-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        .section-card {
+            border-radius: 14px;
+            padding: 1.6rem 2rem;
+            position: relative;
+            border: 1px solid var(--border-subtle);
+            background: var(--glass-bg);
+            transition: transform 0.15s;
+        }
+        .section-card:hover { transform: translateY(-1px); }
+        .section-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-card-body {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+        }
+        .section-card-body ul {
+            margin: 0.4rem 0 0.4rem 1.2rem;
+            padding: 0;
+        }
+        .section-card-body li { margin-bottom: 0.3rem; }
+        .section-card-body strong { color: var(--text-primary); font-weight: 700; }
+        .section-card-body blockquote {
+            border-left: 3px solid var(--secondary-color);
+            padding: 0.5rem 1rem;
+            margin: 0.8rem 0;
+            font-style: italic;
+            background: var(--card-bg);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Layout variants */
+        .section-standard  { border-left: 4px solid var(--primary-color); }
+        .section-highlight {
+            border-left: 4px solid var(--secondary-color);
+            background: rgba(99,102,241,0.05);
+        }
+        .section-alert {
+            border-left: 4px solid #f59e0b;
+            background: rgba(245,158,11,0.05);
+        }
+
+        /* Formula blocks — auto-detected from ** formulas ** */
+        .section-card-body .formula-line {
+            display: block;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.7rem 0;
+            letter-spacing: 0.01em;
+        }
+
+        /* Numbered lists */
+        .section-card-body ol {
+            margin: 0.4rem 0 0.4rem 1.2rem;
+            padding: 0;
+        }
+        .section-card-body ol li { margin-bottom: 0.4rem; }
+
+        /* Footer quote */
+        .fiche-footer {
+            max-width: 860px;
+            margin: 2.5rem auto 0;
+            padding: 1.2rem 1.8rem;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--primary-color);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .fiche-footer::before {
+            content: '\201C';
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            opacity: 0.4;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        /* Figure block */
+        .fiche-figure {
+            max-width: 860px;
+            margin: 0.5rem auto;
+            text-align: center;
+        }
+        .fiche-figure img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .fiche-figure figcaption {
+            margin-top: 0.6rem;
+            font-size: 0.82rem;
+            font-style: italic;
+            color: var(--text-muted);
+            letter-spacing: 0.01em;
+        }
+
+        /* ===== Dark Theme Variables (Midnight Glass) ===== */
+        body.theme-fiche-dark {
+            --bg-color: #020617;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --primary-color: #818cf8;
+            --secondary-color: #d946ef;
+            --accent-color: #22d3ee;
+            --brume-color: #0c1222;
+
+            --glass-bg: rgba(15, 23, 42, 0.82);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --border-subtle: rgba(255, 255, 255, 0.05);
+
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+        }
+
+        body.theme-fiche-dark .section-card {
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        body.theme-fiche-dark .fiche-footer {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        body.theme-fiche-dark .fiche-figure img {
+            background: #ffffff;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 20px rgba(129, 140, 248, 0.1);
+        }
+
+        body.theme-fiche-dark .background-globes {
+            display: block;
+            opacity: 0.6;
+        }
+
+        body.theme-fiche-dark .formula-line {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(129, 140, 248, 0.3);
+            color: #a5b4fc;
+        }
+
+        /* ===== Theme Toggle Button ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+        }
+        .theme-toggle svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .theme-toggle .sun-icon { display: none; }
+        .theme-toggle .moon-icon { display: block; }
+
+        body.theme-fiche-dark .theme-toggle .sun-icon { display: block; }
+        body.theme-fiche-dark .theme-toggle .moon-icon { display: none; }
+        body.theme-fiche-dark .theme-toggle svg { transform: rotate(360deg); }
+    </style>
+</head>
+
+<body class="theme-midnight">
+    <button class="theme-toggle" id="theme-toggle" title="Changer le thème">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <nav class="navbar" style="position: relative; margin-bottom: 2rem;">
+        <div class="logo">Les Fiches <span>Stats</span></div>
+        <div class="nav-links">
+            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
+            <a href="#" class="active" data-i18n="nav-fiches">Fiches</a>
+            <a href="gpower.html" target="_blank" data-i18n="nav-gpower">G*Power</a>
+            <button id="lang-toggle" class="lang-btn">EN</button>
+        </div>
+    </nav>
+
+    <div class="theory-container container">
+
+        <div id="theory-content">
+            <div class="loading">Chargement du savoir...</div>
+        </div>
+    </div>
+
+    <!-- Load Data Dynamically (V48: Royal Light Theme Integration) -->
+    <script>
+        (function () {
+            const currentLang = localStorage.getItem('site-lang') || 'fr';
+            const script = document.createElement('script');
+            const timestamp = Date.now();
+            script.src = (currentLang === 'en' ? 'theory_content_en.js' : 'theory_content.js') + '?v=' + timestamp;
+
+            script.onload = () => {
+                const params = new URLSearchParams(window.location.search);
+                const pageId = params.get('id');
+                const container = document.getElementById('theory-content');
+
+                // Initialize Theme (Integrated Logic v49)
+                const savedTheme = localStorage.getItem('theory-theme') || (pageId ? 'light' : 'dark');
+                
+                function applyTheme(theme) {
+                    document.body.classList.remove('theme-midnight', 'theme-fiche-dark', 'theme-fiche-light');
+                    if (pageId) {
+                        if (theme === 'dark') {
+                            document.body.classList.add('theme-fiche-dark');
+                        } else {
+                            document.body.classList.add('theme-fiche-light');
+                        }
+                    } else {
+                        // Summary view: 'dark' corresponds to Midnight, 'light' to a light variant
+                        if (theme === 'dark') {
+                            document.body.classList.add('theme-midnight');
+                        } else {
+                            document.body.classList.add('theme-fiche-light'); // Use light fiche theme as base for light summary
+                        }
+                    }
+                }
+
+                applyTheme(savedTheme);
+
+                // Theme Toggle Logic
+                const toggleBtn = document.getElementById('theme-toggle');
+                toggleBtn.addEventListener('click', () => {
+                    const currentTheme = localStorage.getItem('theory-theme') || (pageId ? 'light' : 'dark');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    localStorage.setItem('theory-theme', newTheme);
+                    applyTheme(newTheme);
+                });
+
+                function getT(key) {
+                    const lang = localStorage.getItem('site-lang') || 'fr';
+                    return uiTranslations[lang][key] || key;
+                }
+
+                if (pageId && theoryData[pageId]) {
+                    const data = theoryData[pageId];
+
+                    // Removed hardcoded theme apply to use logic above
+
+                    // --- Improved formatText ---
+                    function formatText(text) {
+                        if (!text) return '';
+                        let html = text
+                            // Bold formulas on their own line -> formula-line block
+                            .replace(/^\*\*([^\n]+)\*\*$/gm, '<span class="formula-line">$1</span>')
+                            // Remaining inline bold
+                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                            // Blockquote
+                            .replace(/^> ?(.*?)$/gm, '<blockquote>$1</blockquote>')
+                            // Numbered list items  (1. 2. 3.)
+                            .replace(/^(\d+)\.\  *(.*?)$/gm, '<li data-n="$1">$2</li>')
+                            // Bullet items
+                            .replace(/^\*   ?(.*?)$/gm, '<li>$1</li>');
+                        // Wrap consecutive <li> sequences
+                        html = html.replace(/(<li[^>]*>.*?<\/li>\n?)+/g, (m) => {
+                            if (m.includes('data-n=')) return `<ol>${m}</ol>`;
+                            return `<ul>${m}</ul>`;
+                        });
+                        html = html.replace(/\n/g, '<br>');
+                        return html;
+                    }
+
+                    // --- Header (no character, no subtitle) ---
+                    let contentHtml = `
+                        <button class="back-btn" onclick="window.location.href='theory.html'" style="color: var(--primary-color);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            <span data-i18n="nav-retour">${getT('nav-retour')}</span>
+                        </button>
+
+                        <div class="fiche-header animate-pop">
+                            <h1 class="fiche-title">${data.title}</h1>
+                        </div>
+
+                        ${data.definition ? `
+                            <div class="chapter-section">
+                                <h2 data-i18n="theory-definition">${getT('theory-definition')}</h2>
+                                <div class="rich-content" style="font-size: 1.3rem;">${formatText(data.definition)}</div>
+                            </div>
+                        ` : ''}
+                    `;;
+
+                    // --- Type Specific Content ---
+                    switch (data.type) {
+                        case "TYPE_TEST":
+                            contentHtml += `
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-usage">${getT('theory-usage')}</h2>
+                                    <div class="rich-content">${formatText(data.usage)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-hyp-duel">${getT('theory-hyp-duel')}</h2>
+                                    <div class="step-card" style="border-left-color: #ef4444;"><strong>H0 :</strong> ${formatText(data.h0)}</div>
+                                    <div class="step-card" style="border-left-color: #10b981;"><strong>H1 :</strong> ${formatText(data.h1)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-conditions">${getT('theory-conditions')}</h2>
+                                    <ul class="var-list">
+                                        ${data.conditions.map(c => `<li>✅ ${formatText(c)}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-effect-size">${getT('theory-effect-size')}</h2>
+                                    <div class="rich-content">${formatText(data.size_effect)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-report">${getT('theory-report')}</h2>
+                                    <div class="step-card" style="border-left-color: var(--accent-color); font-style: italic;">"${formatText(data.report)}"</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-quick-code">${getT('theory-quick-code')}</h2>
+                                    <p><strong>R :</strong> <code class="code-snippet">${data.codeR}</code></p>
+                                    <p><strong>Jamovi :</strong> <code class="code-snippet">${data.codeJamovi}</code></p>
+                                </div>
+                            `;
+                            break;
+
+                        case "TYPE_INDICATOR":
+                            contentHtml += `
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-intuition">${getT('theory-intuition')}</h2>
+                                    <div class="rich-content">${formatText(data.intuition)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-robustness">${getT('theory-robustness')}</h2>
+                                    <div class="rich-content">${formatText(data.sensibility)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-duel">${getT('theory-duel')}</h2>
+                                    <div class="rich-content">${formatText(data.duel)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-manual-calc">${getT('theory-manual-calc')}</h2>
+                                    ${data.calculation.map((step, i) => `
+                                        <div class="step-card"><strong>${getT('theory-step')} ${i + 1} :</strong> ${formatText(step)}</div>
+                                    `).join('')}
+                                </div>
+                            `;
+                            break;
+
+                        case "TYPE_CONCEPT":
+                            contentHtml += `
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-context">${getT('theory-context')}</h2>
+                                    <div class="rich-content">${formatText(data.context)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-debunk">${getT('theory-debunk')}</h2>
+                                    <div class="step-card" style="border-left-color: #eab308;">${formatText(data.debunk)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-link-tests">${getT('theory-link-tests')}</h2>
+                                    <div class="rich-content">${formatText(data.link)}</div>
+                                </div>
+                            `;
+                            break;
+                        
+                        case "TYPE_FLEXIBLE":
+                            contentHtml += `
+                                <div class="flexible-content">
+                                    ${data.sections.map(section => {
+                                        const layoutClass = section.layout === 'highlight' ? 'section-highlight'
+                                                          : section.layout === 'alert'     ? 'section-alert'
+                                                          :                                  'section-standard';
+                                        return `
+                                        <div class="section-card ${layoutClass}">
+                                            ${section.title ? `<div class="section-card-title">${section.title}</div>` : ''}
+                                            <div class="section-card-body">${formatText(section.content)}</div>
+                                        </div>`;
+                                    }).join('')}
+                                    ${data.figure ? `
+                                        <figure class="fiche-figure">
+                                            <img src="${data.figure.src}" alt="${data.figure.caption}" loading="lazy">
+                                            <figcaption>${data.figure.caption}</figcaption>
+                                        </figure>
+                                    ` : ''}
+                                    ${data.footer ? `
+                                        <div class="fiche-footer">${formatText(data.footer)}</div>
+                                    ` : ''}
+                                </div>
+                            `;
+                            break;
+
+                        case "TYPE_SOS":
+                            contentHtml += `
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-symptoms">${getT('theory-symptoms')}</h2>
+                                    <div class="rich-content" style="color: #f87171; font-weight: bold;">${formatText(data.symptom)}</div>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-remedy">${getT('theory-remedy')}</h2>
+                                    ${data.fix.map(f => `<div class="step-card" style="border-left-color: #22c55e;">${formatText(f)}</div>`).join('')}
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-rescue-cmd">${getT('theory-rescue-cmd')}</h2>
+                                    <p><strong>R :</strong> <code class="code-snippet">${data.codeR}</code></p>
+                                    <p><strong>Jamovi :</strong> <code class="code-snippet">${data.codeJamovi}</code></p>
+                                </div>
+                            `;
+                            break;
+
+                        case "TYPE_DATA":
+                            contentHtml += `
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-ingredients">${getT('theory-ingredients')}</h2>
+                                    <ul class="var-list">
+                                        ${data.subjects.map(s => `<li>🔹 ${formatText(s)}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                <div class="chapter-section">
+                                    <h2 data-i18n="theory-recipe">${getT('theory-recipe')}</h2>
+                                    ${data.how_to.map((step, i) => `
+                                        <div class="step-card"><strong>${getT('theory-step')} ${i + 1} :</strong> ${formatText(step)}</div>
+                                    `).join('')}
+                                </div>
+                            `;
+                            break;
+                    }
+
+                    container.innerHTML = contentHtml;
+                } else {
+                    // Show Summary Table of Contents in Midnight Theme logic handled at init
+
+
+                    const blocks = {
+                        1: getT('bloc-1'),
+                        2: getT('bloc-2'),
+                        3: getT('bloc-3'),
+                        4: getT('bloc-4'),
+                        5: getT('bloc-5')
+                    };
+
+                    const placeholderTxt = currentLang === 'fr' ? 'Rechercher un concept, une formule...' : 'Search a concept, formula...';
+                    const noResultTxt = currentLang === 'fr' ? '🔍 Aucun résultat pour cette recherche.' : '🔍 No results found.';
+
+                    let summaryHtml = `
+                        <h1 class="theory-title" data-i18n="summary-title">Sommaire des Fiches</h1>
+                        <p class="theory-subtitle" data-i18n="summary-subtitle">Sélectionnez un sujet pour commencer votre lecture.</p>
+
+                        <div class="theory-search-wrapper">
+                            <svg class="theory-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                            </svg>
+                            <input type="text" id="theory-search" class="theory-search-bar" placeholder="${placeholderTxt}" autocomplete="off">
+                            <span id="search-count-badge" class="search-count-badge"></span>
+                        </div>
+                        <p id="no-results-msg" class="no-results-msg">${noResultTxt}</p>
+                    `;
+
+                    for (let i = 1; i <= 5; i++) {
+                        const blocFiches = Object.entries(theoryData).filter(([k, v]) => v.bloc === i);
+                        if (blocFiches.length > 0) {
+                            const cardsHtml = blocFiches.map(([key, item]) => {
+                                const searchable = [item.title, item.subtitle || '', ...(item.tags || [])].join(' ').toLowerCase();
+                                const tagsHtml = (item.tags || []).slice(0, 4).map(t => `<span class="card-tag">${t}</span>`).join('');
+                                return `
+                                    <div class="theory-card" data-searchable="${searchable}" onclick="window.location.href='?id=${key}'">
+                                        <h4 style="color: var(--primary-color); margin: 0;">${item.title}</h4>
+                                        ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+                                    </div>`;
+                            }).join('');
+                            summaryHtml += `
+                                <div class="bloc-section" data-bloc="${i}">
+                                    <h2 style="margin-top: 3rem; color: var(--secondary-color); font-size: 1.8rem; border-bottom: 2px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 2rem;">${blocks[i]}</h2>
+                                    <div class="grid-3" style="column-gap: 2rem; row-gap: 2rem;">${cardsHtml}</div>
+                                </div>`;
+                        }
+                    }
+
+                    container.innerHTML = summaryHtml;
+
+                    // ===== Live Search =====
+                    const searchInput = document.getElementById('theory-search');
+                    const countBadge  = document.getElementById('search-count-badge');
+                    const noResMsg    = document.getElementById('no-results-msg');
+
+                    searchInput.addEventListener('input', () => {
+                        const q = searchInput.value.trim().toLowerCase();
+                        const allCards = document.querySelectorAll('.theory-card');
+                        const allBlocs = document.querySelectorAll('.bloc-section');
+                        let visible = 0;
+
+                        allCards.forEach(card => {
+                            const match = !q || card.dataset.searchable.includes(q);
+                            card.classList.toggle('search-hide', !match);
+                            if (match) visible++;
+                        });
+
+                        allBlocs.forEach(bloc => {
+                            const hasVisible = [...bloc.querySelectorAll('.theory-card')].some(c => !c.classList.contains('search-hide'));
+                            bloc.classList.toggle('search-hide', !hasVisible);
+                        });
+
+                        noResMsg.style.display = (visible === 0 && q) ? 'block' : 'none';
+                        const resWord = currentLang === 'fr' ? 'résultat' : 'result';
+                        countBadge.textContent = q ? `${visible}\u00a0${resWord}${visible !== 1 ? 's' : ''}` : '';
+                    });
+
+                    // Auto-focus search bar
+                    searchInput.focus();
+                }
+            };
+            document.head.appendChild(script);
+        })();
+    </script>
+</body>
+
+</html>

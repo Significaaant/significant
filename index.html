@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js" defer></script>
+    <script src="quiz_data.js" defer></script>
+    <script src="i18n.js" defer></script>
+</head>
+
+<body class="theme-midnight">
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <header>
+        <nav class="glass-panel">
+            <div class="logo">⋆˚࿔ 𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭 𝜗𝜚˚⋆</div>
+            <ul class="nav-links">
+                <li><a href="#quiz" data-i18n="nav-quiz">Quiz d'Orientation</a></li>
+                <li><a href="gpower.html" target="_blank" data-i18n="nav-gpower"
+                        style="color: var(--primary-color); font-weight: 800;">G*Power</a></li>
+                <li><a href="theory.html" target="_blank" data-i18n="nav-fiches"
+                        style="color: var(--primary-color); font-weight: 800;">Fiches</a></li>
+                <li><button id="lang-toggle" class="lang-btn">EN</button></li>
+            </ul>
+        </nav>
+        <div class="hero">
+            <h1 data-i18n="hero-title">𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭<span class="gradient-text"></span></h1>
+            <p class="subtitle" data-i18n="hero-subtitle">Le guide simple pour remplacer votre encadrant nul en stats.
+            </p>
+
+            <div class="supervisor-quotes">
+                <div class="bubble b1" data-i18n="hero-quote-1">"Débrouille-toi..."</div>
+                <div class="bubble b2" data-i18n="hero-quote-2">"J'en ai aucune idée"</div>
+                <div class="bubble b3" data-i18n="hero-quote-3">"Demande à ChatGPT il saura mieux que moi"</div>
+            </div>
+
+            <a href="#chapitre-0" class="cta-button" data-i18n="cta-quiz">Commencer le Quiz</a>
+
+            <div style="margin-top: 2rem;">
+                <a href="about.html" target="_blank" class="discrete-link" data-i18n="nav-about">Mais qu'est-ce que
+                    c'est que ce site ?</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="chapitre-0" class="section chapter" style="margin-top: 2rem;">
+            <div class="container">
+                <div class="chapter-header">
+                    <span class="chapter-number">00</span>
+                    <h2 style="color: var(--primary-color);" data-i18n="prep-title">📋 Préparation : Avant de décoller
+                    </h2>
+                </div>
+                <div class="content-box glass-panel">
+                    <div class="chapter-content">
+                        <p style="font-size: 1.1rem; margin-bottom: 1.5rem;" data-i18n="prep-intro">Pour éviter les
+                            erreurs techniques,
+                            vérifiez ces 3 points rapidement avant d'ouvrir votre logiciel.</p>
+
+                        <div class="grid-3">
+                            <div class="card" style="border-left: 3px solid var(--primary-color);">
+                                <h3 style="color: var(--primary-color);" data-i18n="prep-card-1-title">1. Le Nettoyage
+                                </h3>
+                                <p style="font-size: 0.9rem;" data-i18n="prep-card-1-sub">Format propre requis.</p>
+                                <ul style="text-align: left; font-size: 0.85rem; margin-top: 10px;"
+                                    data-i18n="prep-card-1-list">
+                                    <li>✅ Décimales avec un <strong>POINT</strong> (ex: 1.75).</li>
+                                    <li>✅ Pas d'espaces inutiles ("Nom ").</li>
+                                    <li>✅ Cases vides pour les données manquantes (NA).</li>
+                                </ul>
+                            </div>
+                            <div class="card" style="border-left: 3px solid var(--primary-color);">
+                                <h3 style="color: var(--primary-color);" data-i18n="prep-card-2-title">2. Les Variables
+                                </h3>
+                                <p style="font-size: 0.9rem;" data-i18n="prep-card-2-sub">Distinguez bien :</p>
+                                <ul style="text-align: left; font-size: 0.85rem; margin-top: 10px;"
+                                    data-i18n="prep-card-2-list">
+                                    <li><strong>ID :</strong> Identifiant (Ne pas analyser).</li>
+                                    <li><strong>Catégorie :</strong> 1=Homme (Code, pas un chiffre).</li>
+                                    <li><strong>Score :</strong> 12/20 (Vrai nombre).</li>
+                                </ul>
+                            </div>
+                            <div class="card" style="border-left: 3px solid var(--primary-color);">
+                                <h3 style="color: var(--primary-color);" data-i18n="prep-card-3-title">3. Les Extrêmes
+                                </h3>
+                                <p style="font-size: 0.9rem;" data-i18n="prep-card-3-sub">Attention aux erreurs de
+                                    saisie.</p>
+                                <ul style="text-align: left; font-size: 0.85rem; margin-top: 10px;"
+                                    data-i18n="prep-card-3-list">
+                                    <li>Un âge de "150 ans" ? -> Supprimez.</li>
+                                    <li>Une taille de "10m" ? -> Corrigez.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <a href="#quiz" class="cta-button" style="border: none;">✅ C'est OK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="section quiz-section">
+            <div class="container">
+                <h2 class="section-title" data-i18n="quiz-title">Quel outil statistique utiliser ?</h2>
+                <div class="quiz-container glass-panel">
+                    <div id="quiz-content">
+                        <!-- Quiz questions will be injected here via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="chapitre-1" class="section chapter">
+            <div class="container">
+                <div class="chapter-header">
+                    <span class="chapter-number">01</span>
+                    <h2 data-i18n="chap1-title">Comment faire parler ses données</h2>
+                </div>
+                <div class="content-box glass-panel">
+                    <div class="chapter-content">
+                        <p data-i18n="chap1-intro">Avant de plonger, il faut traduire vos données "réelles" en langage
+                            "statistique".</p>
+
+                        <!-- NEW V7: Cas Complexe / Traducteur -->
+                        <div class="example-box" style="background: rgba(16, 185, 129, 0.1); border-color: #10b981;">
+                            <h4 style="color: #10b981;" data-i18n="guide-title"><i class="fas fa-language"></i> Guide du
+                                Traducteur (Cas Réel)
+                            </h4>
+                            <p data-i18n="guide-intro">Prenons un exemple complexe : <em>"L'évolution de la présence du
+                                    topic 'Cancer du Sein'
+                                    dans les articles de 1920 à 2016."</em></p>
+                            <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
+                                <li style="margin-bottom: 8px;" data-i18n="guide-item-1">1️⃣ <strong>Année (1920,
+                                        1921...)</strong> : C'est un
+                                    mesure chiffrée. <br>👉 Traduction : <strong>Variable Quantitative</strong>.</li>
+                                <li style="margin-bottom: 8px;" data-i18n="guide-item-2">2️⃣ <strong>Présence du Topic
+                                        (12%, 5%...)</strong> :
+                                    C'est un score chiffré. <br>👉 Traduction : <strong>Variable Quantitative</strong>.
+                                </li>
+                                <li data-i18n="guide-item-3">3️⃣ <strong>La Question</strong> : "Est-ce que ça
+                                    augmente/baisse avec le temps ?"
+                                    <br>👉 Traduction : Vous cherchez une <strong>Corrélation</strong> (Lien).
+                                </li>
+                            </ul>
+                            <p style="margin-top: 10px; font-weight: bold;" data-i18n="guide-result">✅ Résultat Quiz :
+                                "2 Variables
+                                Quantitatives".</p>
+                        </div>
+
+                        <!-- NEW V7: Normality Check -->
+                        <div class="example-box"
+                            style="background: rgba(245, 158, 11, 0.1); border-color: #f59e0b; margin-top: 2rem;">
+                            <h4 style="color: #f59e0b;" data-i18n="normality-title"><i class="fas fa-search"></i> Le
+                                Mystère de la "Loi Normale"
+                            </h4>
+                            <p data-i18n="normality-intro">Le quiz va souvent vous demander : <em>"Vos données
+                                    sont-elles Normales ?"</em>. C'est
+                                crucial.</p>
+
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+                                <div
+                                    style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; padding: 10px;">
+                                    <h5 style="color:white; margin-bottom: 5px;" data-i18n="normality-visual-title">👀
+                                        Méthode Visuelle</h5>
+                                    <p style="font-size: 0.9rem;" data-i18n="normality-visual-text">Faites un
+                                        histogramme. Cela ressemble-t-il à une
+                                        <strong>cloche symétrique</strong> ?
+                                    </p>
+                                    <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
+                                        <li data-i18n="normality-visual-no">❌ <strong>Non :</strong> Il y a des barres
+                                            géantes à gauche ou à droite
+                                            (Biaisé). 👉 <strong>Non-Normal</strong></li>
+                                        <li data-i18n="normality-visual-yes">✅ <strong>Oui :</strong> C'est joli et
+                                            centré. 👉 <strong>Normal</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; padding: 10px;">
+                                    <h5 style="color:white; margin-bottom: 5px;" data-i18n="normality-robot-title">🤖
+                                        Méthode "Robo-Test"</h5>
+                                    <p style="font-size: 0.9rem;" data-i18n="normality-robot-text">Utilisez le test de
+                                        <strong>Shapiro-Wilk</strong>
+                                        (voir codes plus bas).
+                                    </p>
+                                    <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
+                                        <li data-i18n="normality-robot-low">Si p-value < 0.05 : 🚨 <strong>Pas
+                                                Normal</strong> (Alerte !)</li>
+                                        <li data-i18n="normality-robot-high">Si p-value > 0.05 : ✅
+                                            <strong>Normal</strong> (Tout va bien)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- V12 Unification: Link to Theory -->
+                            <div style="text-align: center; margin-top: 1rem;">
+                                <button class="quiz-btn expert-btn"
+                                    onclick="window.location.href='theory.html?id=loi-normale'"
+                                    style="width: auto; padding: 0.5rem 1rem;" data-i18n="normality-link">
+                                    📖 Lire le cours complet sur la Loi Normale
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Shapiro Code Snippet -->
+                        <div class="code-wrapper" style="margin-top: 1rem;">
+                            <div class="code-tabs">
+                                <button class="tab-btn active" onclick="openTab(event, 'code-shapiro-r')">R</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-shapiro-py')">Python</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-shapiro-jamovi')">Jamovi</button>
+                            </div>
+                            <div id="code-shapiro-r" class="code-content active">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code># Test de Normalité (Shapiro-Wilk)
+shapiro.test(data$MaVariable)
+
+# Si p-value < 0.05 -> Pas Normal
+# Si p-value > 0.05 -> Normal</code></pre>
+                            </div>
+                            <div id="code-shapiro-py" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code>from scipy.stats import shapiro
+
+stat, p = shapiro(df['MaVariable'])
+print(f"P-value: {p}")
+
+# Si p < 0.05: Pas Normal</code></pre>
+                            </div>
+                            <div id="code-shapiro-jamovi" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code>// Chemin
+Analyses > Exploration > Descriptives
+
+// Options
+1. Variables : Votre variable
+2. Statistics (en bas) : Cocher "Shapiro-Wilk"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="chapitre-2" class="section chapter">
+            <div class="container">
+                <div class="chapter-header">
+                    <span class="chapter-number">02</span>
+                    <h2 data-i18n="chap2-title">La collecte des données</h2>
+                </div>
+                <div class="content-box glass-panel">
+                    <p data-i18n="chap2-text">Choisissez votre méthode de collecte :</p>
+                    <div class="grid-3">
+                        <div class="card">
+                            <h3 data-i18n="chap2-card1-title">Enquête</h3>
+                            <p data-i18n="chap2-card1-text">Questionnaire auprès d'un échantillon.</p>
+                        </div>
+                        <div class="card">
+                            <h3 data-i18n="chap2-card2-title">Observation</h3>
+                            <p data-i18n="chap2-card2-text">Noter les faits tels qu'ils se produisent.</p>
+                        </div>
+                        <div class="card">
+                            <h3 data-i18n="chap2-card3-title">Expérimentation</h3>
+                            <p data-i18n="chap2-card3-text">Provoquer un phénomène pour l'étudier.</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <p data-i18n="chap2-tip">💡 <strong>Conseil pratique :</strong> Un bon questionnaire doit être
+                            clair, court et éviter
+                            les termes techniques ou péjoratifs pour ne pas fausser les réponses.</p>
+                    </div>
+                    <div class="example-box">
+                        <h4 data-i18n="chap2-example-title">🔍 Exemple Concret</h4>
+                        <p data-i18n="chap2-example-text"><strong>Question biaisée :</strong> "Ne pensez-vous pas que la
+                            politique actuelle est
+                            désastreuse ?" (Induit la réponse)<br>
+                            <strong>Question neutre :</strong> "Quel est votre degré de satisfaction concernant la
+                            politique actuelle ?"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapitre-3" class="section chapter">
+            <div class="container">
+                <div class="chapter-header">
+                    <span class="chapter-number">03</span>
+                    <h2 data-i18n="chap3-title">L'organisation des données</h2>
+                </div>
+                <div class="content-box glass-panel">
+                    <p>Rendez vos données lisibles par des tableaux et des graphiques.</p>
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <h3>Variables Qualitatives</h3>
+                            <p class="desc">(Catégories, mots)</p>
+                            <ul>
+                                <li>Diagrammes à secteurs (tartes)</li>
+                                <li>Diagrammes à rectangles</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-item">
+                            <h3>Variables Quantitatives</h3>
+                            <p class="desc">(Chiffres, mesures)</p>
+                            <ul>
+                                <li>Diagrammes en bâtons</li>
+                                <li>Histogrammes</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="code-wrapper">
+                        <div class="code-tabs">
+                            <button class="tab-btn active" onclick="openTab(event, 'code-viz-r')">R</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-viz-py')">Python</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-viz-jamovi')">Jamovi</button>
+                        </div>
+                        <div id="code-viz-r" class="code-content active">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># Créer un tableau de fréquence
+table(data$Variable)
+
+# Graphique en bâtons (Qualitatif)
+barplot(table(data$Variable), main="Titre")
+
+# Histogramme (Quantitatif)
+hist(data$Age, main="Age Distribution", col="blue")</code></pre>
+                        </div>
+                        <div id="code-viz-py" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>import matplotlib.pyplot as plt
+
+# Tableau de fréquence
+print(df['Variable'].value_counts())
+
+# Graphique en bâtons
+df['Variable'].value_counts().plot(kind='bar')
+plt.show()
+
+# Histogramme
+df['Age'].hist(bins=20)
+plt.show()</code></pre>
+                        </div>
+                        <div id="code-viz-jamovi" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>// Chemin
+Analyses > Exploration > Descriptives
+
+// Options
+1. Plots (en bas) : Cocher "Histogram" ou "Bar plot"</code></pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="chapitre-4" class="section chapter">
+            <div class="container">
+                <div class="chapter-header">
+                    <span class="chapter-number">04</span>
+                    <h2 data-i18n="chap4-title">L'analyse des données (Les mesures)</h2>
+                </div>
+                <div class="content-box glass-panel">
+                    <h3>Mesures de Centre</h3>
+                    <div class="grid-3">
+                        <div class="stat-card" id="stat-mode">
+                            <h4 data-i18n="chap4-mode-title">Mode</h4>
+                            <p data-i18n="chap4-mode-text">La valeur la plus fréquente.</p>
+                        </div>
+                        <div class="stat-card" id="stat-mediane">
+                            <h4 data-i18n="chap4-med-title">Médiane</h4>
+                            <p data-i18n="chap4-med-text">Le milieu de la série (autant de valeurs au-dessus qu'en
+                                dessous).</p>
+                        </div>
+                        <div class="stat-card" id="stat-moyenne">
+                            <h4 data-i18n="chap4-moy-title">Moyenne</h4>
+                            <p data-i18n="chap4-moy-text">Le point d'équilibre arithmétique.</p>
+                        </div>
+                    </div>
+
+                    <h3>Mesures de Dispersion</h3>
+                    <div class="grid-2">
+                        <div class="stat-card" id="stat-etendue">
+                            <h4 data-i18n="chap4-range-title">Étendue</h4>
+                            <p data-i18n="chap4-range-text">Écart entre le maximum et le minimum.</p>
+                        </div>
+                        <div class="stat-card" id="stat-ecart-type">
+                            <h4 data-i18n="chap4-std-title">Écart-type</h4>
+                            <p data-i18n="chap4-std-text">Mesure moyenne de l'étalement autour de la moyenne.</p>
+                        </div>
+                    </div>
+
+                    <div class="code-wrapper">
+                        <div class="code-tabs">
+                            <button class="tab-btn active" onclick="openTab(event, 'code-mes-r')">R</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-mes-py')">Python</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-mes-jamovi')">Jamovi</button>
+                        </div>
+                        <div id="code-mes-r" class="code-content active">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># Moyenne
+mean(data$Score, na.rm=TRUE)
+
+# Médiane
+median(data$Score, na.rm=TRUE)
+
+# Écart-type (Standard Deviation)
+sd(data$Score, na.rm=TRUE)
+
+# Résumé complet
+summary(data$Score)</code></pre>
+                        </div>
+                        <div id="code-mes-py" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># Moyenne
+print(df['Score'].mean())
+
+# Médiane
+print(df['Score'].median())
+
+# Écart-type
+print(df['Score'].std())
+
+# Résumé complet
+print(df['Score'].describe())</code></pre>
+                        </div>
+                        <div id="code-mes-jamovi" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>// Chemin
+Analyses > Exploration > Descriptives
+
+// Options
+1. Statistics : Cocher Mean, Median, Std. deviation</code></pre>
+                        </div>
+                    </div>
+
+                    <h3 data-i18n="chap4-other-title">Autres Mesures</h3>
+                    <div class="grid-2">
+                        <div class="stat-card" id="stat-cv">
+                            <h4 data-i18n="chap4-cv-title">Coefficient de Variation</h4>
+                            <p data-i18n="chap4-cv-text">Pour comparer deux séries différentes.</p>
+                        </div>
+                        <div class="stat-card" id="stat-z">
+                            <h4 data-i18n="chap4-z-title">Cote Z</h4>
+                            <p data-i18n="chap4-z-text">Pour situer un individu précis dans la distribution.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapitre-5" class="section chapter">
+            <div class="container">
+                <div class="chapter-header">
+                    <span class="chapter-number">05</span>
+                    <h2 data-i18n="chap5-title">L'interprétation (Inférence)</h2>
+                </div>
+                <div class="content-box glass-panel">
+                    <p class="intro-text" data-i18n="chap5-text">C'est le cœur de l'analyse : vérifier si vos hypothèses
+                        sont "Statistiquement
+                        Significatives".</p>
+
+                    <div id="test-chi2" class="example-box"
+                        style="border-color: var(--secondary-color); background: rgba(236, 72, 153, 0.1);">
+                        <h4 style="color: var(--secondary-color);" data-i18n="chap5-chi2-title">🚀 Test du Chi-Carré
+                            (Chi-Square)</h4>
+                        <p data-i18n="chap5-chi2-text"><strong>C'est quoi ?</strong> Un test pour vérifier
+                            l'indépendance entre deux variables
+                            qualitatives.<br>
+                            <strong>💡 Exemple :</strong> "Y a-t-il un lien entre le Sexe (H/F) et le Tabagisme
+                            (Oui/Non) ?"<br>
+                            <strong>Pourquoi lui ?</strong> Car on ne peut pas calculer de moyenne sur des mots. On
+                            compare donc les fréquences observées vs attendues.
+                        </p>
+                    </div>
+                    <div class="code-wrapper">
+                        <div class="code-tabs">
+                            <button class="tab-btn active" onclick="openTab(event, 'code-chi2-r')">R</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-chi2-py')">Python</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-chi2-jamovi')">Jamovi</button>
+                        </div>
+                        <div id="code-chi2-r" class="code-content active">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># Créer le tableau croisé
+tableau <- table(data$Variable1, data$Variable2)
+
+# Test du Chi-2
+chisq.test(tableau)</code></pre>
+                        </div>
+                        <div id="code-chi2-py" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>from scipy.stats import chi2_contingency
+import pandas as pd
+
+# Tableau de contingence
+tab = pd.crosstab(df['Var1'], df['Var2'])
+chi2, p, dof, ex = chi2_contingency(tab)
+print(f"P-value: {p}")</code></pre>
+                        </div>
+                        <div id="code-chi2-jamovi" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>// Chemin
+Analyses > Fréquences > Échantillons indépendants
+
+// Options
+1. Lignes : Variable 1
+2. Colonnes : Variable 2
+3. Statistiques : Chi-carré (coché par défaut)</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- V24: COMPLEX MODELS -->
+
+                    <div class="test-card" id="test-ancova" style="border-left: 4px solid #ef4444;">
+                        <h3 data-i18n="test-ancova-title">ANCOVA (Analyse de Covariance)</h3>
+                        <p class="why-section" data-i18n="test-ancova-text"><strong>Pourquoi ?</strong> Comparer des
+                            groupes en "effaçant"
+                            l'influence d'une variable parasite.<br>
+                            <strong>💡 Exemple :</strong> "Comparer l'efficacité de 3 méthodes d'enseignement, mais en
+                            contrôlant le QI initial des élèves."<br>
+                            <strong>Pourquoi lui ?</strong> Si tes groupes ne sont pas égaux au départ (ex: QI
+                            différent), l'ANCOVA corrige le biais mathématiquement.
+                        </p>
+                        <div class="code-wrapper">
+                            <div class="code-tabs">
+                                <button class="tab-btn active" onclick="openTab(event, 'code-ancova-r')">R</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-ancova-py')">Python</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-ancova-jamovi')">Jamovi</button>
+                            </div>
+                            <div id="code-ancova-r" class="code-content active">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code># ANCOVA (Modele linéaire)
+# Y = VD, Groupe = VI, Covar = Parasite
+modele <- aov(Y ~ Groupe + Covariable, data=df)
+summary(modele)</code></pre>
+                            </div>
+                            <div id="code-ancova-py" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code>import statsmodels.formula.api as smf
+
+# fit OLS model
+model = smf.ols('Y ~ C(Groupe) + Covariable', data=df).fit()
+print(model.summary())</code></pre>
+                            </div>
+                            <div id="code-ancova-jamovi" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code>// Chemin
+Analyses > ANOVA > ANCOVA
+
+// Options
+1. Variable dépendante : Y
+2. Facteurs fixes : Groupe
+3. Covariables : Covariable (ex: Âge, QI)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-card" id="test-manova" style="border-left: 4px solid #a855f7;">
+                        <h3>MANOVA (Multivariée)</h3>
+                        <p class="why-section"><strong>Pourquoi ?</strong> Tester plusieurs résultats (VDs) en même
+                            temps.<br>
+                            <strong>💡 Exemple :</strong> "L'impact d'un médicament sur (Tension ET Cholestérol ET
+                            Poids)."<br>
+                            <strong>Pourquoi lui ?</strong> Évite de faire 3 tests séparés (ce qui augmente le risque
+                            <strong>Pourquoi lui ?</strong> Évite de faire 3 tests séparés (ce qui augmente le risque
+                            d'erreur) et détecte des profils globaux.
+                        </p>
+                        <div class="code-wrapper">
+                            <div class="code-tabs">
+                                <button class="tab-btn active" onclick="openTab(event, 'code-manova-r')">R</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-manova-py')">Python</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-manova-jamovi')">Jamovi</button>
+                            </div>
+                            <div id="code-manova-r" class="code-content active">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code># MANOVA
+# cbind regroupe tes VDs
+modele <- manova(cbind(Y1, Y2, Y3) ~ Groupe, data=df)
+summary(modele, test="Wilks")</code></pre>
+                            </div>
+                            <div id="code-manova-py" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code>from statsmodels.multivariate.manova import MANOVA
+
+# Formule style R
+ma = MANOVA.from_formula('Y1 + Y2 + Y3 ~ Groupe', data=df)
+print(ma.mv_test())</code></pre>
+                            </div>
+                            <div id="code-manova-jamovi" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code>// Chemin
+Analyses > ANOVA > MANOVA
+
+// Options
+1. Variables dépendantes : Y1, Y2, Y3
+2. Facteurs fixes : Groupe
+3. Modèle multivarié : Trace de Pillai ou Wilks' Lambda</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-card" id="test-contrast" style="border-left: 4px solid #ec4899;">
+                        <h3 data-i18n="test-contrast-title">Analyse de Contrastes</h3>
+                        <p class="why-section" data-i18n="test-contrast-text"><strong>Pourquoi ?</strong> Le "Sniper"
+                            statistique. Tester une hypothèse
+                            très précise.<br>
+                            <strong>💡 Exemple :</strong> "Je parie que le Groupe A est supérieur à la moyenne des
+                            Groupes B et C."<br>
+                            <strong>Pourquoi lui ?</strong> L'ANOVA dit juste "C'est différent". Les contrastes disent
+                            "C'est différent EXACTEMENT comme je l'avais prédit".
+                        </p>
+                        <div class="code-wrapper">
+                            <div class="code-tabs">
+                                <button class="tab-btn active" onclick="openTab(event, 'code-contrast-r')">R</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-contrast-py')">Python</button>
+                                <button class="tab-btn" onclick="openTab(event, 'code-contrast-jamovi')">Jamovi</button>
+                            </div>
+                            <div id="code-contrast-r" class="code-content active">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code># Définir les poids (Somme = 0)
+# Ex: A(+2) vs B(-1) et C(-1)
+contrasts(df$Groupe) <- c(2, -1, -1)
+
+# Lancer l'ANOVA avec ces contrastes
+model <- aov(Y ~ Groupe, data=df)
+summary.aov(model, split=list(Groupe=list("MonHypothese"=1)))</code></pre>
+                            </div>
+                            <div id="code-contrast-py" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code># Python (via t_test sur OLS)
+contrast = [0, 2, -1, -1] # À adapter selon l'ordre des coefs
+t_test = model.t_test(contrast)
+print(t_test)</code></pre>
+                            </div>
+                            <div id="code-contrast-jamovi" class="code-content">
+                                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                                <pre><code>// Chemin
+Analyses > ANOVA > ANOVA
+
+// Options
+1. Ouvrir le menu "Contrastes"
+2. Choisir le type (ex: Polynomial ou Helmert)
+3. Ou utiliser le module optionnel "Rj" pour coder des contrastes personnalisés.</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="test-ttest" class="example-box"
+                        style="border-color: var(--accent-color); background: rgba(6, 182, 212, 0.1);">
+                        <h4 style="color: var(--accent-color);" data-i18n="test-ttest-title">⚖️ Test T de Student</h4>
+                        <p data-i18n="test-ttest-text"><strong>C'est quoi ?</strong> Une comparaison de moyennes entre 2
+                            groupes.<br>
+                            <strong>💡 Exemple :</strong> "Les femmes gagnent-elles moins que les hommes ?"<br>
+                            <strong>Pourquoi lui ?</strong> Tes groupes sont assez grands et normaux. La moyenne est
+                            donc un bon résumé fiable à comparer.
+                        </p>
+                        <div class="test-postulates" style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.9rem;">
+                            <strong style="color: var(--accent-color); display: block; margin-bottom: 0.5rem;">📜 Les 3 Postulats (Conditions) :</strong>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>✅ <strong>Indépendance :</strong> Tes observations ne s'influencent pas entre elles.</li>
+                                <li>✅ <strong>Normalité :</strong> Tes données suivent une courbe en cloche (Loi Normale).</li>
+                                <li>✅ <strong>Homoscédasticité :</strong> Tes groupes ont des variances (dispersions) égales.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-wrapper">
+                        <div class="code-tabs">
+                            <button class="tab-btn active" onclick="openTab(event, 'code-ttest-r')">R</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-ttest-py')">Python</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-ttest-jamovi')">Jamovi</button>
+                        </div>
+                        <div id="code-ttest-r" class="code-content active">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># Test T indépendant
+t.test(Salaire ~ Sexe, data=data)</code></pre>
+                        </div>
+                        <div id="code-ttest-py" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>from scipy.stats import ttest_ind
+
+groupA = df[df['Sexe'] == 'H']['Salaire']
+groupB = df[df['Sexe'] == 'F']['Salaire']
+t_stat, p_val = ttest_ind(groupA, groupB)
+print(f"P-value: {p_val}")</code></pre>
+                        </div>
+                        <div id="code-ttest-jamovi" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>// Chemin
+Analyses > Tests t > Échantillons indépendants
+
+// Options
+1. Variable dépendante : Salaire (variable continue)
+2. Variable de groupement : Sexe (2 groupes)
+3. Tests d'hypothèses : T de Student (coché par défaut)</code></pre>
+                        </div>
+                    </div>
+
+                    <div id="test-anova" class="example-box"
+                        style="border-color: var(--primary-color); background: rgba(139, 92, 246, 0.1);">
+                        <h4 style="color: var(--primary-color);" data-i18n="test-anova-title">📊 ANOVA</h4>
+                        <p data-i18n="test-anova-text"><strong>C'est quoi ?</strong> Une comparaison de moyennes pour 3
+                            groupes ou plus.<br>
+                            <strong>💡 Exemple :</strong> "Le salaire change-t-il selon la région (Nord/Sud/Est/Ouest)
+                            ?"<br>
+                            <strong>Pourquoi lui ?</strong> Faire 10 tests T de suite multiplierait le risque d'erreur.
+                            L'ANOVA teste tout d'un coup.
+                        </p>
+                    </div>
+                    <div class="code-wrapper">
+                        <div class="code-tabs">
+                            <button class="tab-btn active" onclick="openTab(event, 'code-anova-r')">R</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-anova-py')">Python</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-anova-jamovi')">Jamovi</button>
+                        </div>
+                        <div id="code-anova-r" class="code-content active">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># ANOVA
+modele <- aov(Salaire ~ Region, data=data)
+summary(modele)</code></pre>
+                        </div>
+                        <div id="code-anova-py" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>from scipy.stats import f_oneway
+
+# Séparer les groupes
+g1 = df[df['Region'] == 'Nord']['Salaire']
+g2 = df[df['Region'] == 'Sud']['Salaire']
+g3 = df[df['Region'] == 'Est']['Salaire']
+
+f_stat, p_val = f_oneway(g1, g2, g3)
+print(f"P-value: {p_val}")</code></pre>
+                        </div>
+                        <div id="code-anova-jamovi" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>// Chemin
+Analyses > ANOVA > ANOVA
+
+// Options
+1. Variable dépendante : Salaire
+2. Facteurs fixes : Région (Groupes)
+3. Post-tests (si significatif) : Tukey</code></pre>
+                        </div>
+                    </div>
+
+                    <div id="test-cor" class="example-box"
+                        style="border-color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+                        <h4 style="color: #f59e0b;" data-i18n="test-cor-title">📈 Corrélation (Pearson)</h4>
+                        <p data-i18n="test-cor-text"><strong>C'est quoi ?</strong> La mesure d'un lien linéaire entre 2
+                            chiffres.<br>
+                            <strong>💡 Exemple :</strong> "Plus on est âgé, plus on est riche ?"<br>
+                            <strong>Pourquoi lui ?</strong> Tes données sont normales. Pearson est le standard pour voir
+                            si les points forment une ligne droite.
+                        </p>
+                    </div>
+
+                    <div id="test-spearman" class="example-box"
+                        style="border-color: #d97706; background: rgba(217, 119, 6, 0.1);">
+                        <h4 style="color: #d97706;" data-i18n="test-spearman-title">📉 Corrélation de Spearman</h4>
+                        <p data-i18n="test-spearman-text"><strong>C'est quoi ?</strong> Une corrélation basée sur les
+                            rangs (classement).<br>
+                            <strong>💡 Exemple :</strong> "Le classement au concours est-il lié au QI ?"<br>
+                            <strong>Pourquoi lui ?</strong> Tes données ne sont pas des mesures parfaites. Spearman
+                            contourne le problème en transformant tout en classement.
+                        </p>
+                    </div>
+
+                    <div class="code-wrapper">
+                        <div class="code-tabs">
+                            <button class="tab-btn active" onclick="openTab(event, 'code-cor-r')">R</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-cor-py')">Python</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-cor-jamovi')">Jamovi</button>
+                        </div>
+                        <div id="code-cor-r" class="code-content active">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># Pearson (Classique)
+cor.test(data$Age, data$Revenu, method="pearson")
+
+# Spearman (Rangs)
+cor.test(data$Satisfaction, data$Revenu, method="spearman")</code></pre>
+                        </div>
+                        <div id="code-cor-py" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>from scipy.stats import pearsonr, spearmanr
+
+# Pearson
+print(pearsonr(df['Age'], df['Revenu']))
+
+# Spearman
+print(spearmanr(df['Satisfaction'], df['Revenu']))</code></pre>
+                        </div>
+                        <div id="code-cor-jamovi" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>// Chemin
+Analyses > Régression > Matrice de corrélations
+
+// Options
+1. Déplacer les 2 variables (Age, Revenu) dans la boite.
+2. Cocher "Pearson" (Lien linéaire) ou "Spearman" (Classement).
+3. Cocher "Rapport de significativité" pour avoir la p-value.</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Additional Non-Parametric Groups -->
+                    <div id="test-mann" class="example-box"
+                        style="border-color: #0ea5e9; background: rgba(14, 165, 233, 0.1);">
+                        <h4 style="color: #0ea5e9;" data-i18n="test-mann-title">U Test de Mann-Whitney</h4>
+                        <p data-i18n="test-mann-text"><strong>C'est quoi ?</strong> L'alternative tout-terrain au Test
+                            T.<br>
+                            <strong>💡 Exemple :</strong> "Comparer le niveau de stress (1-10) entre deux petits
+                            groupes."<br>
+                            <strong>Pourquoi lui ?</strong> Avec des petits groupes ou des notes subjectives, la moyenne
+                            ment. Ce test compare qui est "devant" l'autre en général.
+                        </p>
+                    </div>
+                    <div id="test-kruskal" class="example-box"
+                        style="border-color: #8b5cf6; background: rgba(139, 92, 246, 0.1);">
+                        <h4 style="color: #8b5cf6;" data-i18n="test-kruskal-title">H Test de Kruskal-Wallis</h4>
+                        <p data-i18n="test-kruskal-text"><strong>C'est quoi ?</strong> L'alternative tout-terrain à
+                            l'ANOVA.<br>
+                            <strong>💡 Exemple :</strong> "Comparer la satisfaction (1-5) de 3 hôtels."<br>
+                            <strong>Pourquoi lui ?</strong> Il classe tous les clients du plus au moins satisfait et
+                            regarde si un hôtel est toujours en tête de classement.
+                        </p>
+                    </div>
+
+                    <div class="code-wrapper">
+                        <div class="code-tabs">
+                            <button class="tab-btn active" onclick="openTab(event, 'code-nonparam-r')">R</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-nonparam-py')">Python</button>
+                            <button class="tab-btn" onclick="openTab(event, 'code-nonparam-jamovi')">Jamovi</button>
+                        </div>
+                        <div id="code-nonparam-r" class="code-content active">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code># Mann-Whitney (2 groupes)
+wilcox.test(Score ~ Groupe, data=data)
+
+# Kruskal-Wallis (3+ groupes)
+kruskal.test(Score ~ Groupe, data=data)</code></pre>
+                        </div>
+                        <div id="code-nonparam-py" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>from scipy.stats import mannwhitneyu, kruskal
+
+# Mann-Whitney
+u_stat, p_val = mannwhitneyu(group1, group2)
+
+# Kruskal-Wallis
+h_stat, p_val = kruskal(group1, group2, group3)</code></pre>
+                        </div>
+                        <div id="code-nonparam-jamovi" class="code-content">
+                            <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                            <pre><code>// Mann-Whitney
+Analyses > Tests t > Échantillons indépendants > Cocher "Mann-Whitney U"
+
+// Kruskal-Wallis
+Analyses > ANOVA > ANOVA non paramétrique > Kruskal-Wallis
+- VD : Variable quantitative
+- Groupe : Variable de groupe</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="nav-links">
+                        <a href="#" class="active" data-i18n="nav-home">Accueil</a>
+                        <a href="theory.html" data-i18n="nav-theory">Fiches</a>
+                        <a href="gpower.html" data-i18n="nav-gpower">G*Power</a>
+                        <a href="about.html" data-i18n="nav-about">À Propos</a>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h3 data-i18n="estim-title">L'estimation</h3>
+                            <p data-i18n="estim-text">Pour évaluer un paramètre inconnu (ex: sondage d'opinion).</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h3 data-i18n="hypo-title">Le test d'hypothèse</h3>
+                            <p data-i18n="hypo-text">Pour vérifier si un lien ou une différence est statistiquement
+                                significatif.</p>
+                            <p class="example" data-i18n="hypo-ex">Ex: Test du Chi-carré pour l'indépendance de deux
+                                variables.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p data-i18n="footer-text">Créé pour simplifier tes stats. « Simple mais pas simpliste ».</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>

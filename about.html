@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr" class="theme-midnight">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Propos - 𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js" defer></script>
+    <script src="i18n.js" defer></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .about-content {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .about-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .about-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .about-section h2 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about-section p {
+            line-height: 1.8;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.8rem;
+            background: var(--primary-color);
+            color: #030712;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(129, 140, 248, 0.3);
+        }
+
+        .back-home:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(129, 140, 248, 0.4);
+        }
+    </style>
+</head>
+
+<body class="theme-midnight">
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <main class="about-content">
+        <div class="about-card">
+            <h1 class="about-title" data-i18n="about-title">Mais qu'est-ce que c'est que ce site ?</h1>
+
+            <section class="about-section">
+                <h2 data-i18n="about-origin-title">🧬 L'origine du projet</h2>
+                <p data-i18n="about-origin-text">
+                    Ce site est né d'un constat simple : la statistique, c'est compliqué. Et parfois on est pas aidé
+                    quand on est en master et que c'est la première fois qu'on en fait.
+                    <strong>Significant</strong> est là pour venir en aide aux étudiants perdus et/ou désespérés comme
+                    je l'ai été, aux chercheurs qui ont oublié les règles du jeu, ou tout simplement aux personnes qui
+                    souhaitent apprendre les stats.
+                    Que vous cherchiez à seulement savoir quel test statistique utiliser pour vos données ou bien à
+                    comprendre en profondeur les dessous des stats, vous trouverez les outils qu'il vous faut ici.
+                </p>
+            </section>
+
+            <section class="about-section">
+                <h2 data-i18n="about-usage-title">🛠️ Comment l'utiliser ?</h2>
+                <p data-i18n="about-usage-text">
+                    Le site se divise en trois outils complémentaires :
+                </p>
+                <ul class="nav-links" style="display: block; list-style: disc; padding-left: 2rem; margin-top: 1rem;"
+                    data-i18n="about-usage-list">
+                    <li style="margin-bottom: 0.5rem;"><strong data-i18n="about-usage-item1-bold">Le Quiz
+                            d'Orientation</strong> : <span data-i18n="about-usage-item1-text">Pour savoir quel test
+                            choisir selon vos données.</span></li>
+                    <li style="margin-bottom: 0.5rem;"><strong data-i18n="about-usage-item2-bold">Les Fiches
+                            Théoriques</strong> : <span data-i18n="about-usage-item2-text">Pour comprendre les
+                            concepts sans les formules barbares.</span></li>
+                    <li style="margin-bottom: 0.5rem;"><strong data-i18n="about-usage-item3-bold">G*Power Guide</strong>
+                        : <span data-i18n="about-usage-item3-text">Pour ne plus jamais rater un
+                            calcul de taille d'échantillon.</span></li>
+                </ul>
+            </section>
+
+            <div style="text-align: center;">
+                <a href="index.html" class="back-home" data-i18n="back-home">Retour à l'accueil</a>
+                <button id="lang-toggle" class="lang-btn" style="margin-top: 1rem;">EN</button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
