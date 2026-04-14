@@ -872,7 +872,7 @@ const theoryData = {
             },
             {
                 title: "Global Model Significance",
-                content: "The **F statistic** tests whether the entire model is significant (H0: all β = 0):\n\n**F = (SS_reg / k) / (SS_res / (n−k−1))**\n\n                content: "The ** F statistic ** tests whether the entire model is significant(H0: all β = 0): \n\n ** F = (SS_reg / k) / (SS_res / (n−k−1))**\n\nThis is the ** first thing to check ** in a regression output.If p > .05 → the whole model is useless.",
+                content: "The **F statistic** tests whether the entire model is significant(H0: all β = 0):\n\n**F = (SS_reg / k) / (SS_res / (n−k−1))**\n\nThis is the **first thing to check** in a regression output. If p > .05 → the whole model is useless.",
                 layout: "standard"
             },
             {

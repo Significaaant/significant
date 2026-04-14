@@ -736,8 +736,8 @@
                     const noResultTxt = currentLang === 'fr' ? '🔍 Aucun résultat pour cette recherche.' : '🔍 No results found.';
 
                     let summaryHtml = `
-                        <h1 class="theory-title" data-i18n="summary-title">Sommaire des Fiches</h1>
-                        <p class="theory-subtitle" data-i18n="summary-subtitle">Sélectionnez un sujet pour commencer votre lecture.</p>
+                        <h1 class="theory-title" data-i18n="summary-title">${getT('summary-title')}</h1>
+                        <p class="theory-subtitle" data-i18n="summary-subtitle">${getT('summary-subtitle')}</p>
 
                         <div class="theory-search-wrapper">
                             <svg class="theory-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
