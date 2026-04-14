@@ -11,7 +11,7 @@ const uiTranslations = {
         "hero-quote-2": "\"J'en ai aucune idée\"",
         "hero-quote-3": "\"Demande à ChatGPT il saura mieux que moi\"",
         "cta-quiz": "Commencer le Quiz",
-        "loading": "Chargement du savoir...",
+        "loading": "Tié un tigre...",
         "back-btn": "&larr; Retour au Sommaire",
         "nav-retour": "Retour",
         "summary-title": "Sommaire Théorique",

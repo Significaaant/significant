@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <script src="translations.js" defer></script>
     <script src="i18n.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
         /* Specific Theory Override Styles */
         body {
             /* Theme Light applied via class in HTML tag */
@@ -57,6 +58,7 @@
             max-width: 680px;
             margin: 0 auto 3rem;
         }
+
         .theory-search-bar {
             width: 100%;
             padding: 1rem 3.5rem 1rem 3.5rem;
@@ -71,11 +73,16 @@
             backdrop-filter: blur(10px);
             box-sizing: border-box;
         }
+
         .theory-search-bar:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
-        .theory-search-bar::placeholder { color: var(--text-muted); }
+
+        .theory-search-bar::placeholder {
+            color: var(--text-muted);
+        }
+
         .theory-search-icon {
             position: absolute;
             left: 1.1rem;
@@ -84,6 +91,7 @@
             color: var(--text-muted);
             pointer-events: none;
         }
+
         .search-count-badge {
             position: absolute;
             right: 1rem;
@@ -91,13 +99,14 @@
             transform: translateY(-50%);
             font-size: 0.8rem;
             color: var(--primary-color);
-            background: rgba(99,102,241,0.12);
+            background: rgba(99, 102, 241, 0.12);
             padding: 0.2rem 0.7rem;
             border-radius: 20px;
             font-weight: 700;
             pointer-events: none;
             transition: opacity 0.3s;
         }
+
         /* Card enhancements */
         .card-subtitle-small {
             font-size: 0.82rem;
@@ -105,12 +114,14 @@
             margin: 0.25rem 0 0;
             font-style: italic;
         }
+
         .card-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.3rem;
             margin-top: 0.7rem;
         }
+
         .card-tag {
             font-size: 0.68rem;
             background: rgba(99, 102, 241, 0.12);
@@ -120,8 +131,15 @@
             font-weight: 600;
             letter-spacing: 0.02em;
         }
-        .bloc-section { transition: opacity 0.2s; }
-        .bloc-section.search-hide { display: none !important; }
+
+        .bloc-section {
+            transition: opacity 0.2s;
+        }
+
+        .bloc-section.search-hide {
+            display: none !important;
+        }
+
         .theory-card {
             background: var(--card-bg);
             padding: 1.5rem;
@@ -130,12 +148,17 @@
             transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
             border: 1px solid var(--glass-border);
         }
+
         .theory-card:hover {
             transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             border-color: var(--primary-color);
         }
-        .theory-card.search-hide { display: none !important; }
+
+        .theory-card.search-hide {
+            display: none !important;
+        }
+
         .no-results-msg {
             text-align: center;
             padding: 4rem 2rem;
@@ -151,6 +174,7 @@
             padding-bottom: 2rem;
             border-bottom: 1px solid var(--border-subtle);
         }
+
         .fiche-bloc-badge {
             display: inline-block;
             font-size: 0.75rem;
@@ -158,12 +182,13 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--primary-color);
-            background: rgba(99,102,241,0.1);
-            border: 1px solid rgba(99,102,241,0.25);
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.25);
             padding: 0.3rem 0.9rem;
             border-radius: 20px;
             margin-bottom: 1.2rem;
         }
+
         .fiche-main-title {
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 800;
@@ -180,6 +205,7 @@
             max-width: 860px;
             margin: 0 auto;
         }
+
         .section-card {
             border-radius: 14px;
             padding: 1.6rem 2rem;
@@ -188,7 +214,11 @@
             background: var(--glass-bg);
             transition: transform 0.15s;
         }
-        .section-card:hover { transform: translateY(-1px); }
+
+        .section-card:hover {
+            transform: translateY(-1px);
+        }
+
         .section-card-title {
             font-size: 1rem;
             font-weight: 700;
@@ -198,17 +228,27 @@
             align-items: center;
             gap: 0.5rem;
         }
+
         .section-card-body {
             font-size: 1.05rem;
             line-height: 1.75;
             color: var(--text-secondary);
         }
+
         .section-card-body ul {
             margin: 0.4rem 0 0.4rem 1.2rem;
             padding: 0;
         }
-        .section-card-body li { margin-bottom: 0.3rem; }
-        .section-card-body strong { color: var(--text-primary); font-weight: 700; }
+
+        .section-card-body li {
+            margin-bottom: 0.3rem;
+        }
+
+        .section-card-body strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
         .section-card-body blockquote {
             border-left: 3px solid var(--secondary-color);
             padding: 0.5rem 1rem;
@@ -219,14 +259,18 @@
         }
 
         /* Layout variants */
-        .section-standard  { border-left: 4px solid var(--primary-color); }
+        .section-standard {
+            border-left: 4px solid var(--primary-color);
+        }
+
         .section-highlight {
             border-left: 4px solid var(--secondary-color);
-            background: rgba(99,102,241,0.05);
+            background: rgba(99, 102, 241, 0.05);
         }
+
         .section-alert {
             border-left: 4px solid #f59e0b;
-            background: rgba(245,158,11,0.05);
+            background: rgba(245, 158, 11, 0.05);
         }
 
         /* Formula blocks — auto-detected from ** formulas ** */
@@ -249,7 +293,10 @@
             margin: 0.4rem 0 0.4rem 1.2rem;
             padding: 0;
         }
-        .section-card-body ol li { margin-bottom: 0.4rem; }
+
+        .section-card-body ol li {
+            margin-bottom: 0.4rem;
+        }
 
         /* Footer quote */
         .fiche-footer {
@@ -267,6 +314,7 @@
             align-items: center;
             gap: 0.8rem;
         }
+
         .fiche-footer::before {
             content: '\201C';
             font-size: 2.5rem;
@@ -275,20 +323,23 @@
             line-height: 1;
             flex-shrink: 0;
         }
+
         /* Figure block */
         .fiche-figure {
             max-width: 860px;
             margin: 0.5rem auto;
             text-align: center;
         }
+
         .fiche-figure img {
             max-width: 100%;
             border-radius: 12px;
             border: 1px solid var(--border-subtle);
             background: #fff;
             padding: 1rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
+
         .fiche-figure figcaption {
             margin-top: 0.6rem;
             font-size: 0.82rem;
@@ -319,7 +370,7 @@
 
         body.theme-fiche-dark .section-card {
             backdrop-filter: blur(12px);
-            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
         }
 
         body.theme-fiche-dark .fiche-footer {
@@ -330,7 +381,7 @@
         body.theme-fiche-dark .fiche-figure img {
             background: #ffffff;
             border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 20px rgba(129, 140, 248, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(129, 140, 248, 0.1);
         }
 
         body.theme-fiche-dark .background-globes {
@@ -361,34 +412,52 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, background 0.2s, border-color 0.2s;
         }
+
         .theme-toggle:hover {
             transform: scale(1.1);
             border-color: var(--primary-color);
         }
+
         .theme-toggle svg {
             width: 22px;
             height: 22px;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .theme-toggle .sun-icon { display: none; }
-        .theme-toggle .moon-icon { display: block; }
 
-        body.theme-fiche-dark .theme-toggle .sun-icon { display: block; }
-        body.theme-fiche-dark .theme-toggle .moon-icon { display: none; }
-        body.theme-fiche-dark .theme-toggle svg { transform: rotate(360deg); }
+        .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        .theme-toggle .moon-icon {
+            display: block;
+        }
+
+        body.theme-fiche-dark .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        body.theme-fiche-dark .theme-toggle .moon-icon {
+            display: none;
+        }
+
+        body.theme-fiche-dark .theme-toggle svg {
+            transform: rotate(360deg);
+        }
     </style>
 </head>
 
 <body class="theme-midnight">
     <button class="theme-toggle" id="theme-toggle" title="Changer le thème">
         <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            <circle cx="12" cy="12" r="5" />
+            <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
         </svg>
         <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
     </button>
     <div class="background-globes">
@@ -409,7 +478,7 @@
     <div class="theory-container container">
 
         <div id="theory-content">
-            <div class="loading">Chargement du savoir...</div>
+            <div class="loading">Tié un tigre...</div>
         </div>
     </div>
 
@@ -428,7 +497,7 @@
 
                 // Initialize Theme (Integrated Logic v49)
                 const savedTheme = localStorage.getItem('theory-theme') || (pageId ? 'light' : 'dark');
-                
+
                 function applyTheme(theme) {
                     document.body.classList.remove('theme-midnight', 'theme-fiche-dark', 'theme-fiche-light');
                     if (pageId) {
@@ -468,7 +537,8 @@
 
                     // Removed hardcoded theme apply to use logic above
 
-                    // --- Improved formatText ---
+
+                    // --- Improved formatText ---
                     function formatText(text) {
                         if (!text) return '';
                         let html = text
@@ -586,20 +656,20 @@
                                 </div>
                             `;
                             break;
-                        
+
                         case "TYPE_FLEXIBLE":
                             contentHtml += `
                                 <div class="flexible-content">
                                     ${data.sections.map(section => {
-                                        const layoutClass = section.layout === 'highlight' ? 'section-highlight'
-                                                          : section.layout === 'alert'     ? 'section-alert'
-                                                          :                                  'section-standard';
-                                        return `
+                                const layoutClass = section.layout === 'highlight' ? 'section-highlight'
+                                    : section.layout === 'alert' ? 'section-alert'
+                                        : 'section-standard';
+                                return `
                                         <div class="section-card ${layoutClass}">
                                             ${section.title ? `<div class="section-card-title">${section.title}</div>` : ''}
                                             <div class="section-card-body">${formatText(section.content)}</div>
                                         </div>`;
-                                    }).join('')}
+                            }).join('')}
                                     ${data.figure ? `
                                         <figure class="fiche-figure">
                                             <img src="${data.figure.src}" alt="${data.figure.caption}" loading="lazy">
@@ -703,8 +773,8 @@
 
                     // ===== Live Search =====
                     const searchInput = document.getElementById('theory-search');
-                    const countBadge  = document.getElementById('search-count-badge');
-                    const noResMsg    = document.getElementById('no-results-msg');
+                    const countBadge = document.getElementById('search-count-badge');
+                    const noResMsg = document.getElementById('no-results-msg');
 
                     searchInput.addEventListener('input', () => {
                         const q = searchInput.value.trim().toLowerCase();
