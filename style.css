@@ -1687,7 +1687,6 @@ footer {
 .mindmap-bubble:nth-child(2n) { animation-delay: 0.5s; }
 .mindmap-bubble:nth-child(3n) { animation-delay: 1.2s; }
 
-/* Detail Card */
 .detail-card {
     position: absolute;
     top: 50%;
@@ -1695,6 +1694,8 @@ footer {
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 500px;
+    max-height: 90%;
+    overflow-y: auto;
     z-index: 10;
     padding: 2rem;
     border-radius: 20px;

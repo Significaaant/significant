@@ -98,12 +98,24 @@ function showTooltip(node, event) {
 function positionTooltip(event) {
     if (!tooltip.classList.contains('visible')) return;
     
-    const x = event.clientX;
-    const y = event.clientY;
+    // Use bounding rect to correctly position inside the relative container
+    const rect = viewport.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
     
-    // Offset from cursor
-    tooltip.style.left = (x + 20) + 'px';
-    tooltip.style.top = (y - 50) + 'px';
+    const tooltipWidth = 250;
+    
+    // Offset from cursor: bottom-left
+    let targetX = x - tooltipWidth - 20;
+    let targetY = y + 20;
+    
+    // Fallback if it crops on the left edge
+    if (targetX < 10) {
+        targetX = x + 20;
+    }
+    
+    tooltip.style.left = targetX + 'px';
+    tooltip.style.top = targetY + 'px';
 }
 
 function hideTooltip() {
