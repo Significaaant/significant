@@ -316,7 +316,9 @@ const uiTranslations = {
         "about-usage-item3-bold": "G*Power Guide",
         "about-usage-item3-text": "Pour ne plus jamais rater un calcul de taille d'échantillon.",
         "about-aesthetic-title": "🎨 L'esthétique au service du savoir",
-        "about-aesthetic-text": "Nous croyons qu'on apprend mieux dans un bel environnement. C'est pourquoi chaque section possède son propre univers visuel (Fresh Mint, Ruby Sol, Pastel Pink) pour aider votre cerveau à compartimenter les connaissances."
+        "about-aesthetic-text": "Nous croyons qu'on apprend mieux dans un bel environnement. C'est pourquoi chaque section possède son propre univers visuel (Fresh Mint, Ruby Sol, Pastel Pink) pour aider votre cerveau à compartimenter les connaissances.",
+        "about-creator-title": "✨ La Créatrice",
+        "about-creator-text": "Passionnée par l'intersection entre les données et la pédagogie, j'ai conçu ce projet pour rendre l'analyse statistique plus humaine et accessible. Mon nom est Chaïma, j'ai un master de psychologie et de sociologie des réseaux.",
     },
     en: {
         "nav-quiz": "Orientation Quiz",
@@ -614,5 +616,7 @@ const uiTranslations = {
         "gpower-param-alpha": "α err prob (Alpha)",
         "gpower-param-power": "Power (1-β)",
         "gpower-param-es": "Effect size d/f/r",
+        "about-creator-title": "✨ The Creator",
+        "about-creator-text": "Passionate about the intersection of data and pedagogy, I designed this project to make statistical analysis more human and accessible. My name is Chaïma, I hold master's degrees in Psychology and Network Sociology.",
     }
 };
