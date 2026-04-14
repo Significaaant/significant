@@ -1,481 +1,21 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="theme-midnight">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G*Power - 𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭</title>
     <link rel="stylesheet" href="style.css">
-    <script src="translations.js" defer></script>
-    <script src="i18n.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="translations.js"></script>
+    <script src="script.js" defer></script>
     <script src="gpower_calc.js" defer></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-    <style>
-        .screen-mockup {
-            background: #f1f5f9;
-            /* Slate 100 for better contrast in light theme */
-            color: #1e293b;
-            padding: 1.2rem;
-            border-radius: 6px;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-            border: 1px solid #cbd5e1;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .screen-mockup .field {
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .screen-mockup label {
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-
-        .screen-mockup input {
-            border: 1px solid #94a3b8;
-            background: white;
-            width: 70px;
-            text-align: right;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-
-        .param-explanation {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            padding-left: 1.2rem;
-            border-left: 3px solid var(--primary-color);
-        }
-
-        /* Decision Tree Styles */
-        .decision-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .decision-node {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .decision-node:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .decision-node .icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .branch-card {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 12px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Advanced Modes Grid */
-        .advanced-modes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .mode-mini-card {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .report-box {
-            background: #f8fafc;
-            border-left: 4px solid #10b981;
-            padding: 1rem;
-            font-style: italic;
-            border-radius: 4px;
-        }
-
-        .interactive-mockup {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .interactive-mockup:hover {
-            transform: scale(1.02);
-        }
-
-        .pulse {
-            animation: pulse-animation 0.5s ease-in-out;
-        }
-
-        @keyframes pulse-animation {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Calculator Styles */
-        .calculator-panel {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
-            color: white;
-            border: 2px solid var(--primary-color);
-            position: relative;
-            overflow: hidden;
-            margin-top: 2rem;
-            padding: 2rem;
-            border-radius: 20px;
-        }
-
-        .calc-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .calc-container {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            align-items: start;
-        }
-
-        .calc-panel {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            height: fit-content;
-            color: #1e293b;
-            /* Explicit dark text for light background */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        .calc-panel-title {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #475569;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .calc-help-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 16px;
-            height: 16px;
-            background: #cbd5e1;
-            color: white;
-            border-radius: 50%;
-            font-size: 10px;
-            cursor: help;
-            margin-left: 4px;
-            vertical-align: middle;
-            transition: background 0.2s;
-        }
-
-        .calc-help-icon:hover {
-            background: #94a3b8;
-        }
-
-        .calc-field {
-            margin-bottom: 1.2rem;
-        }
-
-        .calc-field label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-
-        .calc-value-display {
-            font-weight: bold;
-            color: var(--primary-color);
-            background: rgba(14, 165, 233, 0.1);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-
-        .determine-box {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 0.8rem;
-            display: none;
-            color: #1e293b;
-            /* Ensure text is visible in the popup box */
-        }
-
-        .determine-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-
-        .calc-output-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.85rem;
-        }
-
-        .calc-output-val {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            color: #0f172a;
-        }
-
-        .calc-disclaimer {
-            font-size: 0.75rem;
-            color: #64748b;
-            font-style: italic;
-            margin-top: 1.5rem;
-            line-height: 1.4;
-            display: block;
-            opacity: 0.7;
-        }
-
-        @media (max-width: 768px) {
-            .calc-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .calc-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-
-        .calc-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .calc-field label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #94a3b8;
-        }
-
-        .calc-range {
-            width: 100%;
-            cursor: pointer;
-            accent-color: var(--primary-color);
-        }
-
-        .calc-value-display {
-            font-family: 'Courier New', Courier, monospace;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .calc-result-box {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-        }
-
-        .n-result {
-            font-size: 4rem;
-            font-weight: 800;
-            display: block;
-            margin: 1rem 0;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .calc-select {
-            padding: 0.8rem;
-            border-radius: 8px;
-            background: #1e293b;
-            color: white;
-            border: 1px solid #475569;
-            cursor: pointer;
-        }
-
-        /* Workflow Guide Styles */
-        .workflow-section {
-            padding-top: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .step-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .step-badge {
-            background: var(--primary-color);
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 6px -1px var(--primary-color-alpha);
-        }
-
-        .step-title {
-            margin: 0;
-            font-size: 1.8rem;
-            background: linear-gradient(to right, var(--text-color), var(--text-muted));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .advanced-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .advanced-tool-card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            padding: 2rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .advanced-tool-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary-color);
-        }
-
-        .advanced-tool-card img {
-            width: 100%;
-            border-radius: 10px;
-            margin-top: 1rem;
-            border: 1px solid #cbd5e1;
-        }
-
-        .report-template {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-left: 4px solid var(--primary-color);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #334155;
-            position: relative;
-        }
-
-        .report-header {
-            display: block;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .faq-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--secondary-color);
-            padding: 1.2rem;
-            border-radius: 0 12px 12px 0;
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item:hover {
-            transform: translateX(5px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .faq-item h4 {
-            margin-bottom: 0.5rem;
-            color: var(--secondary-color);
-            font-size: 1rem;
-        }
-
-        .faq-item p {
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin: 0;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .calc-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 
-<body class="theme-pastel">
+<body>
+    <!-- Theme Selection Visual Feedback -->
     <div class="glass-orb orb-1"></div>
     <div class="glass-orb orb-2"></div>
 
@@ -491,635 +31,110 @@
 
     <header class="hero small-hero">
         <div class="container">
-            <h1 data-i18n="gpower-title">Guide <span class="gradient-text">G*Power</span></h1>
-            <p data-i18n="gpower-subtitle">Combien de sujets me faut-il ? (A priori Sample Size)</p>
+            <h1 data-i18n="gpower-title" id="gpower-title-main">Guide <span class="gradient-text">G*Power</span></h1>
+            <p data-i18n="gpower-subtitle" id="gpower-hero-subtitle">Planification interactive de la puissance</p>
         </div>
     </header>
 
     <main class="container">
-        <!-- FAQ SECTION (The Entry Point) -->
-        <div class="content-box glass-panel workflow-section" style="border-top: 4px solid var(--secondary-color);">
-            <h2 data-i18n="faq-title" style="margin-bottom: 0.5rem;">💡 G*Power en 3 questions simples</h2>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h4 data-i18n="faq-q1">C'est quoi en une phrase ?</h4>
-                    <p data-i18n="faq-a1">C'est un outil pour savoir combien de personnes il te faut recruter pour que
-                        tes résultats soient fiables.</p>
-                </div>
-                <div class="faq-item">
-                    <h4 data-i18n="faq-q2">Pourquoi c'est indispensable ?</h4>
-                    <p data-i18n="faq-a2">Pour éviter de faire une étude 'aveugle'. Si tu n'as pas assez de monde, tu ne
-                        trouveras rien !</p>
-                </div>
-                <div class="faq-item">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <h4 data-i18n="faq-q3" style="margin:0;">Est-ce que c'est difficile ?</h4>
-                        <span style="font-size: 1.2rem;">🚀</span>
-                    </div>
-                    <p data-i18n="faq-a3">Non ! Il suffit de suivre les 5 étapes ci-dessous pour ne pas se tromper.</p>
-                </div>
+        <!-- MOBILE NAV CTRLS (Visible only on mobile) -->
+        <div class="mindmap-ctrl-mobile">
+            <!-- Back Button -->
+            <button id="map-back-btn" class="map-nav-btn back-btn-fixed" onclick="mapGoBack()" style="display: none;">
+                ← <span data-i18n="nav-retour">Retour</span>
+            </button>
+
+            <!-- Reset Button -->
+            <button id="map-reset-btn" class="map-nav-btn reset-btn-fixed" onclick="mapReset()">
+                ↺ <span data-i18n="quiz-restart-btn">Recommencer</span>
+            </button>
+        </div>
+
+        <div class="mindmap-viewport" id="mindmap-viewport">
+            <!-- Tooltip container -->
+            <div id="mindmap-tooltip" class="mindmap-tooltip"></div>
+
+            <div id="mindmap-container" class="mindmap-container">
+                <!-- Bubbles rendered here -->
+            </div>
+            
+            <!-- Contextual Detail Card -->
+            <div id="detail-card" class="detail-card glass-panel fade-in" style="display: none;">
+                <button class="close-btn" onclick="closeDetailCard()">×</button>
+                <div id="detail-content"></div>
             </div>
         </div>
 
-        <!-- STEP 1: TEST SELECTION -->
-        <section class="workflow-section">
-            <div class="step-header">
-                <div class="step-badge">1</div>
-                <h2 class="step-title" data-i18n="gpower-step-1">Étape 1 : Choisir son Test</h2>
-            </div>
-            <div class="content-box glass-panel">
-                <p data-i18n="gpower-decision-tree-title">🎯 Quel test choisir dans G*Power ?</p>
-                <div class="decision-grid">
-                    <div class="decision-node" onclick="showBranch('means')">
-                        <span class="icon">📊</span>
-                        <p data-i18n="gpower-dt-mean">Je compare des groupes</p>
-                    </div>
-                    <div class="decision-node" onclick="showBranch('links')">
-                        <span class="icon">📈</span>
-                        <p data-i18n="gpower-dt-link">Je cherche un lien</p>
-                    </div>
-                    <div class="decision-node" onclick="showBranch('counts')">
-                        <span class="icon">🔢</span>
-                        <p data-i18n="gpower-dt-count">Je travaille sur des catégories</p>
-                    </div>
-                </div>
-                <div id="branch-result" class="branch-card" style="display: none;">
-                    <p id="branch-text"></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 2: ANALYSIS TYPE -->
-        <section class="workflow-section">
-            <div class="step-header">
-                <div class="step-badge">2</div>
-                <h2 class="step-title" data-i18n="gpower-step-2">Étape 2 : Type d'Analyse (Le Menu)</h2>
-            </div>
-            <div class="content-box glass-panel">
-                <p data-i18n="gpower-menu-text">Dans G*Power, le menu <strong>Type of Power Analysis</strong> définit ce
-                    que vous cherchez :</p>
-                <div class="grid-2">
-                    <div class="mode-mini-card" style="border-left: 4px solid var(--primary-color);">
-                        <strong data-i18n="gpower-mode-apriori">A priori</strong>
-                        <p class="small" data-i18n="gpower-mode-apriori-sub">"Je PLANIFIE mon étude."<br>Calculer N
-                            avant de commencer.</p>
-                    </div>
-                    <div class="mode-mini-card" style="border-left: 4px solid var(--secondary-color);">
-                        <strong data-i18n="gpower-mode-posthoc">Post hoc</strong>
-                        <p class="small" data-i18n="gpower-mode-posthoc-sub">"L'étude est finie."<br>Calculer la
-                            puissance réelle après coup.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 3: INPUT PARAMETERS -->
-        <section class="workflow-section">
-            <div class="step-header">
-                <div class="step-badge">3</div>
-                <h2 class="step-title" data-i18n="gpower-step-3">Étape 3 : Paramètres d'Entrée</h2>
-            </div>
-
-            <div class="content-box glass-panel calculator-panel" id="express-calc">
-                <div style="margin-bottom: 2rem;">
-                    <h2 data-i18n="calc-title">🚀 G*Power Express</h2>
-                    <p data-i18n="calc-subtitle" style="color: #94a3b8;">Simulez vos besoins en N pour les cas standards
-                    </p>
-                    <div class="calc-container">
-                        <!-- INPUT PARAMETERS PANEL -->
-                        <div class="calc-panel">
-                            <div class="calc-panel-title">
-                                <span>📥</span> <span data-i18n="calc-input-params">Input Parameters</span>
-                            </div>
-
-                            <div class="calc-field">
-                                <label data-i18n="calc-test-family">Test family :</label>
-                                <select id="calc-family" class="calc-select" onchange="updateExpressCalc()">
-                                    <option value="t" selected data-i18n="calc-family-t">t tests</option>
-                                    <option value="F" data-i18n="calc-family-f">F tests</option>
-                                    <option value="Exact" data-i18n="calc-family-exact">Exact</option>
-                                    <option value="chi2" data-i18n="calc-family-chi2">χ² tests</option>
-                                </select>
-                            </div>
-
-                            <div class="calc-field">
-                                <label data-i18n="calc-stat-test">Statistical test :</label>
-                                <select id="calc-test" class="calc-select" onchange="updateExpressCalc()">
-                                    <!-- Options will be populated by JS -->
-                                </select>
-                            </div>
-
-                            <div class="calc-field">
-                                <label data-i18n="calc-type-analysis">Type of power analysis :</label>
-                                <select id="calc-type" class="calc-select" disabled>
-                                    <option value="apriori" selected data-i18n="calc-type-apriori">A priori: Compute
-                                        required
-                                        sample size</option>
-                                </select>
-                            </div>
-
-                            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed #e2e8f0;">
-                                <div class="calc-field">
-                                    <label data-i18n="calc-tails">Tail(s) :</label>
-                                    <select id="calc-tails" class="calc-select" onchange="updateExpressCalc()">
-                                        <option value="1" data-i18n="calc-tails-one">One (One-tailed)</option>
-                                        <option value="2" data-i18n="calc-tails-two" selected>Two (Two-tailed)</option>
-                                    </select>
-                                </div>
-
-                                <div class="calc-field">
-                                    <div style="display:flex; justify-content: space-between; align-items: center;">
-                                        <label id="calc-es-label" data-i18n="calc-es-d">Effet (d de Cohen) :</label>
-                                        <button class="btn btn-secondary small" onclick="toggleDetermine()"
-                                            data-i18n="calc-button-determine"
-                                            style="padding: 2px 8px; font-size: 0.7rem; margin-bottom: 5px;">Determine
-                                            =></button>
-                                    </div>
-
-                                    <!-- DETERMINE SUB-PANEL -->
-                                    <div id="determine-panel" class="determine-box">
-                                        <div class="determine-grid">
-                                            <div>
-                                                <label class="small" data-i18n="calc-det-m1">Mean group 1:</label>
-                                                <input type="number" id="det-m1" value="10" step="0.1"
-                                                    class="calc-input-small">
-                                            </div>
-                                            <div>
-                                                <label class="small" data-i18n="calc-det-m2">Mean group 2:</label>
-                                                <input type="number" id="det-m2" value="12" step="0.1"
-                                                    class="calc-input-small">
-                                            </div>
-                                            <div style="grid-column: span 2;">
-                                                <label class="small" data-i18n="calc-det-sd">SD (Pooled):</label>
-                                                <input type="number" id="det-sd" value="4" step="0.1"
-                                                    class="calc-input-small">
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary small" onclick="calculateAndTransfer()"
-                                            data-i18n="calc-det-transfer"
-                                            style="width: 100%; margin-top: 10px; font-size: 0.75rem;">Calc &
-                                            Transfer</button>
-                                    </div>
-
-                                    <div style="display:flex; justify-content: space-between; margin-top: 5px;">
-                                        <span></span>
-                                        <span class="calc-value-display" id="val-es">0.50</span>
-                                    </div>
-                                    <input type="range" id="calc-es" class="calc-range" min="0.1" max="1.5" step="0.01"
-                                        value="0.5" oninput="updateExpressCalc()">
-                                </div>
-
-                                <div class="calc-field">
-                                    <div style="display:flex; justify-content: space-between;">
-                                        <label data-i18n="calc-alpha">Seuil Alpha (α) :</label>
-                                        <span class="calc-value-display" id="val-alpha">0.05</span>
-                                    </div>
-                                    <input type="range" id="calc-alpha" class="calc-range" min="0.01" max="0.10"
-                                        step="0.01" value="0.05" oninput="updateExpressCalc()">
-                                </div>
-
-                                <div class="calc-field">
-                                    <div style="display:flex; justify-content: space-between;">
-                                        <label data-i18n="calc-power">Puissance (1-β) :</label>
-                                        <span class="calc-value-display" id="val-power">0.80</span>
-                                    </div>
-                                    <input type="range" id="calc-power" class="calc-range" min="0.5" max="0.99"
-                                        step="0.01" value="0.80" oninput="updateExpressCalc()">
-                                </div>
-
-                                <div id="groups-field" class="calc-field" style="display:none;">
-                                    <div style="display:flex; justify-content: space-between;">
-                                        <label data-i18n="calc-groups">Nombre de Groupes :</label>
-                                        <span class="calc-value-display" id="val-groups">3</span>
-                                    </div>
-                                    <input type="range" id="calc-groups" class="calc-range" min="3" max="10" step="1"
-                                        value="3" oninput="updateExpressCalc()">
-                                </div>
-
-                                <div id="allocation-field" class="calc-field">
-                                    <div style="display:flex; justify-content: space-between;">
-                                        <label>
-                                            <span data-i18n="calc-allocation">Ratio d'allocation (N2/N1) :</span>
-                                            <span class="calc-help-icon"
-                                                title="Ratio N2/N1. Utilisez 1.00 pour des groupes égaux."
-                                                data-i18n-title="calc-help-allocation">?</span>
-                                        </label>
-                                        <span class="calc-value-display" id="val-allocation">1.00</span>
-                                    </div>
-                                    <input type="range" id="calc-allocation" class="calc-range" min="1" max="5"
-                                        step="0.5" value="1" oninput="updateExpressCalc()">
-                                </div>
-
-                                <div id="predictors-field" class="calc-field" style="display:none;">
-                                    <div style="display:flex; justify-content: space-between;">
-                                        <label>
-                                            <span data-i18n="calc-predictors">Nombre de prédicteurs :</span>
-                                            <span class="calc-help-icon"
-                                                title="Nombre de variables indépendantes dans votre régression."
-                                                data-i18n-title="calc-help-predictors">?</span>
-                                        </label>
-                                        <span class="calc-value-display" id="val-predictors">1</span>
-                                    </div>
-                                    <input type="range" id="calc-predictors" class="calc-range" min="1" max="20"
-                                        step="1" value="1" oninput="updateExpressCalc()">
-                                </div>
-                            </div>
-                        </div> <!-- End of Input calc-panel -->
-
-                        <!-- OUTPUT PARAMETERS PANEL -->
-                        <div class="calc-panel">
-                            <div class="calc-panel-title">
-                                <span>📤</span> <span data-i18n="calc-output-params">Output Parameters</span>
-                            </div>
-
-                            <div class="calc-output-row">
-                                <span data-i18n="calc-out-noncentral">Noncentrality parameter :</span>
-                                <span class="calc-output-val" id="out-noncentral">2.82</span>
-                            </div>
-                            <div class="calc-output-row">
-                                <span data-i18n="calc-out-critical">Critical t :</span>
-                                <span class="calc-output-val" id="out-critical">1.97</span>
-                            </div>
-                            <div class="calc-output-row">
-                                <span data-i18n="calc-out-df">Df :</span>
-                                <span class="calc-output-val" id="out-df">126</span>
-                            </div>
-                            <div class="calc-output-row"
-                                style="margin: 1rem 0; padding: 1rem 0; border-top: 2px solid #e2e8f0; border-bottom: 2px solid #e2e8f0;">
-                                <span data-i18n="calc-result-label" style="font-weight: bold; font-size: 1rem;">Total
-                                    sample
-                                    size :</span>
-                                <span class="calc-output-val" id="calc-n-total"
-                                    style="font-size: 1.5rem; color: #16a34a;">128</span>
-                            </div>
-                            <div class="calc-output-row">
-                                <span data-i18n="calc-out-actual-power">Actual power :</span>
-                                <span class="calc-output-val" id="out-actual-power">0.801</span>
-                            </div>
-
-                            <span class="calc-disclaimer" data-i18n="calc-disclaimer-precision">
-                                Note : Approximation (±5%). Utilisez G*Power desktop pour vos publications.</span>
-                        </div>
-                    </div> <!-- calc-container closes here -->
-                </div>
-            </div>
-
-            <div class="content-box glass-panel" style="margin-top: 2rem;">
-                <h4 data-i18n="gpower-params-title">Les réglages à ne pas oublier</h4>
-                <div class="grid-2">
-                    <dl class="clean-list small">
-                        <dt data-i18n="gpower-param-tails">Tail(s) : One vs Two</dt>
-                        <dd data-i18n="gpower-tails">Mettez <strong>Two</strong> (99% des cas). One, c'est tricher.
-                        </dd>
-                        <dt data-i18n="gpower-param-alpha">α err prob (Alpha)</dt>
-                        <dd data-i18n="gpower-alpha-text">Toujours <strong>0.05</strong> (le seuil standard).</dd>
-                    </dl>
-                    <dl class="clean-list small">
-                        <dt data-i18n="gpower-param-power">Power (1-β)</dt>
-                        <dd data-i18n="gpower-power-text"><strong>0.80</strong> (Standard) ou 0.95 (Exigeant).</dd>
-                        <dt data-i18n="gpower-param-es">Effect size d/f/r</dt>
-                        <dd data-i18n="gpower-effect-size-tip">Petit=0.2, Moyen=0.5, Grand=0.8. Si doute : 0.5.</dd>
-                    </dl>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 4: RESULTS & REPORTING -->
-        <section class="workflow-section">
-            <div class="step-header">
-                <div class="step-badge">4</div>
-                <h2 class="step-title" data-i18n="gpower-step-4">Étape 4 : Résultats & Rapport</h2>
-            </div>
-            <div class="content-box glass-panel">
-                <p data-i18n="gpower-output-panel">Une fois le calcul fait, G*Power affiche le résultat dans le panneau
-                    <strong>Output
-                        Parameters</strong>.
-                </p>
-                <div class="grid-2">
-                    <div class="screen-mockup">
-                        <div class="field"><label data-i18n="calc-result-label">Total sample size :</label> <input
-                                id="calc-n-total-input" value="128"
-                                style="background:#dcfce7; border: 2px solid #22c55e; width: 80px; text-align: center; font-weight: bold;"
-                                readonly></div>
-                        <p class="small" data-i18n="calc-disclaimer-precision"
-                            style="opacity: 0.7; font-style: italic;">
-                            Note : Approximation (±5%). Utilisez G*Power desktop pour vos publications.</p>
-                        <p class="small" data-i18n="gpower-total-n-desc">C'est le nombre total de participants à
-                            recruter.</p>
-                    </div>
-                    <div>
-                        <h4 data-i18n="gpower-report-title">Comment rapporter ?</h4>
-                        <div class="report-template">
-                            <span class="report-header" data-i18n="gpower-report-example-title">💡 Exemple de
-                                rapport</span>
-                            <span data-i18n="gpower-report-ttest">"An a priori power analysis was performed using
-                                G*Power 3.1. To detect a medium effect size
-                                (d = 0.50) with α = .05 and a power of .80, a total sample size of N = 128 was
-                                required."</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 5: ADVANCED OPTIONS -->
-        <section class="workflow-section">
-            <div class="step-header">
-                <div class="step-badge">5</div>
-                <h2 class="step-title" data-i18n="gpower-step-5">Étape 5 : Options Avancées</h2>
-            </div>
-            <div class="advanced-grid">
-                <div class="advanced-tool-card">
-                    <h3 data-i18n="gpower-determine-title">📏 Déterminer la Taille d'Effet</h3>
-                    <p data-i18n="gpower-determine-text">Le bouton <strong>Determine =></strong> permet de calculer 'd'
-                        ou 'f' à partir d'études précédentes.</p>
-                    <div class="screen-mockup small">
-                        <div class="field"><label data-i18n="gpower-mean-g1">Mean group 1 :</label> <input value="10">
-                        </div>
-                        <div class="field"><label data-i18n="gpower-mean-g2">Mean group 2 :</label> <input value="12">
-                        </div>
-                        <button class="btn btn-secondary small" style="width:100%; margin-top:10px;"
-                            data-i18n="gpower-calc-transfer">Calculate and
-                            transfer to main window</button>
-                    </div>
-                </div>
-                <div class="advanced-tool-card">
-                    <h3 data-i18n="gpower-xy-title">📈 X-Y Plot : Visualiser la Puissance</h3>
-                    <p data-i18n="gpower-xy-text">Le bouton <strong>X-Y plot for a range of values</strong> montre
-                        comment N augmente si tu veux plus de puissance.</p>
-                    <div
-                        style="height: 100px; background: rgba(0,0,0,0.05); border-radius:10px; display:flex; align-items:center; justify-content:center; border: 1px dashed #cbd5e1;">
-                        <span style="font-size:2rem;">📉</span>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer>
-        <p><a href="index.html">Retour à l'Accueil</a></p>
+    <!-- GLOSSARY MODAL -->
+    <div id="glossary-modal" class="modal-overlay" style="display: none;" onclick="closeGlossary()">
+        <div class="modal-content glass-panel" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeGlossary()">×</button>
+            <div id="glossary-content">
+                <h3 id="glossary-term">Terme</h3>
+                <p id="glossary-def">Définition</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container" style="text-align: center;">
+            <p data-i18n="footer-text">Made with love • Retour à l'Accueil</p>
+        </div>
     </footer>
 
-    <!-- Logic scripts moved to head with defer -->
-    <script>
-        let currentFamily = '';
-
-        function populateTests() {
-            const family = document.getElementById('calc-family').value;
-            const testSelect = document.getElementById('calc-test');
-            const lang = document.documentElement.lang || 'fr';
-
-            if (family === currentFamily) return;
-            currentFamily = family;
-
-            testSelect.innerHTML = '';
-
-            const tests = {
-                't': [
-                    { val: 'ttest', i18n: 'calc-test-ttest' },
-                    { val: 'ttest-paired', i18n: 'calc-test-ttest-paired' }
-                ],
-                'F': [
-                    { val: 'anova', i18n: 'calc-test-anova' },
-                    { val: 'regression', i18n: 'calc-test-regression' }
-                ],
-                'Exact': [
-                    { val: 'corr', i18n: 'calc-test-corr' },
-                    { val: 'proportions', i18n: 'calc-test-proportions' }
-                ],
-                'chi2': [
-                    { val: 'chi2', i18n: 'calc-test-chi2' }
-                ]
-            };
-
-            tests[family].forEach(t => {
-                const opt = document.createElement('option');
-                opt.value = t.val;
-                opt.setAttribute('data-i18n', t.i18n);
-                opt.textContent = (uiTranslations[lang] && uiTranslations[lang][t.i18n]) || t.val;
-                testSelect.appendChild(opt);
-            });
-            // Removed recursive updateExpressCalc() call from here
+    <!-- CSS Tweaks for fixed buttons in viewport -->
+    <style>
+        .map-nav-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: var(--text-color);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
-        function toggleDetermine() {
-            const panel = document.getElementById('determine-panel');
-            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function calculateAndTransfer() {
-            const m1 = parseFloat(document.getElementById('det-m1').value);
-            const m2 = parseFloat(document.getElementById('det-m2').value);
-            const sd = parseFloat(document.getElementById('det-sd').value);
-
-            if (sd > 0) {
-                const d = Math.abs(m1 - m2) / sd;
-                const esInput = document.getElementById('calc-es');
-                esInput.value = Math.min(d, esInput.max).toFixed(2);
-                toggleDetermine();
-                updateExpressCalc();
+        .map-nav-btn:hover { background: var(--primary-color); color: white; transform: translateY(-2px); }
+        .back-btn-fixed { top: 25px; left: 25px; }
+        .reset-btn-fixed { top: 25px; right: 25px; }
+        
+        .mindmap-ctrl-mobile { display: none; }
+        @media (max-width: 768px) {
+            .mindmap-ctrl-mobile {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 15px;
+                padding: 10px 0;
+                width: 100%;
+            }
+            .map-nav-btn { 
+                position: static !important;
+                flex: 1; 
+                justify-content: center;
+                font-size: 0.9rem;
+                padding: 12px;
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                color: var(--text-color);
+            }
+            .mindmap-viewport { 
+                padding: 1rem 0;
+                min-height: 450px;
             }
         }
+    </style>
 
-        function updateExpressCalc() {
-            populateTests();
-            const testType = document.getElementById('calc-test').value;
-            const es = parseFloat(document.getElementById('calc-es').value);
-            const power = parseFloat(document.getElementById('calc-power').value);
-            const alpha = parseFloat(document.getElementById('calc-alpha').value);
-            const tails = parseInt(document.getElementById('calc-tails').value);
-            const allocation = parseFloat(document.getElementById('calc-allocation').value);
-            const groups = parseInt(document.getElementById('calc-groups').value);
-            const predictors = parseInt(document.getElementById('calc-predictors').value);
-
-            const groupsNode = document.getElementById('groups-field');
-            const allocationNode = document.getElementById('allocation-field');
-            const predictorsNode = document.getElementById('predictors-field');
-            const esLabel = document.getElementById('calc-es-label');
-            const esInput = document.getElementById('calc-es');
-            const tailsNode = document.getElementById('calc-tails').parentElement;
-
-            // Update displays
-            document.getElementById('val-es').textContent = es.toFixed(2);
-            document.getElementById('val-power').textContent = power.toFixed(2);
-            document.getElementById('val-alpha').textContent = alpha.toFixed(2);
-            document.getElementById('val-allocation').textContent = allocation.toFixed(2);
-            document.getElementById('val-groups').textContent = groups;
-            document.getElementById('val-predictors').textContent = predictors;
-
-            // Show/hide fields & Update labels
-            groupsNode.style.display = (testType === 'anova') ? 'block' : 'none';
-            allocationNode.style.display = (testType === 'ttest' || testType === 'proportions') ? 'block' : 'none';
-            predictorsNode.style.display = (testType === 'regression') ? 'block' : 'none';
-            tailsNode.style.display = (testType === 'anova' || testType === 'regression') ? 'none' : 'block';
-
-            if (testType === 'ttest' || testType === 'ttest-paired') {
-                esLabel.setAttribute('data-i18n', 'calc-es-d');
-                esInput.max = 1.5;
-            } else if (testType === 'anova') {
-                esLabel.setAttribute('data-i18n', 'calc-es-f');
-                esInput.max = 1.0;
-            } else if (testType === 'regression') {
-                esLabel.setAttribute('data-i18n', 'calc-es-f2');
-                esInput.max = 1.0;
-            } else if (testType === 'corr' || testType === 'proportions') {
-                esLabel.setAttribute('data-i18n', 'calc-es-r');
-                esInput.max = 0.99;
-            } else if (testType === 'chi2') {
-                esLabel.setAttribute('data-i18n', 'calc-es-w');
-                esInput.max = 1.0;
-            }
-
-            // Trigger i18n update
-            if (window.setLanguage) {
-                const lang = document.documentElement.lang || 'fr';
-                esLabel.innerHTML = (uiTranslations[lang] && uiTranslations[lang][esLabel.getAttribute('data-i18n')]) || 'Effect Size';
-
-                // Update help titles
-                document.querySelectorAll('.calc-help-icon').forEach(icon => {
-                    const key = icon.getAttribute('data-i18n-title');
-                    if (key && uiTranslations[lang][key]) {
-                        icon.title = uiTranslations[lang][key];
-                    }
-                });
-            }
-
-            // Calculate N and Outputs
-            let n = 0;
-            let noncentrality = 0;
-            let actualPower = 0;
-            let df = 0;
-            let critical = 0;
-
-            if (typeof GPowerCalc !== 'undefined') {
-                if (testType === 'ttest') {
-                    n = GPowerCalc.calcTTest(es, alpha, power, tails, allocation);
-                    noncentrality = GPowerCalc.calcNoncentrality('ttest', es, n, tails, allocation);
-                    actualPower = GPowerCalc.calcActualPower('ttest', es, n, alpha, tails, allocation);
-                    df = n - 2;
-                    critical = GPowerCalc.pnormInv(1 - alpha / tails);
-                } else if (testType === 'ttest-paired') {
-                    n = GPowerCalc.calcTTestPaired(es, alpha, power, tails);
-                    noncentrality = GPowerCalc.calcNoncentrality('ttest-paired', es, n, tails);
-                    actualPower = GPowerCalc.calcActualPower('ttest-paired', es, n, alpha, tails);
-                    df = n - 1;
-                    critical = GPowerCalc.pnormInv(1 - alpha / tails);
-                } else if (testType === 'anova') {
-                    n = GPowerCalc.calcAnova(es, alpha, power, groups);
-                    noncentrality = GPowerCalc.calcNoncentrality('anova', es, n, 1, 1, groups);
-                    actualPower = GPowerCalc.calcActualPower('anova', es, n, alpha, 1, 1, groups);
-                    df = n - groups;
-                    critical = GPowerCalc.pnormInv(1 - alpha);
-                } else if (testType === 'regression') {
-                    n = GPowerCalc.calcRegression(es, alpha, power, predictors);
-                    noncentrality = GPowerCalc.calcNoncentrality('regression', es, n, 1, 1, 1, predictors);
-                    actualPower = GPowerCalc.calcActualPower('regression', es, n, alpha, 1, 1, 1, predictors);
-                    df = predictors;
-                    critical = GPowerCalc.pnormInv(1 - alpha);
-                } else if (testType === 'corr') {
-                    n = GPowerCalc.calcCorrelation(es, alpha, power, tails);
-                    noncentrality = GPowerCalc.calcNoncentrality('corr', es, n, tails);
-                    actualPower = GPowerCalc.calcActualPower('corr', es, n, alpha, tails);
-                    df = n - 2;
-                    critical = GPowerCalc.pnormInv(1 - alpha / tails);
-                } else if (testType === 'proportions') {
-                    // Safe Cohen's h approximation
-                    const p1 = 0.5 + Math.min(es, 0.49);
-                    const p2 = 0.5 - Math.min(es, 0.49);
-                    n = GPowerCalc.calcProportions(p1, p2, alpha, power, tails, allocation);
-                    noncentrality = GPowerCalc.calcNoncentrality('proportions', es, n, tails, allocation);
-                    actualPower = GPowerCalc.calcActualPower('proportions', es, n, alpha, tails, allocation);
-                    df = n - 2;
-                    critical = GPowerCalc.pnormInv(1 - alpha / tails);
-                } else if (testType === 'chi2') {
-                    n = GPowerCalc.calcChiSquare(es, alpha, power, 1); // Simplified df=1
-                    noncentrality = GPowerCalc.calcNoncentrality('chi2', es, n);
-                    actualPower = GPowerCalc.calcActualPower('chi2', es, n, alpha);
-                    df = 1;
-                    critical = GPowerCalc.pnormInv(1 - alpha);
-                }
-            }
-
-            // Update UI
-            document.getElementById('calc-n-total').textContent = n > 0 ? n : '---';
-            document.getElementById('out-noncentral').textContent = noncentrality.toFixed(4);
-            document.getElementById('out-actual-power').textContent = actualPower.toFixed(4);
-            document.getElementById('out-df').textContent = df > 0 ? df : '---';
-            document.getElementById('out-critical').textContent = critical.toFixed(4);
-
-            const res = document.getElementById('calc-n-total');
-            res.classList.remove('pulse');
-            void res.offsetWidth;
-            res.classList.add('pulse');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(updateExpressCalc, 300);
-        });
-
-        function showBranch(type) {
-            const branch = document.getElementById('branch-result');
-            const text = document.getElementById('branch-text');
-            const lang = document.documentElement.lang || 'fr';
-
-            const paths = {
-                'means': {
-                    'fr': '📌 <strong>Tu compares des groupes ?</strong><br><br>' +
-                        '👉 Si tu as **2 groupes** (ex: Hommes vs Femmes) :<br>' +
-                        '• Test Family: <strong>t tests</strong><br>' +
-                        '• Statistical Test: <strong>Means: Difference between two independent means</strong><br><br>' +
-                        '👉 Si tu as **3 groupes ou +** (ex: Nord / Sud / Est) :<br>' +
-                        '• Test Family: <strong>F tests</strong><br>' +
-                        '• Statistical Test: <strong>ANOVA: Fixed effects, omnibus, one-way</strong>',
-                    'en': '📌 <strong>Are you comparing groups?</strong><br><br>' +
-                        '👉 If you have **2 groups** (e.g., Men vs Women):<br>' +
-                        '• Test Family: <strong>t tests</strong><br>' +
-                        '• Statistical Test: <strong>Means: Difference between two independent means</strong><br><br>' +
-                        '👉 If you have **3 groups or more** (e.g., North / South / East):<br>' +
-                        '• Test Family: <strong>F tests</strong><br>' +
-                        '• Statistical Test: <strong>ANOVA: Fixed effects, omnibus, one-way</strong>'
-                },
-                'links': {
-                    'fr': '📌 <strong>Tu cherches un lien ?</strong><br><br>' +
-                        '👉 Entre **2 variables numériques** (ex: Stress & Sommeil) :<br>' +
-                        '• Test Family: <strong>Exact</strong><br>' +
-                        '• Statistical Test: <strong>Correlation: Bivariate normal model</strong><br><br>' +
-                        '👉 Pour **prédire** une variable par une autre (ex: Prédire la réussite selon le temps) :<br>' +
-                        '• Test Family: <strong>F tests</strong><br>' +
-                        '• Statistical Test: <strong>Linear multiple regression: Fixed model, R² deviation from zero</strong>',
-                    'en': '📌 <strong>Are you looking for a link?</strong><br><br>' +
-                        '👉 Between **2 numerical variables** (e.g., Stress & Sleep):<br>' +
-                        '• Test Family: <strong>Exact</strong><br>' +
-                        '• Statistical Test: <strong>Correlation: Bivariate normal model</strong><br><br>' +
-                        '👉 To **predict** one variable using another (e.g., Predict success based on time):<br>' +
-                        '• Test Family: <strong>F tests</strong><br>' +
-                        '• Statistical Test: <strong>Linear multiple regression: Fixed model, R² deviation from zero</strong>'
-                },
-                'counts': {
-                    'fr': '📌 <strong>Tu travailles sur des fréquences de catégories ?</strong><br><br>' +
-                        '👉 Pour voir si les proportions sont différentes (ex: Vote selon CSP) :<br>' +
-                        '• Test Family: <strong>χ² tests</strong><br>' +
-                        '• Statistical Test: <strong>Goodness-of-fit tests: Contingency tables</strong>',
-                    'en': '📌 <strong>Are you working with category frequencies?</strong><br><br>' +
-                        '👉 To see if proportions are different (e.g., Voting based on job type):<br>' +
-                        '• Test Family: <strong>χ² tests</strong><br>' +
-                        '• Statistical Test: <strong>Goodness-of-fit tests: Contingency tables</strong>'
-                }
-            };
-
-            text.innerHTML = paths[type][lang];
-            branch.style.display = 'block';
-            branch.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        function updateMockup(el) {
-            const res = el.querySelector('.mockup-res');
-            res.style.display = 'block';
-            res.classList.add('pulse');
-            setTimeout(() => res.classList.remove('pulse'), 500);
-        }
-    </script>
+    <script src="gpower_data.js"></script>
+    <script src="gpower_view.js"></script>
 </body>
-
 </html>

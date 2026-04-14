@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     /* ðŸŒŒ V47: Midnight Royal Theme (Primary Dark) */
     --bg-color: #030712;
     --text-color: #f8fafc;
@@ -538,19 +538,6 @@ nav {
     /* Create positioning context for bubbles */
     z-index: 1;
     /* Create stacking context so -1 bubbles stay above body bg */
-}
-
-.hero.small-hero {
-    height: auto;
-    min-height: 40vh;
-    padding-top: 120px;
-    padding-bottom: 3rem;
-}
-
-@media (max-width: 768px) {
-    .hero.small-hero {
-        padding-top: 100px;
-    }
 }
 
 .hero h1 {
@@ -1636,32 +1623,24 @@ footer {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 2rem 5%;
+    padding: 2rem 0;
     overflow: hidden;
-}
-
-@media (max-width: 768px) {
-    .mindmap-viewport {
-        padding: 1rem 5%;
-        justify-content: center;
-        min-height: 450px;
-    }
 }
 
 .mindmap-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 2rem;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    max-width: 1000px;
+    max-width: 900px;
     z-index: 2;
 }
 
 /* Floating Bubbles */
 .mindmap-bubble {
-    width: 170px;
-    height: 170px;
+    width: 160px;
+    height: 160px;
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
@@ -1671,30 +1650,15 @@ footer {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     animation: floating 4s ease-in-out infinite;
-    word-break: break-word;
-    hyphens: auto;
-    z-index: 10;
-}
-
-@media (max-width: 768px) {
-    .mindmap-bubble {
-        width: 135px;
-        height: 135px;
-        padding: 0.8rem;
-    }
-    .mindmap-bubble h3 {
-        font-size: 0.8rem !important;
-        letter-spacing: -0.2px;
-    }
 }
 
 .mindmap-bubble:hover {
-    transform: scale(1.08) translateY(-10px);
+    transform: scale(1.1) translateY(-10px);
     background: rgba(255, 255, 255, 0.2);
     border-color: var(--primary-color);
     box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.3);
@@ -1706,8 +1670,7 @@ footer {
 }
 
 .mindmap-bubble h3 {
-    font-size: 0.95rem;
-    line-height: 1.3;
+    font-size: 1rem;
     margin: 0;
     color: var(--text-color);
     font-weight: 700;
@@ -1730,49 +1693,24 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 95%;
-    max-width: 550px;
-    z-index: 1000; /* Higher than bubbles but same as controls */
-    padding: 2.5rem 2rem;
-    border-radius: 24px;
+    width: 90%;
+    max-width: 500px;
+    z-index: 10;
+    padding: 2rem;
+    border-radius: 20px;
     border: 2px solid var(--primary-color);
-    background: var(--bg-color); /* Ensure opaque background */
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    max-height: 85vh;
-    overflow-y: auto;
-}
-
-@media (max-width: 768px) {
-    .detail-card {
-        top: 50%;
-        padding: 2.5rem 1.25rem 1.5rem;
-        width: 92%;
-    }
 }
 
 .detail-card .close-btn {
     position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--glass-border);
-    border-radius: 50%;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
     cursor: pointer;
-    color: var(--text-color);
-    transition: all 0.3s;
-    z-index: 1001;
-}
-
-.detail-card .close-btn:hover {
-    background: var(--primary-color);
-    color: white;
+    color: var(--text-muted);
 }
 
 /* Glossary Links */
@@ -1868,8 +1806,8 @@ footer {
 /* Info Icon on Bubble */
 .bubble-info-icon {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    top: 10px;
+    right: 10px;
     width: 20px;
     height: 20px;
     background: var(--primary-color);
@@ -1879,8 +1817,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.8;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    opacity: 0.6;
 }
 
 @media (max-width: 768px) {
