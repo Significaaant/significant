@@ -934,6 +934,31 @@ footer {
     }
 }
 
+/* Mobile Bottom Navigation */
+.mobile-bottom-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.mobile-bottom-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    background: var(--glass-bg);
+}
+
+.mobile-bottom-nav a:active,
+.mobile-bottom-nav a:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .nav-links {
