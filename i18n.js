@@ -11,6 +11,19 @@ function initI18n() {
             location.reload(); // Reload to refresh theory data
         });
     }
+
+    // Mobile nav toggle logic
+    const logoElements = document.querySelectorAll('.logo');
+    logoElements.forEach(logo => {
+        logo.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                const navLinks = document.querySelector('.nav-links');
+                if (navLinks) {
+                    navLinks.classList.toggle('nav-open');
+                }
+            }
+        });
+    });
 }
 
 function setLanguage(lang) {

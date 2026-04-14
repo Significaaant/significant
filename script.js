@@ -345,7 +345,9 @@ function copyCode(btn) {
 
 // Initial Render
 document.addEventListener('DOMContentLoaded', () => {
-    renderQuestion('start');
+    if (quizContainer) {
+        renderQuestion('start');
+    }
 });
 
 // Smooth scrolling for navigation links
