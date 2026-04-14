@@ -37,20 +37,17 @@
     </header>
 
     <main class="container">
-        <!-- MOBILE NAV CTRLS (Visible only on mobile) -->
-        <div class="mindmap-ctrl-mobile">
-            <!-- Back Button -->
+        <div class="mindmap-viewport" id="mindmap-viewport">
+            <!-- Back Button Inside Viewport -->
             <button id="map-back-btn" class="map-nav-btn back-btn-fixed" onclick="mapGoBack()" style="display: none;">
                 ← <span data-i18n="nav-retour">Retour</span>
             </button>
 
-            <!-- Reset Button -->
+            <!-- Reset Button Inside Viewport -->
             <button id="map-reset-btn" class="map-nav-btn reset-btn-fixed" onclick="mapReset()">
                 ↺ <span data-i18n="quiz-restart-btn">Recommencer</span>
             </button>
-        </div>
 
-        <div class="mindmap-viewport" id="mindmap-viewport">
             <!-- Tooltip container -->
             <div id="mindmap-tooltip" class="mindmap-tooltip"></div>
 
@@ -65,6 +62,10 @@
             </div>
         </div>
 
+        <!-- MOBILE NAV CTRLS (Visible only on mobile if viewport is too tight) -->
+        <div class="mindmap-ctrl mobile-only">
+             <!-- Same buttons as above if needed for mobile -->
+        </div>
     </main>
 
     <!-- GLOSSARY MODAL -->
@@ -91,46 +92,23 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 30px;
             color: var(--text-color);
             cursor: pointer;
             z-index: 100;
             transition: all 0.3s;
             font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-        .map-nav-btn:hover { background: var(--primary-color); color: white; transform: translateY(-2px); }
-        .back-btn-fixed { top: 25px; left: 25px; }
-        .reset-btn-fixed { top: 25px; right: 25px; }
+        .map-nav-btn:hover { background: var(--primary-color); color: white; }
+        .back-btn-fixed { top: 20px; left: 20px; }
+        .reset-btn-fixed { top: 20px; right: 20px; }
         
-        .mindmap-ctrl-mobile { display: none; }
+        .mobile-only { display: none; }
         @media (max-width: 768px) {
-            .mindmap-ctrl-mobile {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                gap: 15px;
-                padding: 10px 0;
-                width: 100%;
-            }
-            .map-nav-btn { 
-                position: static !important;
-                flex: 1; 
-                justify-content: center;
-                font-size: 0.9rem;
-                padding: 12px;
-                background: var(--glass-bg);
-                border: 1px solid var(--glass-border);
-                border-radius: 12px;
-                color: var(--text-color);
-            }
-            .mindmap-viewport { 
-                padding: 1rem 0;
-                min-height: 450px;
-            }
+            .mobile-only { display: flex; }
+            .back-btn-fixed, .reset-btn-fixed { position: static; margin: 10px; }
+            .mindmap-viewport { flex-direction: column; min-height: 400px; }
         }
     </style>
 

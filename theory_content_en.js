@@ -872,24 +872,24 @@ const theoryData = {
             },
             {
                 title: "Global Model Significance",
-                content: "The **F statistic** tests whether the entire model is significant (H0: all β = 0):\n\n**F = (SS_reg / k) / (SS_res / (n−k−1))**\n\n                content: "The **F statistic** tests whether the entire model is significant (H0: all β = 0):\n\n**F = (SS_reg / k) / (SS_res / (n−k−1))**\n\nThis is the **first thing to check** in a regression output. If p > .05 → the whole model is useless.",
+                content: "The **F statistic** tests whether the entire model is significant (H0: all β = 0):\n\n**F = (SS_reg / k) / (SS_res / (n−k−1))**\n\n                content: "The ** F statistic ** tests whether the entire model is significant(H0: all β = 0): \n\n ** F = (SS_reg / k) / (SS_res / (n−k−1))**\n\nThis is the ** first thing to check ** in a regression output.If p > .05 → the whole model is useless.",
                 layout: "standard"
             },
             {
-                title: "Adjustment Diagnosis",
-                content: "*   **R**: Multiple correlation (= √R²)\n*   **R²**: Raw explained variance\n*   **Adj. R²**: What to report in your paper\n*   **F([k], [n−k−1])**: Global model test\n*   **p**: Significance of the entire model",
-                layout: "highlight"
-            }
+    title: "Adjustment Diagnosis",
+        content: "*   **R**: Multiple correlation (= √R²)\n*   **R²**: Raw explained variance\n*   **Adj. R²**: What to report in your paper\n*   **F([k], [n−k−1])**: Global model test\n*   **p**: Significance of the entire model",
+            layout: "highlight"
+}
         ],
-        footer: "Adjusted R² is the standard criterion for assessing goodness-of-fit in multiple regression."
+footer: "Adjusted R² is the standard criterion for assessing goodness-of-fit in multiple regression."
     },
-    "cor-spurieuse": {
-        bloc: 5,
+"cor-spurieuse": {
+    bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Suppression Effect",
-        subtitle: "Multivariate Mediation Patterns",
-        character: { shape: "nexus", color: "#ec4899", eyes: "surprised" },
-        tags: ["spurious", "suppression", "confounding", "control variable", "multivariate", "bias", "causal inference"],
+            title: "Suppression Effect",
+                subtitle: "Multivariate Mediation Patterns",
+                    character: { shape: "nexus", color: "#ec4899", eyes: "surprised" },
+    tags: ["spurious", "suppression", "confounding", "control variable", "multivariate", "bias", "causal inference"],
         sections: [
             {
                 title: "Multivariate Control Logic",
@@ -902,20 +902,20 @@ const theoryData = {
                 layout: "highlight"
             }
         ],
-        footer: "Any bivariate correlation must be subjected to multivariate control before any causal interpretation."
-    },
+            footer: "Any bivariate correlation must be subjected to multivariate control before any causal interpretation."
+},
 
-    // ==========================================
-    // NEW SHEETS: Verification & Diagnostics
-    // ==========================================
+// ==========================================
+// NEW SHEETS: Verification & Diagnostics
+// ==========================================
 
-    "test-shapiro": {
-        bloc: 3,
+"test-shapiro": {
+    bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "Shapiro-Wilk Test",
-        subtitle: "Normality Prerequisite",
-        character: { shape: "bell", color: "#8b5cf6", eyes: "focused" },
-        tags: ["shapiro", "wilk", "normality", "distribution", "parametric", "assumption", "Q-Q plot", "prerequisite"],
+            title: "Shapiro-Wilk Test",
+                subtitle: "Normality Prerequisite",
+                    character: { shape: "bell", color: "#8b5cf6", eyes: "focused" },
+    tags: ["shapiro", "wilk", "normality", "distribution", "parametric", "assumption", "Q-Q plot", "prerequisite"],
         sections: [
             {
                 title: "Test Objective",
@@ -938,16 +938,16 @@ const theoryData = {
                 layout: "standard"
             }
         ],
-        footer: "Shapiro-Wilk: the gatekeeper of the parametric world."
-    },
+            footer: "Shapiro-Wilk: the gatekeeper of the parametric world."
+},
 
-    "test-levene": {
-        bloc: 4,
+"test-levene": {
+    bloc: 4,
         type: "TYPE_FLEXIBLE",
-        title: "Levene's Test",
-        subtitle: "Homoscedasticity Prerequisite",
-        character: { shape: "twins", color: "#f97316", eyes: "focused" },
-        tags: ["levene", "homogeneity", "variances", "homoscedasticity", "assumption", "t-test", "anova", "welch", "check"],
+            title: "Levene's Test",
+                subtitle: "Homoscedasticity Prerequisite",
+                    character: { shape: "twins", color: "#f97316", eyes: "focused" },
+    tags: ["levene", "homogeneity", "variances", "homoscedasticity", "assumption", "t-test", "anova", "welch", "check"],
         sections: [
             {
                 title: "Homogeneity of Variances",
@@ -970,54 +970,54 @@ const theoryData = {
                 layout: "standard"
             }
         ],
-        footer: "Unequal variances? Welch's test is there for that."
-    },
+            footer: "Unequal variances? Welch's test is there for that."
+},
 
-    "residus-regression": {
-        bloc: 5,
+"residus-regression": {
+    bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Residuals & Model Diagnostics",
-        subtitle: "Checking Regression Assumptions",
-        character: { shape: "target", color: "#ef4444", eyes: "focused" },
-        tags: ["residuals", "diagnostics", "normality", "homoscedasticity", "Q-Q plot", "Cook", "VIF", "Durbin-Watson", "outlier", "influence"],
+            title: "Residuals & Model Diagnostics",
+                subtitle: "Checking Regression Assumptions",
+                    character: { shape: "target", color: "#ef4444", eyes: "focused" },
+    tags: ["residuals", "diagnostics", "normality", "homoscedasticity", "Q-Q plot", "Cook", "VIF", "Durbin-Watson", "outlier", "influence"],
         figure: { src: "images/figure_qqplot.png", caption: "Fig. 9 — Q-Q Plot of residuals: Points on the diagonal indicate compatibility with normality." },
-        sections: [
-            {
-                title: "Definition of Residuals",
-                content: "A **residual** is the difference between the *observed* value and the *predicted* value from the model:\n\n**ε = Y_observed − Ŷ_predicted**\n\nAnalyzing residuals checks whether the OLS regression assumptions hold.",
-                layout: "standard"
-            },
-            {
-                title: "Basic Assumptions (Gauss-Markov)",
-                content: "1.  **Linearity**: Check via Residuals vs Fitted plot (no visible curve).\n2.  **Normality of residuals**: Q-Q Plot or Shapiro-Wilk on residuals.\n3.  **Homoscedasticity**: Residual variance is constant (no funnel shape).\n4.  **Independence**: Residuals are not autocorrelated (Durbin-Watson test).",
-                layout: "highlight"
-            },
-            {
-                title: "Graphical Normality Analysis",
-                content: "The Q-Q Plot compares standardized residuals to the theoretical quantiles of a normal distribution:\n\n*   **Points on the diagonal**: Normality holds.\n*   **Points deviating at the extremes**: Heavy tails or skewness → normality problem.",
-                layout: "standard"
-            },
-            {
-                title: "Influence Points (Cook's Distance)",
-                content: "**Cook's Distance** measures how much each observation influences the entire model:\n\n**A point is suspect if Cook's D > 4/n**\n\nThese points are not necessarily to be deleted, but must be examined individually.",
-                layout: "alert"
-            },
-            {
-                title: "Syntax and Integration",
-                content: "**R**: `plot(my_model)` → 4 diagnostic plots automatically\n\n**Jamovi**: Linear Regression → Plots → Residuals vs Fitted + Q-Q Normal",
-                layout: "standard"
-            }
-        ],
+    sections: [
+        {
+            title: "Definition of Residuals",
+            content: "A **residual** is the difference between the *observed* value and the *predicted* value from the model:\n\n**ε = Y_observed − Ŷ_predicted**\n\nAnalyzing residuals checks whether the OLS regression assumptions hold.",
+            layout: "standard"
+        },
+        {
+            title: "Basic Assumptions (Gauss-Markov)",
+            content: "1.  **Linearity**: Check via Residuals vs Fitted plot (no visible curve).\n2.  **Normality of residuals**: Q-Q Plot or Shapiro-Wilk on residuals.\n3.  **Homoscedasticity**: Residual variance is constant (no funnel shape).\n4.  **Independence**: Residuals are not autocorrelated (Durbin-Watson test).",
+            layout: "highlight"
+        },
+        {
+            title: "Graphical Normality Analysis",
+            content: "The Q-Q Plot compares standardized residuals to the theoretical quantiles of a normal distribution:\n\n*   **Points on the diagonal**: Normality holds.\n*   **Points deviating at the extremes**: Heavy tails or skewness → normality problem.",
+            layout: "standard"
+        },
+        {
+            title: "Influence Points (Cook's Distance)",
+            content: "**Cook's Distance** measures how much each observation influences the entire model:\n\n**A point is suspect if Cook's D > 4/n**\n\nThese points are not necessarily to be deleted, but must be examined individually.",
+            layout: "alert"
+        },
+        {
+            title: "Syntax and Integration",
+            content: "**R**: `plot(my_model)` → 4 diagnostic plots automatically\n\n**Jamovi**: Linear Regression → Plots → Residuals vs Fitted + Q-Q Normal",
+            layout: "standard"
+        }
+    ],
         footer: "An undiagnosed model is an unvalidated model."
-    },
+},
 
-    "reg-logistique": {
-        bloc: 5,
+"reg-logistique": {
+    bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Logistic Regression",
-        subtitle: "Probabilistic Binary Modeling",
-        character: { shape: "nexus", color: "#6366f1", eyes: "happy" },
-        tags: ["logistic", "odds ratio", "OR", "probability", "binary", "logit", "pseudo R2", "AIC", "Nagelkerke", "0/1"],
+            title: "Logistic Regression",
+                subtitle: "Probabilistic Binary Modeling",
+                    character: { shape: "nexus", color: "#6366f1", eyes: "happy" },
+    tags: ["logistic", "odds ratio", "OR", "probability", "binary", "logit", "pseudo R2", "AIC", "Nagelkerke", "0/1"],
         sections: [
             {
                 title: "Indications",
@@ -1045,16 +1045,16 @@ const theoryData = {
                 layout: "standard"
             }
         ],
-        footer: "The Odds Ratio: the exchange currency of logistic regression."
-    },
+            footer: "The Odds Ratio: the exchange currency of logistic regression."
+},
 
-    "multicolinearite": {
-        bloc: 5,
+"multicolinearite": {
+    bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Multicollinearity",
-        subtitle: "Collinearity Diagnostics",
-        character: { shape: "puzzle", color: "#f43f5e", eyes: "surprised" },
-        tags: ["VIF", "multicollinearity", "correlation", "predictors", "instability", "tolerance", "multiple regression"],
+            title: "Multicollinearity",
+                subtitle: "Collinearity Diagnostics",
+                    character: { shape: "puzzle", color: "#f43f5e", eyes: "surprised" },
+    tags: ["VIF", "multicollinearity", "correlation", "predictors", "instability", "tolerance", "multiple regression"],
         sections: [
             {
                 title: "Multicollinearity Concept",
@@ -1077,6 +1077,6 @@ const theoryData = {
                 layout: "standard"
             }
         ],
-        footer: "Predictors too correlated? Your model doesn't know who to believe."
-    }
+            footer: "Predictors too correlated? Your model doesn't know who to believe."
+}
 };

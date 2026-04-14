@@ -68,30 +68,14 @@ function createBubble(node) {
     const infoIcon = document.createElement('div');
     infoIcon.className = 'bubble-info-icon';
     infoIcon.textContent = 'i';
-    
-    // On mobile, clicking the 'i' icon shows description
-    infoIcon.onclick = (e) => {
-        e.stopPropagation();
-        showTooltip(node, e);
-        // On mobile, we might want to keep the tooltip visible until clicked elsewhere
-        if (window.innerWidth <= 768) {
-            tooltip.classList.add('mobile-persistent');
-        }
-    };
-    
     div.appendChild(infoIcon);
     
-    // Hover Logic (Desktop)
+    // Hover Logic
     div.onmouseenter = (e) => showTooltip(node, e);
     div.onmousemove = (e) => positionTooltip(e);
-    div.onmouseleave = () => {
-        if (!tooltip.classList.contains('mobile-persistent')) {
-            hideTooltip();
-        }
-    };
+    div.onmouseleave = () => hideTooltip();
 
     div.onclick = () => {
-        hideTooltip(); // Hide any persistent tooltip
         historyStack.push(node.id);
         renderLevel(node.id);
     };
@@ -124,15 +108,7 @@ function positionTooltip(event) {
 
 function hideTooltip() {
     tooltip.classList.remove('visible');
-    tooltip.classList.remove('mobile-persistent');
 }
-
-// Global listener to hide persistent tooltip on mobile when clicking elsewhere
-document.addEventListener('mousedown', (e) => {
-    if (!tooltip.contains(e.target) && !e.target.classList.contains('bubble-info-icon')) {
-        hideTooltip();
-    }
-});
 
 /**
  * Detail Card Logic (Level 4 - Final Summary)
