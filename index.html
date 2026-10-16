@@ -11,12 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
-    <script src="translations.js" defer></script>
-    <script src="quiz_data.js" defer></script>
-    <script src="quiz_test_meta.js" defer></script>
+    <link rel="stylesheet" href="style.css?v=2">
+    <script src="translations.js?v=2" defer></script>
+    <script src="quiz_data.js?v=2" defer></script>
+    <script src="quiz_test_meta.js?v=2" defer></script>
     <script src="booster_cards_engine.js?v=3" defer></script>
-    <script src="i18n.js" defer></script>
+    <script src="python_bridge.js?v=1" defer></script>
+    <script src="i18n.js?v=2" defer></script>
 </head>
 
 <body>
@@ -239,6 +240,10 @@
             <a href="legal.html">Mentions légales</a>
         </div>
         <p data-i18n="footer-text">Significant — Fait pour simplifier vos analyses statistiques.</p>
+        <div style="margin-top: 0.6rem; font-size: 0.8rem; color: var(--ink-3); display: flex; align-items: center; justify-content: center; gap: 0.45rem;">
+            <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#22c55e;"></span>
+            <span>Moteur d'analyse statistique <strong>Python 3</strong> (WebAssembly)</span>
+        </div>
     </footer>
 
     <script src="script.js" defer></script>

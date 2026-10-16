@@ -1,64 +1,96 @@
-# 𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭 𝜗𝜚
+# Significant — Statistical Decision & Power Analysis Suite 📊🐍
 
-> **The interactive companion that makes statistics human, accessible, and beautiful.**
-> *A bilingual (FR/EN) pedagogical tool for Master's students, researchers, and data enthusiasts.*
+> **The intelligent statistical companion that makes methodology, test selection, and power analysis human, rigorous, and accessible.**  
+> *Developed by [Chaïma Moghrani](https://significaaant.github.io/significant/)*.
 
----
-
-## 🌟 Overview
-
-**significant** is a specialized web application designed to bridge the gap between complex statistical methodology and user-friendly digital tools. Originally conceived as a support system for Master's students, it has evolved into a comprehensive suite for statistical decision-making and learning.
-
-### 🧩 Key Features
-- **Interactive Decision Tree (Quiz)**: A custom-built logic engine that guides users to the correct statistical test based on their data structure.
-- **Academic Theory Engine**: Multi-module pedagogical repository covering foundations, univariated, bivariated, and multivariated analysis.
-- **Bilingual Interface**: Seamless i18n support between French and English.
-- **Toolbox Integration**: Built-in interactive G*Power simulated guide and code snippets for **R**, **Python**, and **Jamovi**.
-- **Modern UI/UX**: Premium "Midnight" theme with Glassmorphism aesthetics and responsive layouts.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![Architecture](https://img.shields.io/badge/Architecture-WebAssembly%20%2F%20Pyodide-success.svg)](https://pyodide.org/)
+[![Tests](https://img.shields.io/badge/Tests-Passing%20(unittest)-brightgreen.svg)](test_significant.py)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
+[![Live App](https://img.shields.io/badge/Live-GitHub%20Pages-orange.svg)](https://significaaant.github.io/significant/)
 
 ---
 
-## 🎯 Impact Profiles (Why this project matters)
+## 🌟 Overview & Architecture
 
-This project demonstrates a blend of technical engineering and domain expertise. Depending on your interest, here is how to look at it:
+**Significant** is an academic-grade statistical decision engine designed to bridge the gap between complex inferential methodology and actionable research workflows.
 
-### 📊 For Data Analysis & Statistics
-- **Methodological Rigor**: All modules are based on academic standards (ANOVA, ANCOVA, MANOVA, Non-parametric tests).
-- **Automation of Knowledge**: The orientation quiz translates complex human questions into rigorous statistical constraints.
-- **Developer Experience**: Integration of multiple code syntaxes (R/Python) shows an understanding of the data science ecosystem.
+Rather than relying purely on client-side scripts, the core decision-making algorithms and power calculations are built as **modular Python packages**, executed directly in the browser via **WebAssembly (Pyodide)** with zero server latency.
 
-### 🎨 For UX Research & User Studies
-- **Complexity Simplification**: Transforming dense, intimidating academic theory into a scannable, interactive interface.
-- **Beautiful Design**: High-end aesthetic choices that reduce cognitive load and improve engagement.
-- **Accessibility**: Mobile-first responsive design ensuring the tool is available during lab work or lectures.
-
-### 🎓 For EdTech & Pedagogy
-- **Guided Learning Path**: From data preparation to advanced modeling, the app follows a natural pedagogical progression.
-- **Bimodal Content**: Simultaneous theoretical intuition and practical application (Manual calculation + Software syntax).
-- **Empowerment**: Built to replace "inefficient supervision" with an autonomous learning companion.
-
----
-
-## 🛠️ Technical Stack
-
-- **Foundations**: HTML5, Vanilla JavaScript (ES6+), CSS3.
-- **Architecture**:
-  - **Custom i18n System**: Modular translation engine for dynamic content switching.
-  - **State-driven Quiz**: Finite State Machine logic for the decision tree.
-  - **Responsive Design**: Custom CSS Variables and Flex/Grid layouts (No heavy frameworks, for maximum performance).
-- **Assets**: Google Fonts API (Outfit), FontAwesome, Custom Gradient Globes.
+```
+                           ┌───────────────────────────────┐
+                           │      User Interface           │
+                           │  (HTML5 / CSS3 / Vanilla JS)  │
+                           └───────────────▲───────────────┘
+                                           │
+                                  [python_bridge.js]
+                               (Pyodide WebAssembly Wasm)
+                                           │
+       ┌───────────────────────────────────┴───────────────────────────────────┐
+       │                                                                       │
+┌──────┴──────────────┐             ┌─────────────────────┐             ┌──────┴──────────────┐
+│   quiz_engine.py    │             │      models.py      │             │  gpower_engine.py   │
+│  Statistical        │◄───────────►│ Dataclasses, Enums  │◄───────────►│ A priori sample     │
+│  Decision Tree      │             │ & Test Catalog      │             │ size & power math   │
+└─────────────────────┘             └─────────────────────┘             └─────────────────────┘
+```
 
 ---
 
-## 🚀 Live Demo
+## 🐍 Python Core Modules
 
-Check out the live version here: **https://significaaant.github.io/significant/**
+1. **`quiz_engine.py` (`StatisticalDecisionTree`)**
+   - Finite state machine encoding inferential statistics heuristics (sample dependency, distribution normality, measurement scales, number of factors).
+   - Automated path backtracking and breadcrumb reconstruction.
+   - Recommends parametric and non-parametric alternatives (Student's t, Mann-Whitney, ANOVA, Kruskal-Wallis, Pearson, Spearman, Chi-square, Multiple Regression).
+
+2. **`gpower_engine.py` (`GPowerEngine`)**
+   - A priori power calculations and sample size determination ($N$).
+   - Beasley-Springer-Moro rational approximation for the inverse cumulative distribution function ($\Phi^{-1}$).
+   - Supports t-tests, ANOVA ($F$-test), Pearson correlation ($z$-transform), Chi-square ($\chi^2$), and Linear Multiple Regression ($f^2$).
+
+3. **`models.py`**
+   - Strongly-typed Python dataclasses (`StatisticalTest`, `DecisionNode`, `DecisionOption`, `PowerAnalysisResult`).
+   - Clean separation of business logic and view representations.
+
+4. **`test_significant.py`**
+   - Comprehensive test suite running via Python's standard `unittest` library.
 
 ---
 
-## 👤 About the Creator
+## 🚀 Running the Python Engine Locally
 
-**Chaïma M.**
-*Master's in Psychology & Sociology of Networks*
+### Requirements
+- Python 3.10 or higher
 
-https://www.linkedin.com/in/chaima-moghrani/
+```bash
+# Clone the repository
+git clone https://github.com/Significaaant/significant.git
+cd significant
+
+# Run unit tests
+python -m unittest test_significant.py
+
+# Test the quiz decision engine in CLI
+python quiz_engine.py
+
+# Test the G*Power power analysis engine in CLI
+python gpower_engine.py
+```
+
+---
+
+## 🌐 Live Web Deployment
+
+The application is deployed on **GitHub Pages**:  
+🔗 **[https://significaaant.github.io/significant/](https://significaaant.github.io/significant/)**
+
+Thanks to Pyodide, the Python codebase executes natively on client browsers without requiring a dedicated server or subscription, preserving maximum privacy and offline readiness.
+
+---
+
+## 👩‍💻 Author & Contact
+
+**Chaïma Moghrani**  
+- Portfolio / CV : [Consulter en ligne](cv.html)  
+- GitHub : [@Significaaant](https://github.com/Significaaant)
