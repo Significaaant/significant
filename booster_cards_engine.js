@@ -277,9 +277,6 @@ function buildBoosterCardHtml(testKey, options = {}) {
                             <!-- Barre d'en-tête : [COMMUN] | [Cours] [Méthodo] | (↺) -->
                             <div class="booster-back-topbar">
                                 <div class="booster-topbar-left">
-                                    <span class="booster-rarity-badge rarity-${rarity}">
-                                        ${rarityLabel}
-                                    </span>
                                     <div class="booster-actions-inline">
                                         <a href="${courseUrl}" target="_blank" class="booster-action-pill btn-cours" title="Ouvrir la fiche de cours">
                                             ${(typeof getT === 'function' && getT('card-btn-cours')) || 'Cours'}
@@ -435,9 +432,6 @@ function renderTheoryCardsGallery(ribbonContainerId = 'theory-cards-ribbon', lis
         return `
             <div class="deck-mini-card" data-category="${filterCategory}" data-test-key="${key}" onclick="openBoosterCardModal('${key}')" role="button" tabindex="0" title="${title} — ${hintText}">
                 <div class="deck-mini-inner">
-                    <div class="deck-mini-topbar">
-                        <span class="booster-rarity-badge rarity-${rarity}">${rarityLabel}</span>
-                    </div>
                     <div class="deck-mini-art-frame">
                         <img src="${imgSources.frontPrimary}" 
                              data-fallbacks='${JSON.stringify(imgSources.frontFallbacks)}' 

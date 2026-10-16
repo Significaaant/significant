@@ -1021,15 +1021,9 @@ nav.site-nav {
     flex-wrap: wrap;
 }
 
-.booster-rarity-badge {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.25rem 0.55rem;
-    border-radius: 4px;
-    line-height: 1.2;
+.booster-rarity-badge,
+.code-card-rarity {
+    display: none !important;
 }
 
 .rarity-commune {
@@ -1795,10 +1789,7 @@ nav.site-nav {
 }
 
 .deck-mini-topbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 0.35rem;
+    display: none !important;
 }
 
 .deck-mini-wordmark {
@@ -1806,13 +1797,11 @@ nav.site-nav {
 }
 
 .deck-mini-topbar .booster-rarity-badge {
-    font-size: 0.55rem;
-    padding: 0.1rem 0.32rem;
-    letter-spacing: 0.03em;
+    display: none !important;
 }
 
 .deck-mini-art-frame {
-    height: 98px;
+    height: 112px;
     width: 100%;
     border-radius: 6px;
     overflow: hidden;
@@ -3222,7 +3211,7 @@ footer.site-footer .footer-links {
     justify-content: center;
     flex-wrap: wrap;
     gap: 1.5rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0;
 }
 
 /* ===========================================
@@ -5088,7 +5077,7 @@ body.theme-midnight .reading-scroll-progress .scroll-progress-fill {
 
 .code-deck-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.8rem;

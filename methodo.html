@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=10">
+    <link rel="stylesheet" href="style.css?v=13">
     <script src="translations.js?v=5"></script>
     <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
@@ -288,7 +288,6 @@
             <a href="privacy.html">Confidentialité</a>
             <a href="legal.html">Mentions légales</a>
         </div>
-        <p data-i18n="footer-text">Significant — Fait pour simplifier vos analyses statistiques.</p>
     </footer>
 
     <!-- Scripts G*Power, Méthodo & Métadonnées des Tests -->
@@ -326,7 +325,6 @@
                 html += `
                     <div class="code-deck-card" id="code-deck-card-${testKey}" data-test-key="${testKey}" onclick="openCodeModal('${testKey}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCodeModal('${testKey}');}">
                         <div class="code-deck-header">
-                            <span class="code-card-rarity rarity-${rarity}">${rarityLabel}</span>
                             <span class="code-deck-arrow">Ouvrir le tutoriel →</span>
                         </div>
                         <h3 class="code-deck-title">${title}</h3>
@@ -372,13 +370,9 @@
             const rCode = escapeCodeHtml(meta.codeR || '# Code indisponible');
             const jamoviText = escapeCodeHtml((meta.jamoviPath && (meta.jamoviPath[currentLang] || meta.jamoviPath.fr)) || 'Analyses › Consulter le manuel');
 
-            const mRarity = meta.rarity || 'commune';
-            const mRarityLabel = (typeof getT === 'function' && getT('card-rarity-' + mRarity)) || (typeof uiTranslations !== 'undefined' && uiTranslations[currentLang] && uiTranslations[currentLang]['card-rarity-' + mRarity]) || mRarity;
-
             content.innerHTML = `
                 <div class="code-modal-header">
                     <div class="code-modal-title-group">
-                        <span class="code-card-rarity rarity-${mRarity}">${mRarityLabel}</span>
                         <h2 class="code-modal-title">${title}</h2>
                     </div>
                     <a href="${courseUrl}" class="code-card-theory-link" target="_blank" title="Lire la fiche théorique">
