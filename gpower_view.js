@@ -1,207 +1,387 @@
-const viewport = document.getElementById('mindmap-viewport');
-const container = document.getElementById('mindmap-container');
-const detailCard = document.getElementById('detail-card');
-const detailContent = document.getElementById('detail-content');
-const backBtn = document.getElementById('map-back-btn');
-const tooltip = document.getElementById('mindmap-tooltip');
-
-let historyStack = ["root"];
-
 /**
- * Initial Render
+ * G*Power Interactive Guide View Logic
+ * Wizard pas à pas pour dimensionner son échantillon et régler G*Power
  */
+
+let gpowerHistory = ["root"];
+
 document.addEventListener('DOMContentLoaded', () => {
-    renderLevel("root");
+    // Écouteur pour fermer la modale glossaire avec Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeGlossary();
+    });
+
+    // Rendu initial si présent
+    if (document.getElementById('mindmap-container')) {
+        renderGpowerStep("root");
+    }
 });
 
 /**
- * Render a Level of the Mind Map
+ * Rendu d'une étape du wizard G*Power
  */
-function renderLevel(nodeId) {
+function renderGpowerStep(nodeId) {
+    const container = document.getElementById('mindmap-container');
+    const detailCard = document.getElementById('detail-card');
+    const detailContent = document.getElementById('detail-content');
+    const backBtn = document.getElementById('map-back-btn');
+    const breadcrumbs = document.getElementById('gpower-breadcrumbs');
+
+    if (!container || !window.GPowerData) return;
+
     const node = GPowerData.mindmap[nodeId];
     if (!node) return;
 
-    // Fade out
+    const currentLang = (typeof currentLanguage !== 'undefined' && currentLanguage) || localStorage.getItem('site-lang') || 'fr';
+
+    // Mise à jour de la barre de navigation
+    if (backBtn) {
+        backBtn.style.display = gpowerHistory.length > 1 ? "inline-flex" : "none";
+    }
+
+    // Mise à jour des miettes de pain (Breadcrumbs)
+    if (breadcrumbs) {
+        breadcrumbs.innerHTML = buildBreadcrumbs(currentLang);
+    }
+
+    // Animation de transition douce
     container.style.opacity = "0";
-    container.style.transform = "scale(0.95)";
-    hideTooltip();
+    container.style.transform = "translateY(6px)";
 
     setTimeout(() => {
-        container.innerHTML = '';
-        
-        // --- If it's a LEAF node, show detail card ---
+        // Si c'est une FEUILLE (Fiche pratique finale)
         if (node.type === "leaf") {
-            showDetailCard(node);
+            container.style.display = "none";
+            if (detailCard && detailContent) {
+                detailContent.innerHTML = buildLeafHtml(node, currentLang);
+                detailCard.style.display = "block";
+            }
         } else {
-            closeDetailCard();
-            // Render children
-            node.children.forEach(childId => {
+            // C'est une étape de choix intermédiaire
+            if (detailCard) detailCard.style.display = "none";
+            container.style.display = "grid";
+            container.className = getNodeGridClass(node);
+            container.innerHTML = '';
+
+            const children = node.children || [];
+            children.forEach(childId => {
                 const childNode = GPowerData.mindmap[childId];
                 if (childNode) {
-                    const bubble = createBubble(childNode);
-                    container.appendChild(bubble);
+                    container.appendChild(createChoiceCard(childNode, currentLang));
                 }
             });
         }
 
-        // Toggle back button
-        backBtn.style.display = historyStack.length > 1 ? "block" : "none";
-
-        // Fade in
         container.style.opacity = "1";
-        container.style.transform = "scale(1)";
-    }, 300);
+        container.style.transform = "translateY(0)";
+    }, 180);
 }
 
 /**
- * Create a Bubble Element
+ * Détermine la classe de grille selon le niveau
  */
-function createBubble(node) {
-    const lang = localStorage.getItem('site-lang') || 'fr';
-    const div = document.createElement('div');
-    div.className = 'mindmap-bubble';
-    if (node.color) div.style.borderColor = `var(${node.color})`;
-    
-    div.innerHTML = `<h3>${node.title[lang]}</h3>`;
-    
-    // Add Info icon for intent
-    const infoIcon = document.createElement('div');
-    infoIcon.className = 'bubble-info-icon';
-    infoIcon.textContent = 'i';
-    div.appendChild(infoIcon);
-    
-    // Hover Logic
-    div.onmouseenter = (e) => showTooltip(node, e);
-    div.onmousemove = (e) => positionTooltip(e);
-    div.onmouseleave = () => hideTooltip();
-
-    div.onclick = () => {
-        historyStack.push(node.id);
-        renderLevel(node.id);
-    };
-    
-    return div;
-}
-
-/**
- * Tooltip Logic
- */
-function showTooltip(node, event) {
-    if (!node.hoverDesc) return;
-    const lang = localStorage.getItem('site-lang') || 'fr';
-    
-    tooltip.innerHTML = `<h4>${node.title[lang]}</h4><p>${node.hoverDesc[lang]}</p>`;
-    tooltip.classList.add('visible');
-    positionTooltip(event);
-}
-
-function positionTooltip(event) {
-    if (!tooltip.classList.contains('visible')) return;
-    
-    // Use bounding rect to correctly position inside the relative container
-    const rect = viewport.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    
-    const tooltipWidth = 250;
-    
-    // Offset from cursor: bottom-left
-    let targetX = x - tooltipWidth - 20;
-    let targetY = y + 20;
-    
-    // Fallback if it crops on the left edge
-    if (targetX < 10) {
-        targetX = x + 20;
+function getNodeGridClass(node) {
+    if (node.id === "root") {
+        return "gpower-cards-container gpower-grid-2";
+    } else if (node.id.startsWith("ana-")) {
+        return "gpower-cards-container gpower-grid-4";
     }
-    
-    tooltip.style.left = targetX + 'px';
-    tooltip.style.top = targetY + 'px';
-}
-
-function hideTooltip() {
-    tooltip.classList.remove('visible');
+    return "gpower-cards-container gpower-grid-2";
 }
 
 /**
- * Detail Card Logic (Level 4 - Final Summary)
+ * Construit le fil d'Ariane
  */
-function showDetailCard(node) {
-    const lang = localStorage.getItem('site-lang') || 'fr';
-    
-    let html = `<h2 style="font-family: var(--font-serif); color: var(--bordeaux); margin-bottom: 0.5rem;">${node.title[lang]}</h2>`;
-    html += `<p class="pedagogical-desc">${node.hoverDesc ? node.hoverDesc[lang] : ''}</p>`;
+function buildBreadcrumbs(lang) {
+    if (gpowerHistory.length === 1) {
+        return `<span class="breadcrumb-step active">${lang === 'fr' ? '1. Choix de la situation' : '1. Choose study situation'}</span>`;
+    }
 
-    // Detailed Indicator Section
-    html += `<div class="indicators-summary" style="margin-top: 2rem;">`;
-    html += `<h3 style="font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--surface-2); font-family: var(--font-serif);">${lang === 'fr' ? 'Concepts clés à maîtriser' : 'Key Concepts to Master'}</h3>`;
-    
-    if (node.params) {
-        node.params.forEach(paramKey => {
-            const term = GPowerData.glossary[lang][paramKey];
-            if (term) {
-                html += `
-                <div class="indicator-item" style="margin-bottom: 1.2rem;">
-                    <strong style="color: var(--bordeaux); display: block; margin-bottom: 3px;">${term.term}</strong>
-                    <p style="font-size: 0.9rem; margin: 0; line-height: 1.4;">${term.def}</p>
-                </div>`;
-            }
+    let items = [];
+    gpowerHistory.forEach((hId, index) => {
+        const itemNode = GPowerData.mindmap[hId];
+        if (!itemNode) return;
+
+        let label = '';
+        if (hId === 'root') {
+            label = lang === 'fr' ? 'Accueil' : 'Start';
+        } else if (itemNode.title) {
+            label = itemNode.title[lang] || itemNode.title.fr;
+            // Raccourcir si trop long
+            if (label.length > 25) label = label.substring(0, 22) + '...';
+        }
+
+        const isLast = index === gpowerHistory.length - 1;
+        if (isLast) {
+            items.push(`<span class="breadcrumb-step active">${label}</span>`);
+        } else {
+            items.push(`<button type="button" class="breadcrumb-step linkable" onclick="goToGpowerHistoryIndex(${index})">${label}</button>`);
+        }
+    });
+
+    return items.join('<span class="breadcrumb-sep">›</span>');
+}
+
+/**
+ * Création d'une carte de choix interactive
+ */
+function createChoiceCard(node, lang) {
+    const card = document.createElement('div');
+    const themeClass = node.themeClass || 'theme-bordeaux';
+    card.className = `gpower-choice-card ${themeClass}`;
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+
+    const title = (node.title && (node.title[lang] || node.title.fr)) || node.id;
+    const badge = (node.badge && (node.badge[lang] || node.badge.fr)) || '';
+    const desc = (node.hoverDesc && (node.hoverDesc[lang] || node.hoverDesc.fr)) || '';
+
+    card.innerHTML = `
+        <div class="gpower-card-top">
+            ${badge ? `<span class="gpower-card-badge">${badge}</span>` : ''}
+            <span class="gpower-card-arrow">Choisir →</span>
+        </div>
+        <h3 class="gpower-card-title">${title}</h3>
+        ${desc ? `<div class="gpower-card-desc">${desc}</div>` : ''}
+    `;
+
+    card.onclick = (e) => {
+        // Ne pas déclencher la sélection si l'utilisateur clique sur un lien de glossaire dans la description
+        if (e.target.closest('.glossary-term-link')) return;
+        gpowerHistory.push(node.id);
+        renderGpowerStep(node.id);
+    };
+
+    card.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            gpowerHistory.push(node.id);
+            renderGpowerStep(node.id);
+        }
+    };
+
+    return card;
+}
+
+/**
+ * Construction du HTML de la fiche finale G*Power (Step 4 / Leaf)
+ */
+function buildLeafHtml(node, lang) {
+    const isPosthoc = gpowerHistory.includes("ana-posthoc");
+    const testTitle = (node.title && (node.title[lang] || node.title.fr)) || '';
+    const situation = (node.situationDesc && (node.situationDesc[lang] || node.situationDesc.fr)) || '';
+    const typeOfAnalysis = isPosthoc 
+        ? (node.gpowerTypePosthoc || "Post hoc: Compute achieved power") 
+        : (node.gpowerType || "A priori: Compute required sample size");
+    const outputText = (node.outputNotice && (node.outputNotice[lang] || node.outputNotice.fr)) || '';
+    const justification = (node.reportJustification && (node.reportJustification[lang] || node.reportJustification.fr)) || '';
+
+    let inputsHtml = '';
+    if (node.inputs && Array.isArray(node.inputs)) {
+        node.inputs.forEach(inp => {
+            const termLink = inp.termId 
+                ? `<button type="button" class="glossary-term-link" onclick="openGlossary('${inp.termId}')" title="${lang === 'fr' ? 'Voir la définition' : 'View definition'}">${inp.label}</button>` 
+                : `<strong>${inp.label}</strong>`;
+            
+            inputsHtml += `
+                <tr class="gpower-param-row">
+                    <td class="param-name-cell">${termLink}</td>
+                    <td class="param-val-cell"><span class="gpower-code-pill">${inp.value}</span></td>
+                    <td class="param-note-cell">${inp.note || ''}</td>
+                </tr>
+            `;
         });
     }
-    
-    // Add extra common indicators if not present
-    if (node.id.includes('t-test') || node.id.includes('anova')) {
-        const pVal = GPowerData.glossary[lang]['p-value'];
-        html += `
-        <div class="indicator-item" style="margin-bottom: 1.2rem; border-top: 1px dashed var(--surface-2); padding-top: 10px;">
-            <strong style="color: var(--ink); display: block; margin-bottom: 3px;">${pVal.term}</strong>
-            <p style="font-size: 0.9rem; margin: 0; line-height: 1.4;">${pVal.def}</p>
-        </div>`;
-    }
 
-    html += `</div>`;
+    return `
+        <div class="gpower-recipe-sheet">
+            <!-- Header du résultat -->
+            <div class="gpower-recipe-header">
+                <div>
+                    <span class="gpower-recipe-kicker">${isPosthoc ? 'Analyse Post-hoc • G*Power 3.1' : 'Dimensionnement A priori • G*Power 3.1'}</span>
+                    <h2 class="gpower-recipe-title">${testTitle}</h2>
+                    <p class="gpower-recipe-situation">${situation}</p>
+                </div>
+                <button type="button" class="gpower-recipe-close-btn" onclick="mapGoBack()" aria-label="Retour au choix">✕</button>
+            </div>
 
-    // Reporting Example
-    html += `<div class="reporting-box" style="margin-top: 2rem; background: var(--surface); border: 1px solid var(--surface-2); padding: 1rem 1.2rem; border-radius: 3px;">`;
-    html += `<p style="font-size: 0.9rem; font-style: italic; margin: 0;">` + (lang === 'fr' ? '<b>Conseil de rédaction :</b> Toujours rapporter la taille d’effet (d ou f) en plus de la p-value pour montrer l’importance pratique de votre résultat.' : '<b>Writing Tip:</b> Always report the effect size (d or f) alongside the p-value to show the practical importance of your result.') + `</p>`;
-    html += `</div>`;
+            <!-- BLOC 1 : Menus déroulants G*Power -->
+            <div class="gpower-recipe-section">
+                <div class="recipe-section-title">
+                    <span class="recipe-step-badge">1</span>
+                    <h3>Ce qu'il faut sélectionner dans les menus de G*Power :</h3>
+                </div>
+                <div class="gpower-dropdowns-grid">
+                    <div class="gpower-dropdown-card">
+                        <span class="dropdown-label">1. Menu "Test family"</span>
+                        <div class="dropdown-value">${node.gpowerFamily || 't tests'}</div>
+                    </div>
+                    <div class="gpower-dropdown-card">
+                        <span class="dropdown-label">2. Menu "Statistical test"</span>
+                        <div class="dropdown-value">${node.gpowerTest || ''}</div>
+                    </div>
+                    <div class="gpower-dropdown-card">
+                        <span class="dropdown-label">3. Menu "Type of power analysis"</span>
+                        <div class="dropdown-value highlight-type">${typeOfAnalysis}</div>
+                    </div>
+                </div>
+            </div>
 
-    detailContent.innerHTML = html;
-    detailCard.style.display = "block";
-    container.style.display = "none";
-}
+            <!-- BLOC 2 : Paramètres d'entrée (Input Parameters) -->
+            <div class="gpower-recipe-section">
+                <div class="recipe-section-title">
+                    <span class="recipe-step-badge">2</span>
+                    <h3>Ce que vous devez taper dans la zone "Input Parameters" :</h3>
+                </div>
+                <div class="gpower-table-wrapper">
+                    <table class="gpower-params-table">
+                        <thead>
+                            <tr>
+                                <th>Paramètre G*Power</th>
+                                <th>Valeur à saisir</th>
+                                <th>Explication &amp; Rôle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${inputsHtml}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-function closeDetailCard() {
-    detailCard.style.display = "none";
-    container.style.display = "flex";
+            <!-- BLOC 3 : Action Calculate & Sortie -->
+            <div class="gpower-recipe-section">
+                <div class="recipe-section-title">
+                    <span class="recipe-step-badge">3</span>
+                    <h3>Cliquez sur Calculate et observez le résultat :</h3>
+                </div>
+                
+                <div class="gpower-result-action-box">
+                    <div class="gpower-calc-button-preview">
+                        <span class="calc-btn-mock">Calculate</span>
+                        <span class="calc-hint">Bouton en bas à droite de l'écran G*Power</span>
+                    </div>
+
+                    <div class="gpower-output-explanation">
+                        <div class="output-notice-text">${outputText}</div>
+                        ${node.benchmarkValue ? `
+                            <div class="gpower-benchmark-badge">
+                                <strong>Résultat type obtenu :</strong>
+                                <span>${node.benchmarkValue}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOC 4 : Modèle de justification pour votre rapport / mémoire -->
+            ${justification ? `
+                <div class="gpower-recipe-section">
+                    <div class="recipe-section-title">
+                        <span class="recipe-step-badge">4</span>
+                        <h3>Phrase de justification à copier pour votre rapport ou mémoire :</h3>
+                    </div>
+                    <div class="gpower-justification-box">
+                        <blockquote id="gpower-justif-text">${justification}</blockquote>
+                        <button type="button" class="gpower-copy-btn" onclick="copyGpowerJustification(this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            <span>Copier la phrase</span>
+                        </button>
+                    </div>
+                </div>
+            ` : ''}
+
+            <!-- Navigation bas de page -->
+            <div class="gpower-recipe-footer">
+                <button type="button" class="gpower-footer-nav-btn" onclick="mapGoBack()">← Revenir au choix du test</button>
+                <button type="button" class="gpower-footer-nav-btn secondary" onclick="mapReset()">↺ Recommencer du début</button>
+            </div>
+        </div>
+    `;
 }
 
 /**
- * Navigation Hooks
+ * Copier la phrase de justification
+ */
+function copyGpowerJustification(btn) {
+    const textElem = document.getElementById('gpower-justif-text');
+    if (!textElem) return;
+
+    const rawText = textElem.innerText.replace(/^[«“"]|[»”"]$/g, '').trim();
+    navigator.clipboard.writeText(rawText).then(() => {
+        const origHtml = btn.innerHTML;
+        btn.innerHTML = `<span>✓ Phrase copiée !</span>`;
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.innerHTML = origHtml;
+            btn.classList.remove('copied');
+        }, 2500);
+    }).catch(err => {
+        console.error('Erreur copie:', err);
+    });
+}
+
+/**
+ * Navigation vers l'arrière
  */
 function mapGoBack() {
-    if (historyStack.length <= 1) return;
-    historyStack.pop();
-    renderLevel(historyStack[historyStack.length - 1]);
-}
-
-function mapReset() {
-    historyStack = ["root"];
-    renderLevel("root");
+    if (gpowerHistory.length <= 1) return;
+    gpowerHistory.pop();
+    renderGpowerStep(gpowerHistory[gpowerHistory.length - 1]);
 }
 
 /**
- * Glossary Modal Logic (kept for legacy support or manual triggers)
+ * Réinitialisation complète
  */
-function openGlossary(termId) {
-    const lang = localStorage.getItem('site-lang') || 'fr';
-    const termData = GPowerData.glossary[lang][termId];
-    if (!termData) return;
-
-    document.getElementById('glossary-term').textContent = termData.term;
-    document.getElementById('glossary-def').innerHTML = termData.def;
-    document.getElementById('glossary-modal').style.display = "flex";
+function mapReset() {
+    gpowerHistory = ["root"];
+    renderGpowerStep("root");
 }
 
+/**
+ * Navigation directe vers une étape du fil d'Ariane
+ */
+function goToGpowerHistoryIndex(targetIndex) {
+    if (targetIndex >= 0 && targetIndex < gpowerHistory.length) {
+        gpowerHistory = gpowerHistory.slice(0, targetIndex + 1);
+        renderGpowerStep(gpowerHistory[gpowerHistory.length - 1]);
+    }
+}
+
+/**
+ * Ouverture de la modale glossaire
+ */
+function openGlossary(termId) {
+    const currentLang = (typeof currentLanguage !== 'undefined' && currentLanguage) || localStorage.getItem('site-lang') || 'fr';
+    const dict = (window.GPowerData && window.GPowerData.glossary && (window.GPowerData.glossary[currentLang] || window.GPowerData.glossary.fr)) || {};
+    const termData = dict[termId];
+
+    if (!termData) return;
+
+    const termElem = document.getElementById('glossary-term');
+    const defElem = document.getElementById('glossary-def');
+    const modal = document.getElementById('glossary-modal');
+
+    if (termElem) termElem.innerHTML = termData.term;
+    if (defElem) defElem.innerHTML = termData.def;
+    if (modal) {
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden"; // Évite le scroll d'arrière-plan
+    }
+}
+
+/**
+ * Fermeture de la modale glossaire
+ */
 function closeGlossary() {
-    document.getElementById('glossary-modal').style.display = "none";
+    const modal = document.getElementById('glossary-modal');
+    if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+    }
+}
+
+// Compatibilité legacy
+function closeDetailCard() {
+    mapGoBack();
 }

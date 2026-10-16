@@ -34,11 +34,11 @@ const theoryData = {
         title: "Translator's Guide (Real-World Case)",
         subtitle: "Translating field research questions into variables and statistical tests",
         character: { shape: "nexus", color: "#6366f1", eyes: "focused" },
-        tags: ["methodology", "translator", "real case", "grossetti", "sociology", "variables", "correlation"],
+        tags: ["methodology", "translator", "real case", "sociology", "variables", "correlation"],
         sections: [
             {
                 title: "A Real Case Study (Sociology of Science)",
-                content: "Before opening any software, real-world research questions must be translated into statistical language.\n\nConsider a real empirical case from sociology of science (study by Michel Grossetti): *« The historical evolution of the topic 'Breast Cancer' across scientific publications from 1920 to 2016. »*\n\nFaced with this question, the common mistake is picking a test randomly without breaking down what is actually measured.",
+                content: "Before opening any software, real-world research questions must be translated into statistical language.\n\nConsider a real empirical case from sociology of science: *« The historical evolution of the topic 'Breast Cancer' across scientific publications from 1920 to 2016. »*\n\nFaced with this question, the common mistake is picking a test randomly without breaking down what is actually measured.",
                 layout: "standard"
             },
             {

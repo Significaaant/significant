@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=10">
     <script src="translations.js"></script>
     <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
@@ -51,33 +51,63 @@
         </div>
     </header>
 
-    <!-- =============== MINDMAP =============== -->
-    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
-        <div class="mindmap-viewport" id="mindmap-viewport">
-
-            <button id="map-back-btn" class="map-nav-btn back-btn-fixed" onclick="mapGoBack()" style="display: none;">
-                ← <span data-i18n="nav-retour">Retour</span>
-            </button>
-
-            <button id="map-reset-btn" class="map-nav-btn reset-btn-fixed" onclick="mapReset()">
-                ↺ <span data-i18n="quiz-restart-btn">Recommencer</span>
-            </button>
-
-            <div id="mindmap-tooltip" class="mindmap-tooltip"></div>
-
-            <div id="mindmap-container" class="mindmap-container">
-                <!-- Bulles rendues ici par JS -->
+    <!-- =============== G*POWER WIZARD =============== -->
+    <main class="container" style="padding-top: 1rem; padding-bottom: 4rem;">
+        
+        <!-- PRÉSENTATION CLAIRE & ACCESSIBLE DE G*POWER -->
+        <div class="gpower-welcome-card">
+            <div class="gpower-welcome-main">
+                <span class="methodo-lead-kicker">Dimensionnement &amp; Puissance statistique</span>
+                <h2>Comprendre et utiliser G*Power simplement</h2>
+                <p class="gpower-welcome-desc">
+                    <strong>G*Power</strong> est le logiciel libre de référence (conçu par l'Université de Düsseldorf) pour calculer la <button type="button" class="glossary-term-link" onclick="openGlossary('power-beta')">puissance statistique (1 - β)</button> et connaître précisément la <button type="button" class="glossary-term-link" onclick="openGlossary('n-total')">taille d'échantillon</button> à recruter. Il évite de recruter trop peu de participants (ce qui rendrait vos effets invisibles) ou d'en recruter trop inutilement.
+                </p>
+                <p class="gpower-welcome-helper">
+                    Ses menus en anglais peuvent impressionner : <strong>notre guide interactif ci-dessous vous indique pas à pas</strong> quelle famille de test cocher, quels paramètres taper et où lire votre résultat.
+                </p>
             </div>
-
-            <!-- Carte détail contextuelle -->
-            <div id="detail-card" class="detail-card fade-in" style="display: none;">
-                <button class="close-btn" onclick="closeDetailCard()" aria-label="Fermer">×</button>
-                <div id="detail-content"></div>
+            <div class="gpower-welcome-aside">
+                <div class="gpower-dl-box">
+                    <span class="gpower-dl-tag">Logiciel officiel</span>
+                    <h4>Obtenir G*Power</h4>
+                    <p>100% gratuit • Windows &amp; Mac</p>
+                    <a href="https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower" target="_blank" rel="noopener noreferrer" class="gpower-dl-btn" aria-label="Télécharger G*Power sur le site officiel de l'Université de Düsseldorf">
+                        Télécharger G*Power ↗
+                    </a>
+                    <span class="gpower-dl-sub">Site officiel Université de Düsseldorf</span>
+                </div>
             </div>
         </div>
 
-        <div class="mindmap-ctrl mobile-only">
-            <!-- Boutons alternatifs mobile si besoin -->
+        <!-- NAVIGATEUR INTERACTIF PAS À PAS (DIRECTEMENT VISIBLE) -->
+        <div class="gpower-wizard-panel" id="gpower-wizard-panel">
+            
+            <!-- Barre d'avancement & navigation -->
+            <div class="gpower-wizard-topbar">
+                <button type="button" id="map-back-btn" class="gpower-nav-btn gpower-nav-back" onclick="mapGoBack()" style="display: none;">
+                    ← <span data-i18n="nav-retour">Étape précédente</span>
+                </button>
+                
+                <div class="gpower-breadcrumbs" id="gpower-breadcrumbs" aria-live="polite">
+                    <!-- Rempli dynamiquement -->
+                </div>
+
+                <button type="button" id="map-reset-btn" class="gpower-nav-btn gpower-nav-reset" onclick="mapReset()">
+                    ↺ <span data-i18n="quiz-restart-btn">Recommencer</span>
+                </button>
+            </div>
+
+            <!-- Zone d'affichage des cartes interactives -->
+            <div id="mindmap-container" class="gpower-cards-container gpower-grid-2">
+                <!-- Rendu dynamique par gpower_view.js -->
+            </div>
+
+            <!-- Fiche détaillée finale pas à pas dans G*Power -->
+            <div id="detail-card" class="gpower-detail-card" style="display: none;">
+                <div id="detail-content"></div>
+            </div>
+
+            <div id="mindmap-tooltip" class="mindmap-tooltip"></div>
         </div>
     </main>
 

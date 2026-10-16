@@ -12,19 +12,28 @@ function getCardImagePaths(testKey) {
         slug: slug,
         frontPrimary: `images/cards/${slug}_front.png`,
         frontFallbacks: [
+            `images/${slug}_front.png`,
             `images/cards/${slug}_front.jpg`,
+            `images/${slug}_front.jpg`,
             `images/cards/${slug}.png`,
+            `images/${slug}.png`,
             `images/cards/${slug}.jpg`,
+            `images/${slug}.jpg`,
             `images/cards/${testKey}_front.png`,
+            `images/${testKey}_front.png`,
             `images/cards/${testKey}_front.jpg`,
+            `images/${testKey}_front.jpg`,
             `images/booster_art.png`,
             `images/booster_art.jpg`,
             `images/bear_flames_booster.jpg`
         ],
         decoPrimary: `images/cards/${slug}_deco.png`,
         decoFallbacks: [
+            `images/${slug}_deco.png`,
             `images/cards/${slug}_transparent.png`,
+            `images/${slug}_transparent.png`,
             `images/cards/${testKey}_deco.png`,
+            `images/${testKey}_deco.png`,
             `images/booster_deco_transparent.png`
         ]
     };
@@ -147,12 +156,50 @@ function copyCode(paneId, btn) {
 
 /**
  * Génère le code HTML complet d'une carte Booster (Recto/Verso/Tilt)
+/**
+ * Obtient le libellé traduit de la rareté d'une carte (FR / EN)
+ */
+function getRarityLabel(rarity, lang) {
+    const currentLang = lang || (typeof localStorage !== 'undefined' && localStorage.getItem('site-lang')) || 'fr';
+    const key = 'card-rarity-' + rarity;
+    if (typeof getT === 'function') {
+        const val = getT(key);
+        if (val && val !== key) return val;
+    }
+    if (typeof window !== 'undefined' && typeof window.getT === 'function') {
+        const val = window.getT(key);
+        if (val && val !== key) return val;
+    }
+    if (typeof uiTranslations !== 'undefined' && uiTranslations[currentLang] && uiTranslations[currentLang][key]) {
+        return uiTranslations[currentLang][key];
+    }
+    const fallbackDict = {
+        fr: {
+            commune: "Commune",
+            peu_commune: "Peu commune",
+            rare: "Rare",
+            super_rare: "Super rare",
+            mythique: "Mythique"
+        },
+        en: {
+            commune: "Common",
+            peu_commune: "Uncommon",
+            rare: "Rare",
+            super_rare: "Ultra rare",
+            mythique: "Mythic"
+        }
+    };
+    return (fallbackDict[currentLang] && fallbackDict[currentLang][rarity]) || (fallbackDict.fr && fallbackDict.fr[rarity]) || rarity;
+}
+
+/**
+ * Génère le code HTML complet de la carte booster réversible (Recto + Verso)
  */
 function buildBoosterCardHtml(testKey, options = {}) {
     const currentLang = localStorage.getItem('site-lang') || 'fr';
     const meta = (typeof getQuizTestMeta === 'function') ? getQuizTestMeta(testKey) : null;
     const rarity = meta ? meta.rarity : 'commune';
-    const rarityLabel = (typeof getT === 'function' && getT('card-rarity-' + rarity)) || rarity.toUpperCase();
+    const rarityLabel = getRarityLabel(rarity, currentLang);
     const courseId = (meta && meta.courseId) ? meta.courseId : 'types-variables';
     const courseUrl = `theory.html?id=${courseId}`;
     const testTitle = (meta && meta.displayTitle && meta.displayTitle[currentLang])
@@ -209,10 +256,6 @@ function buildBoosterCardHtml(testKey, options = {}) {
                         <div class="booster-card-glare"></div>
                         <div class="booster-shimmer-sweep"></div>
                         <div class="booster-front-inner">
-                            <div class="booster-front-topbar">
-                                <span class="booster-front-wordmark">significant</span>
-                            </div>
-                            
                             <div class="booster-art-frame">
                                 <img src="${imgSources.frontPrimary}" 
                                      data-fallbacks='${JSON.stringify(imgSources.frontFallbacks)}' 
@@ -340,37 +383,59 @@ function closeBoosterCardModal() {
 }
 
 /**
- * Affiche la Galerie de Cartes de Tests dans la page Théorie (tout en haut)
+ * Affiche la Galerie de Cartes de Tests dans la page Théorie (Index alphabétique + Ruban horizontal)
  */
-function renderTheoryCardsGallery(containerId = 'theory-cards-ribbon') {
-    const container = document.getElementById(containerId);
-    if (!container || typeof quizTestMeta === 'undefined') return;
+function renderTheoryCardsGallery(ribbonContainerId = 'theory-cards-ribbon', listContainerId = 'theory-cards-list') {
+    const ribbon = document.getElementById(ribbonContainerId) || document.getElementById('theory-cards-grid');
+    const listContainer = document.getElementById(listContainerId);
+    if (!ribbon || typeof quizTestMeta === 'undefined') return;
 
     const currentLang = localStorage.getItem('site-lang') || 'fr';
-    const testKeys = Object.keys(quizTestMeta);
+    const rawKeys = Object.keys(quizTestMeta);
+    // Filtrer pour n'avoir que les clés uniques
+    const testKeys = Array.from(new Set(rawKeys));
 
-    const cardsHtml = testKeys.map(key => {
+    // Préparer et trier les tests par ordre alphabétique
+    const sortedTests = testKeys.map(key => {
         const meta = getQuizTestMeta(key);
-        const rarity = meta.rarity || 'commune';
-        const rarityLabel = (typeof getT === 'function' && getT('card-rarity-' + rarity)) || rarity.toUpperCase();
         const title = (meta.displayTitle && meta.displayTitle[currentLang]) ? meta.displayTitle[currentLang] : key;
-        const imgSources = getCardImagePaths(key);
 
         // Catégorie pour filtrage (selon premier item du quizPath)
         const pathSteps = (meta.quizPath && (meta.quizPath.fr || meta.quizPath[currentLang])) || [];
-        const primaryGoal = pathSteps[0] || 'Autre';
+        const pGoal = (pathSteps[0] || '').toLowerCase();
         let filterCategory = 'autre';
-        if (primaryGoal.includes('Compar')) filterCategory = 'comparer';
-        else if (primaryGoal.includes('Relation')) filterCategory = 'relation';
-        else if (primaryGoal.includes('Prédi')) filterCategory = 'predire';
-        else if (primaryGoal.includes('Décri')) filterCategory = 'decrire';
-        else if (primaryGoal.includes('Vérifi') || primaryGoal.includes('Inféren')) filterCategory = 'verifier';
+        if (pGoal.includes('relat') || pGoal.includes('corrél') || pGoal.includes('associ') || pGoal.includes('lien') || key.includes('chi2') || key.includes('pearson') || key.includes('spearman') || key.includes('cramer') || key.includes('fisher')) {
+            if (key === 'res_chi2_fit') {
+                filterCategory = 'comparer';
+            } else {
+                filterCategory = 'relation';
+            }
+        } else if (pGoal.includes('compar')) {
+            filterCategory = 'comparer';
+        } else if (pGoal.includes('prédi') || pGoal.includes('predict') || pGoal.includes('régres') || key.includes('reg')) {
+            filterCategory = 'predire';
+        } else if (pGoal.includes('décri') || pGoal.includes('describ') || key.includes('tendance') || key.includes('dispersion') || key.includes('visu') || key.includes('tri_plat')) {
+            filterCategory = 'decrire';
+        } else if (pGoal.includes('vérifi') || pGoal.includes('check') || pGoal.includes('inféren') || pGoal.includes('postulat') || pGoal.includes('assumpt') || key.includes('shapiro') || key.includes('levene') || key.includes('intervalle')) {
+            filterCategory = 'verifier';
+        }
+
+        return { key, meta, title, filterCategory };
+    }).sort((a, b) => a.title.localeCompare(b.title, currentLang));
+
+    const hintText = (typeof getT === 'function' && getT('theory-deck-hint-enlarge')) || (currentLang === 'fr' ? '⤢ Agrandir' : '⤢ Enlarge');
+
+    // 1. Rendu des mini-cartes dans le ruban horizontal
+    const cardsHtml = sortedTests.map(item => {
+        const { key, meta, title, filterCategory } = item;
+        const rarity = meta.rarity || 'commune';
+        const rarityLabel = getRarityLabel(rarity, currentLang);
+        const imgSources = getCardImagePaths(key);
 
         return `
-            <div class="deck-mini-card" data-category="${filterCategory}" data-test-key="${key}" onclick="openBoosterCardModal('${key}')" role="button" tabindex="0" title="${title} — Cliquer pour inspecter">
+            <div class="deck-mini-card" data-category="${filterCategory}" data-test-key="${key}" onclick="openBoosterCardModal('${key}')" role="button" tabindex="0" title="${title} — ${hintText}">
                 <div class="deck-mini-inner">
                     <div class="deck-mini-topbar">
-                        <span class="deck-mini-wordmark">sig</span>
                         <span class="booster-rarity-badge rarity-${rarity}">${rarityLabel}</span>
                     </div>
                     <div class="deck-mini-art-frame">
@@ -385,14 +450,55 @@ function renderTheoryCardsGallery(containerId = 'theory-cards-ribbon') {
                     </div>
                     <div class="deck-mini-footer">
                         <h4 class="deck-mini-title">${title}</h4>
-                        <span class="deck-mini-hint">⤢ Inspecter</span>
+                        <span class="deck-mini-hint">${hintText}</span>
                     </div>
                 </div>
             </div>
         `;
     }).join('');
 
-    container.innerHTML = cardsHtml;
+    ribbon.innerHTML = cardsHtml;
+
+    // 2. Rendu de la liste alphabétique sur le côté
+    if (listContainer) {
+        const listHtml = sortedTests.map(item => {
+            const { key, title, filterCategory } = item;
+            return `
+                <button type="button" class="deck-list-item" data-category="${filterCategory}" data-test-key="${key}" onclick="selectDeckTestFromSidebar('${key}')" title="${title}">
+                    <span class="deck-list-item-title">${title}</span>
+                    <span class="deck-list-item-arrow">→</span>
+                </button>
+            `;
+        }).join('');
+        listContainer.innerHTML = listHtml;
+    }
+
+    const countBadge = document.getElementById('deck-list-count');
+    if (countBadge) {
+        countBadge.textContent = `${sortedTests.length} tests`;
+    }
+}
+
+/**
+ * Sélection d'un test depuis la barre latérale alphabétique :
+ * Fait défiler le ruban vers la carte, l'anime et ouvre la carte agrandie
+ */
+function selectDeckTestFromSidebar(testKey) {
+    const ribbon = document.getElementById('theory-cards-ribbon');
+    const card = document.querySelector(`.deck-mini-card[data-test-key="${testKey}"]`);
+    if (ribbon && card) {
+        const cardOffset = card.offsetLeft - (ribbon.clientWidth / 2) + (card.clientWidth / 2);
+        ribbon.scrollTo({ left: Math.max(0, cardOffset), behavior: 'smooth' });
+        card.classList.add('highlight-focus');
+        setTimeout(() => card.classList.remove('highlight-focus'), 1200);
+    }
+
+    document.querySelectorAll('.deck-list-item').forEach(el => el.classList.remove('is-active'));
+    const item = document.querySelector(`.deck-list-item[data-test-key="${testKey}"]`);
+    if (item) item.classList.add('is-active');
+
+    // Agrandit la carte en modale 3D (carte à taille réelle)
+    openBoosterCardModal(testKey);
 }
 
 /**
@@ -403,6 +509,7 @@ function filterTheoryCardsDeck(category, btn) {
     section.querySelectorAll('.deck-filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
+    let visibleCount = 0;
     const cards = section.querySelectorAll('.deck-mini-card');
     cards.forEach(card => {
         if (category === 'all' || card.dataset.category === category) {
@@ -411,6 +518,24 @@ function filterTheoryCardsDeck(category, btn) {
             card.style.display = 'none';
         }
     });
+
+    const listItems = section.querySelectorAll('.deck-list-item');
+    listItems.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'flex';
+            visibleCount++;
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    const countBadge = document.getElementById('deck-list-count');
+    if (countBadge) {
+        countBadge.textContent = `${visibleCount} test${visibleCount > 1 ? 's' : ''}`;
+    }
+
+    const ribbon = document.getElementById('theory-cards-ribbon');
+    if (ribbon) ribbon.scrollTo({ left: 0, behavior: 'smooth' });
 }
 
 /**

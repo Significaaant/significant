@@ -11,13 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=2">
-    <script src="translations.js?v=2" defer></script>
-    <script src="quiz_data.js?v=2" defer></script>
-    <script src="quiz_test_meta.js?v=2" defer></script>
-    <script src="booster_cards_engine.js?v=3" defer></script>
-    <script src="python_bridge.js?v=1" defer></script>
-    <script src="i18n.js?v=2" defer></script>
+    <link rel="stylesheet" href="style.css?v=12">
+    <script src="translations.js?v=5" defer></script>
+    <script src="quiz_data.js?v=4" defer></script>
+    <script src="quiz_test_meta.js?v=4" defer></script>
+    <script src="booster_cards_engine.js?v=13" defer></script>
+    <script src="python_bridge.js?v=4" defer></script>
+    <script src="i18n.js?v=4" defer></script>
 </head>
 
 <body>
@@ -84,10 +84,10 @@
                     </button>
                     <div class="hell-subchoice-panel" id="panel-harvest">
                         <a href="methodo.html#conception" class="hell-subchoice-link">
-                            <strong class="hell-subchoice-title" data-i18n="hell-subchoice-survey-title">J'ai besoin d'aide avec la conception de mon enquête et la réflexion sur les données</strong>
+                            <strong class="hell-subchoice-title" data-i18n="hell-subchoice-survey-title">Confection de mon enquête / réflexion sur mes données</strong>
                         </a>
                         <a href="methodo.html#gpower" class="hell-subchoice-link">
-                            <strong class="hell-subchoice-title" data-i18n="hell-subchoice-gpower-title">J'ai besoin d'aide pour calculer ma taille d'échantillon et la puissance (outil G*Power)</strong>
+                            <strong class="hell-subchoice-title" data-i18n="hell-subchoice-gpower-title">Calcul de la taille d'échantillon et de la puissance (outil G*Power)</strong>
                         </a>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                     <div class="hell-subchoice-panel" id="panel-analyse">
                         <a href="#quiz" class="hell-subchoice-link" onclick="scrollToQuiz(event)">
                             <strong class="hell-subchoice-title" data-i18n="hell-subchoice-quiz-title">Faire le quiz</strong>
-                            <span class="hell-subchoice-desc" data-i18n="hell-subchoice-quiz-desc">Identifier immédiatement le bon test statistique pour vos données.</span>
+                            <span class="hell-subchoice-desc" data-i18n="hell-subchoice-quiz-desc">Identifier le bon test statistique pour vos données.</span>
                         </a>
                     </div>
                 </div>
@@ -121,7 +121,6 @@
                     <div class="hell-subchoice-panel" id="panel-theory">
                         <a href="theory.html" class="hell-subchoice-link">
                             <strong class="hell-subchoice-title" data-i18n="hell-subchoice-fiches-title">Lire les fiches de cours</strong>
-                            <span class="hell-subchoice-desc" data-i18n="hell-subchoice-fiches-desc">Consulter les synthèses et fiches méthodologiques détaillées.</span>
                         </a>
                     </div>
                 </div>
@@ -172,8 +171,8 @@
                                 <strong data-i18n="prep-card-3-title">3. Valeurs extrêmes</strong>
                                 <p data-i18n="prep-card-3-sub">Attention aux erreurs :</p>
                                 <ul data-i18n="prep-card-3-list">
-                                    <li>Un âge de 150 ans ? Supprimez.</li>
-                                    <li>Une taille de 10 m ? Corrigez.</li>
+                                    <li>Un âge de 150 ans ? Supprimez-le.</li>
+                                    <li>Une taille de 10 m ? Corrigez-la.</li>
                                 </ul>
                             </div>
                         </div>
@@ -194,31 +193,27 @@
 
                 <div class="resources-grid">
                     <!-- 01 : Fiches théoriques -->
-                    <a href="theory.html" class="resource-card">
-                        <span class="resource-num">01 / THÉORIE</span>
+                    <a href="theory.html" class="resource-card card-theory">
                         <div class="resource-content">
-                            <h3 data-i18n="hub-theory-title">Fiches théoriques &amp; Méthodo</h3>
-                            <p data-i18n="hub-theory-desc">47 fiches claires et rigoureuses : de la conception du questionnaire et du recueil jusqu'aux tests statistiques, codes R/Jamovi et pièges à éviter.</p>
+                            <h3 data-i18n="hub-theory-title">Fiches théoriques et méthodologiques</h3>
                             <span class="resource-link" data-i18n="hub-theory-cta">Consulter les fiches →</span>
                         </div>
                     </a>
 
                     <!-- 02 : G*Power -->
-                    <a href="gpower.html" class="resource-card">
-                        <span class="resource-num">02 / PUISSANCE</span>
+                    <a href="gpower.html" class="resource-card card-gpower">
                         <div class="resource-content">
                             <h3 data-i18n="hub-gpower-title">Guide G*Power</h3>
-                            <p data-i18n="hub-gpower-desc">Calculez précisément votre taille d'échantillon a priori et maîtrisez la puissance statistique (1 - β).</p>
+                            <p data-i18n="hub-gpower-desc">Calculer votre taille d'échantillon a priori et la puissance statistique.</p>
                             <span class="resource-link" data-i18n="hub-gpower-cta">Ouvrir le guide G*Power →</span>
                         </div>
                     </a>
 
                     <!-- 03 : Glossaire -->
-                    <a href="glossary.html" class="resource-card">
-                        <span class="resource-num">03 / LEXIQUE</span>
+                    <a href="glossary.html" class="resource-card card-glossary">
                         <div class="resource-content">
-                            <h3 data-i18n="hub-glossary-title">Glossaire interactif</h3>
-                            <p data-i18n="hub-glossary-desc">Déchiffrez le vocabulaire technique avec recherche instantanée, tri par ordre alphabétique, chronologique ou niveau.</p>
+                            <h3 data-i18n="hub-glossary-title">Glossaire</h3>
+                            <p data-i18n="hub-glossary-desc">Tout le vocabulaire dont vous avez besoin pour comprendre les statistiques.</p>
                             <span class="resource-link" data-i18n="hub-glossary-cta">Accéder au glossaire →</span>
                         </div>
                     </a>

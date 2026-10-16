@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiches théoriques — Significant</title>
     <meta name="description" content="Fiches théoriques de statistiques : loi normale, tests paramétriques, régression et plus encore.">
-    <link rel="stylesheet" href="style.css">
-    <script src="translations.js" defer></script>
-    <script src="quiz_test_meta.js" defer></script>
-    <script src="booster_cards_engine.js?v=3" defer></script>
-    <script src="i18n.js" defer></script>
+    <link rel="stylesheet" href="style.css?v=12">
+    <script src="translations.js?v=11" defer></script>
+    <script src="quiz_test_meta.js?v=11" defer></script>
+    <script src="booster_cards_engine.js?v=13" defer></script>
+    <script src="i18n.js?v=11" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -310,32 +310,41 @@
             color: var(--ink-2, #382F28);
         }
 
-        /* Footer quote / Encart citation */
+        /* Encart de synthèse 'À retenir' */
         .fiche-footer {
             max-width: 860px;
             margin: 2.5rem auto 0;
-            padding: 1.2rem 1.8rem;
-            border-radius: 6px;
+            padding: 1.3rem 1.6rem;
+            border-radius: 8px;
             background: #FAF8F5;
             border: 1.5px solid var(--surface-2, #E2DAD0);
             border-left: 4px solid var(--bordeaux, #6B2D3E);
-            font-style: italic;
-            font-size: 0.98rem;
-            color: var(--ink-2, #382F28);
             display: flex;
-            align-items: center;
-            gap: 0.8rem;
+            flex-direction: column;
+            gap: 0.5rem;
             line-height: 1.6;
         }
 
-        .fiche-footer::before {
-            content: '\201C';
-            font-size: 2.5rem;
+        .fiche-footer-badge {
+            display: inline-flex;
+            align-items: center;
+            align-self: flex-start;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             color: var(--bordeaux, #6B2D3E);
-            opacity: 0.6;
-            line-height: 1;
-            flex-shrink: 0;
-            font-family: 'DM Serif Display', Georgia, serif;
+            background: var(--bordeaux-soft, #F5EBF0);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .fiche-footer-text {
+            font-size: 0.98rem;
+            color: var(--ink-2, #382F28);
+            line-height: 1.6;
+            font-style: normal;
         }
 
         /* Figure block */
@@ -359,183 +368,6 @@
             font-style: italic;
             color: var(--ink-3, #7A6E64);
         }
-
-        /* ===== Dark Theme Variables (Encre Éditoriale Sombre Haute Lisibilité) ===== */
-        body.theme-fiche-dark {
-            background-color: #17120E !important;
-            color: #E8E2D9 !important;
-            --ink: #FAF8F5;
-            --ink-2: #DDD4C8;
-            --ink-3: #A89C90;
-            --surface: #231C17;
-            --surface-2: #3D322A;
-            --bg: #17120E;
-        }
-
-        body.theme-fiche-dark h1.theory-title,
-        body.theme-fiche-dark .fiche-main-title {
-            color: #FAF8F5 !important;
-        }
-
-        body.theme-fiche-dark .theory-subtitle {
-            color: #A89C90 !important;
-            border-bottom-color: #3D322A !important;
-        }
-
-        body.theme-fiche-dark .theory-search-bar {
-            background: #231C17 !important;
-            border-color: #3D322A !important;
-            color: #FAF8F5 !important;
-        }
-
-        body.theme-fiche-dark .theory-card {
-            background: #231C17 !important;
-            border-color: #3D322A !important;
-        }
-
-        body.theme-fiche-dark .theory-card:hover {
-            border-color: #9C455B !important;
-        }
-
-        body.theme-fiche-dark .theory-card h3 {
-            color: #FAF8F5 !important;
-        }
-
-        body.theme-fiche-dark .card-subtitle-small {
-            color: #A89C90 !important;
-        }
-
-        body.theme-fiche-dark .card-tag {
-            background: #361F27 !important;
-            color: #FFAEC0 !important;
-        }
-
-        body.theme-fiche-dark .fiche-header {
-            border-bottom-color: #3D322A !important;
-        }
-
-        body.theme-fiche-dark .fiche-bloc-badge {
-            background: #361F27 !important;
-            color: #FFAEC0 !important;
-            border-color: #8B3D52 !important;
-        }
-
-        body.theme-fiche-dark .section-card {
-            background: #231C17 !important;
-            border: 1.5px solid #3D322A !important;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-        }
-
-        body.theme-fiche-dark .section-card-title {
-            color: #FAF8F5 !important;
-        }
-
-        body.theme-fiche-dark .section-card-body {
-            color: #DDD4C8 !important;
-        }
-
-        body.theme-fiche-dark .section-card-body li {
-            color: #DDD4C8 !important;
-        }
-
-        body.theme-fiche-dark .section-card-body strong {
-            color: #FFFFFF !important;
-        }
-
-        body.theme-fiche-dark .section-card-body blockquote {
-            background: rgba(107, 45, 62, 0.25) !important;
-            border-left-color: #D6637D !important;
-            color: #DDD4C8 !important;
-        }
-
-        body.theme-fiche-dark .section-standard {
-            border-left: 4px solid #9C455B !important;
-            background: #231C17 !important;
-        }
-
-        body.theme-fiche-dark .section-highlight {
-            border: 1.5px solid #4D2834 !important;
-            border-left: 4px solid #D6637D !important;
-            background: #2C1B21 !important;
-        }
-
-        body.theme-fiche-dark .section-highlight .section-card-title {
-            color: #FFAEC0 !important;
-        }
-
-        body.theme-fiche-dark .section-alert {
-            border: 1.5px solid #542B1F !important;
-            border-left: 4px solid #E56E47 !important;
-            background: #2D1A14 !important;
-        }
-
-        body.theme-fiche-dark .section-alert .section-card-title {
-            color: #FFB399 !important;
-        }
-
-        body.theme-fiche-dark .formula-line {
-            background: #1C1612 !important;
-            border-color: #3D322A !important;
-            color: #FFAEC0 !important;
-        }
-
-        body.theme-fiche-dark .fiche-footer {
-            background: #231C17 !important;
-            border: 1.5px solid #3D322A !important;
-            border-left: 4px solid #9C455B !important;
-            color: #DDD4C8 !important;
-        }
-
-        body.theme-fiche-dark .fiche-footer::before {
-            color: #D6637D !important;
-            opacity: 0.8 !important;
-        }
-
-        body.theme-fiche-dark .step-card {
-            background: #231C17 !important;
-            border-color: #3D322A !important;
-            border-left: 4px solid #9C455B !important;
-            color: #DDD4C8 !important;
-        }
-
-        body.theme-fiche-dark .step-card strong {
-            color: #FFFFFF !important;
-        }
-
-        body.theme-fiche-dark .theme-toggle {
-            background: #231C17 !important;
-            border-color: #3D322A !important;
-            color: #FAF8F5 !important;
-        }
-
-        /* ===== Theme Toggle Button ===== */
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 200;
-            width: 36px;
-            height: 36px;
-            border-radius: 4px;
-            background: var(--bg, #F5F2EC);
-            border: 1px solid var(--surface-2, #E2DAD0);
-            color: var(--ink-3, #7A6E64);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: border-color 0.2s;
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--bordeaux, #6B2D3E);
-        }
-
-        .theme-toggle svg { width: 18px; height: 18px; }
-        .theme-toggle .sun-icon { display: none; }
-        .theme-toggle .moon-icon { display: block; }
-        body.theme-fiche-dark .theme-toggle .sun-icon { display: block; }
-        body.theme-fiche-dark .theme-toggle .moon-icon { display: none; }
     </style>
 </head>
 
@@ -550,15 +382,7 @@
         </div>
     </div>
 
-    <button class="theme-toggle" id="theme-toggle" title="Changer le thème" aria-label="Basculer le thème clair/sombre">
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5" />
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-        </svg>
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-    </button>
+
 
     <nav class="navbar" role="navigation" aria-label="Navigation principale">
         <a href="index.html" class="logo" aria-label="Significant — Accueil">significant <span>stats</span></a>
@@ -592,28 +416,10 @@
                 const pageId = params.get('id');
                 const container = document.getElementById('theory-content');
 
-                // Initialize Theme (Default is light academic theme)
-                const savedTheme = localStorage.getItem('theory-theme') || 'light';
-
-                function applyTheme(theme) {
-                    document.body.classList.remove('theme-midnight', 'theme-fiche-dark', 'theme-fiche-light');
-                    if (theme === 'dark') {
-                        document.body.classList.add('theme-fiche-dark');
-                    } else {
-                        document.body.classList.add('theme-fiche-light');
-                    }
-                }
-
-                applyTheme(savedTheme);
-
-                // Theme Toggle Logic
-                const toggleBtn = document.getElementById('theme-toggle');
-                toggleBtn.addEventListener('click', () => {
-                    const currentTheme = localStorage.getItem('theory-theme') || 'light';
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    localStorage.setItem('theory-theme', newTheme);
-                    applyTheme(newTheme);
-                });
+                // Thème clair unifié sur tout le site
+                localStorage.removeItem('theory-theme');
+                document.body.classList.remove('theme-midnight', 'theme-fiche-dark');
+                document.body.classList.add('theme-fiche-light');
 
                 function getT(key) {
                     const lang = localStorage.getItem('site-lang') || 'fr';
@@ -774,7 +580,10 @@
                                         </figure>
                                     ` : ''}
                                     ${data.footer ? `
-                                        <div class="fiche-footer">${formatText(data.footer)}</div>
+                                        <div class="fiche-footer">
+                                            <span class="fiche-footer-badge" data-i18n="theory-takeaway">${getT('theory-takeaway') || 'À retenir'}</span>
+                                            <div class="fiche-footer-text">${formatText(data.footer)}</div>
+                                        </div>
                                     ` : ''}
                                 </div>
                             `;
@@ -823,13 +632,11 @@
 
                     let summaryHtml = `
                         <!-- ==============================================
-                             SECTION DECK DE TESTS STATISTIQUES (TOUT EN HAUT)
+                             SECTION TESTS STATISTIQUES (DECK EN LIGNE + INDEX)
                              ============================================== -->
                         <section class="theory-deck-section" id="theory-deck-section">
                             <div class="theory-deck-header">
-                                <span class="theory-deck-kicker" data-i18n="theory-deck-kicker">${getT('theory-deck-kicker') || 'COLLECTION COLLECTOR'}</span>
-                                <h2 class="theory-deck-title" data-i18n="theory-deck-title">${getT('theory-deck-title') || 'Deck des Tests Statistiques'}</h2>
-                                <p class="theory-deck-desc" data-i18n="theory-deck-desc">${getT('theory-deck-desc') || 'Explorez l\'ensemble des tests statistiques. Cliquez sur une carte pour l\'examiner en 3D, la retourner et afficher son chemin de décision dans le quiz.'}</p>
+                                <h2 class="theory-deck-title" data-i18n="theory-deck-title">${getT('theory-deck-title') || 'Tests statistiques'}</h2>
                                 
                                 <div class="theory-deck-filter-bar">
                                     <button type="button" class="deck-filter-btn active" onclick="filterTheoryCardsDeck('all', this)" data-i18n="theory-deck-filter-all">${getT('theory-deck-filter-all') || 'Tous les tests'}</button>
@@ -841,12 +648,36 @@
                                 </div>
                             </div>
 
-                            <div class="theory-deck-scroll-wrapper">
-                                <button type="button" class="deck-scroll-arrow deck-scroll-left" onclick="scrollDeckRibbon(-320)" aria-label="Défiler vers la gauche">‹</button>
-                                <div class="theory-cards-ribbon" id="theory-cards-ribbon">
-                                    <!-- Mini boosters injectés dynamiquement -->
+                            <div class="theory-deck-layout">
+                                <!-- Volet latéral : Liste alphabétique des tests -->
+                                <aside class="theory-deck-sidebar">
+                                    <div class="deck-sidebar-header">
+                                        <span class="deck-sidebar-title" data-i18n="theory-deck-index-title">${getT('theory-deck-index-title') || 'Index alphabétique'}</span>
+                                        <span class="deck-sidebar-count" id="deck-list-count">31 tests</span>
+                                    </div>
+                                    <div class="deck-alphabetical-list" id="theory-cards-list" role="list">
+                                        <!-- Rempli dynamiquement -->
+                                    </div>
+                                </aside>
+
+                                <!-- Volet principal : Ruban horizontal avec flèches de défilement -->
+                                <div class="theory-deck-carousel-wrapper">
+                                    <button type="button" class="deck-ribbon-arrow prev" onclick="scrollDeckRibbon(-320)" aria-label="${getT('theory-deck-scroll-left') || 'Défiler à gauche'}">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="15 18 9 12 15 6"></polyline>
+                                        </svg>
+                                    </button>
+
+                                    <div class="theory-cards-ribbon" id="theory-cards-ribbon" role="region" aria-label="Deck de mini-cartes">
+                                        <!-- Mini-cartes injectées dynamiquement -->
+                                    </div>
+
+                                    <button type="button" class="deck-ribbon-arrow next" onclick="scrollDeckRibbon(320)" aria-label="${getT('theory-deck-scroll-right') || 'Défiler à droite'}">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
                                 </div>
-                                <button type="button" class="deck-scroll-arrow deck-scroll-right" onclick="scrollDeckRibbon(320)" aria-label="Défiler vers la droite">›</button>
                             </div>
                         </section>
 
@@ -888,7 +719,7 @@
                     container.innerHTML = summaryHtml;
 
                     if (typeof renderTheoryCardsGallery === 'function') {
-                        renderTheoryCardsGallery('theory-cards-ribbon');
+                        renderTheoryCardsGallery('theory-cards-ribbon', 'theory-cards-list');
                     }
 
                     // ===== Live Search =====

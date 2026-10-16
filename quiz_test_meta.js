@@ -801,8 +801,8 @@ cbind(Effectif = tab, Pct = round(prop, 1))`,
             en: "Bar Chart / Pie Chart"
         },
         description: {
-            fr: "Le diagramme en barres est le format recommandé pour comparer des fréquences catégorielles avec rigueur.",
-            en: "Bar charts are recommended for rigorous comparison of categorical frequencies."
+            fr: "Le diagramme en barres est le format recommandé pour comparer des fréquences catégorielles avec clarté.",
+            en: "Bar charts are recommended for clear comparison of categorical frequencies."
         },
         howToUse: {
             fr: "Préférer systématiquement le diagramme en barres au camembert : l'œil humain compare beaucoup plus précisément des longueurs que des angles.",

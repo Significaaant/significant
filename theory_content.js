@@ -5,8 +5,8 @@ const theoryData = {
     "reflexivite": {
         bloc: 0,
         type: "TYPE_FLEXIBLE",
-        title: "Réflexivité et Construction des Données",
-        subtitle: "La Construction des Données",
+        title: "Réflexivité et construction des données",
+        subtitle: "La construction des données",
         character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
         tags: ["méthodo", "réflexivité", "biais", "construction des données", "questionnaire", "épistémologie", "objectivité"],
         sections: [
@@ -31,23 +31,23 @@ const theoryData = {
     "guide-traducteur": {
         bloc: 0,
         type: "TYPE_FLEXIBLE",
-        title: "Guide du Traducteur (Cas Réel)",
+        title: "Guide du traducteur (cas réel)",
         subtitle: "Traduire un problème réel en variables et en tests",
         character: { shape: "nexus", color: "#6366f1", eyes: "focused" },
-        tags: ["méthodo", "traducteur", "cas réel", "grossetti", "sociologie", "variables", "corrélation"],
+        tags: ["méthodo", "traducteur", "cas réel", "sociologie", "variables", "corrélation"],
         sections: [
             {
-                title: "Le Cas Réel (Sociologie des sciences)",
-                content: "Avant d'ouvrir votre logiciel, il faut traduire votre question de recherche en langage statistique.\n\nPrenons un cas réel d'enquête en sociologie des sciences (étude de Michel Grossetti) : *« L'évolution de la présence du topic 'Cancer du Sein' dans les publications scientifiques de 1920 à 2016. »*\n\nFace à un tel objet d'étude, il est inutile de chercher un test au hasard. Il faut décomposer minutieusement ce qui est mesuré.",
+                title: "Le cas réel (sociologie des sciences)",
+                content: "Avant d'ouvrir votre logiciel, il faut traduire votre question de recherche en langage statistique.\n\nPrenons un cas réel d'enquête en sociologie des sciences : *« L'évolution de la présence du topic 'Cancer du Sein' dans les publications scientifiques de 1920 à 2016. »*\n\nFace à un tel objet d'étude, il est inutile de chercher un test au hasard. Il faut décomposer minutieusement ce qui est mesuré.",
                 layout: "standard"
             },
             {
-                title: "La Grille de Traduction",
+                title: "La grille de traduction",
                 content: "Voici comment traduire les composantes de votre étude :\n\n*   **L'Année (1920, 1921... 2016)** : C'est une mesure continue dans le temps. -> **Variable Quantitative**.\n*   **La Présence du Topic (12 %, 5 %...)** : C'est un pourcentage chiffré dans les articles de l'année. -> **Variable Quantitative**.\n*   **La Question de Recherche** : *« Est-ce que cette présence augmente ou baisse avec le temps ? »* -> Vous cherchez le lien ou la co-variation entre deux grandeurs numériques. -> **Corrélation**.",
                 layout: "highlight"
             },
             {
-                title: "Du Terrain au Choix du Test",
+                title: "Du terrain au choix du test",
                 content: "Grâce à cette traduction, le choix de l'outil devient évident :\n\n*   Deux variables quantitatives sur les mêmes observations -> **Test de Corrélation** (Pearson si les données sont normales, Spearman si elles ne le sont pas).\n*   Si l'on cherche à modéliser et prédire le pourcentage selon l'année -> **Régression Linéaire Simple**.\n*   Si l'on comparait deux revues médicales différentes sur ce topic -> **Test t de Student ou Mann-Whitney**.",
                 layout: "standard"
             }
@@ -57,23 +57,23 @@ const theoryData = {
     "conception-questionnaire": {
         bloc: 0,
         type: "TYPE_FLEXIBLE",
-        title: "Conception du Questionnaire & Enquêtes",
+        title: "Conception du questionnaire & enquêtes",
         subtitle: "Méthodes de collecte, neutralité et formulation",
         character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
         tags: ["méthodo", "questionnaire", "enquête", "recueil", "neutralité", "formulation", "biais"],
         sections: [
             {
-                title: "Les Trois Méthodes de Recueil",
+                title: "Les trois méthodes de recueil",
                 content: "Selon votre problématique, trois démarches principales s'offrent à vous :\n\n*   **L'Enquête par questionnaire** : Interroger un échantillon au moyen de questions standardisées (mesure d'attitudes, d'opinions ou de pratiques déclarées).\n*   **L'Observation directe** : Relever systématiquement les faits ou comportements tels qu'ils se produisent, sans passer par le filtre déclaratif des répondants.\n*   **L'Expérimentation** : Provoquer délibérément une situation et manipuler une variable indépendante (VI) pour observer son impact sur une variable dépendante (VD) en contrôlant les facteurs parasites.",
                 layout: "standard"
             },
             {
-                title: "Les Règles d'Or d'un Bon Questionnaire",
+                title: "Les règles d'or d'un bon questionnaire",
                 content: "Pour obtenir des données exploitables et de qualité :\n\n*   **Court et ciblé** : Chaque question doit servir directement une hypothèse de recherche. Bannissez les questions superflues qui alourdissent la passation.\n*   **Clair et accessible** : Évitez tout jargon académique, sigle non explicité ou terme technique qui risquerait de dérouter le répondant.\n*   **Univoque** : Ne posez jamais deux questions en une (ex : *« Êtes-vous satisfait de votre salaire et de vos horaires ? »* -> Impossible à traiter si la personne aime ses horaires mais déplore son salaire).",
                 layout: "highlight"
             },
             {
-                title: "Neutralité et Biais de Formulation",
+                title: "Neutralité et biais de formulation",
                 content: "La façon de poser une question influence directement le résultat statistique :\n\n*   **Question biaisée (à proscrire)** : *« Ne pensez-vous pas que la politique actuelle est désastreuse ? »* -> La tournure induit d'emblée la réponse et crée un biais d'acquiescement.\n*   **Question neutre (recommandée)** : *« Quel est votre degré de satisfaction concernant la politique actuelle ? »* avec des modalités équilibrées allant de *Très insatisfait* à *Très satisfait*.",
                 layout: "alert"
             }
@@ -83,34 +83,34 @@ const theoryData = {
     "nettoyage-donnees": {
         bloc: 0,
         type: "TYPE_FLEXIBLE",
-        title: "Nettoyage & Préparation des Données",
+        title: "Nettoyage & préparation des données",
         subtitle: "Format, codage des colonnes et valeurs aberrantes",
         character: { shape: "spark", color: "#f59e0b", eyes: "focused" },
         tags: ["méthodo", "nettoyage", "données", "outliers", "valeurs manquantes", "format", "r", "jamovi"],
         sections: [
             {
-                title: "1. Le Format Propre Requis",
+                title: "1. Le format propre requis",
                 content: "Avant d'importer vos données dans R, Jamovi, SPSS ou Python, trois règles techniques évitent 90 % des bugs d'importation :\n\n*   **Décimales avec un POINT** : Utilisez toujours un point (ex : 1.75) et jamais de virgule, qui transforme souvent toute une colonne numérique en texte.\n*   **Pas d'espaces parasites** : Un espace invisible en fin de mot ('Homme ' vs 'Homme') crée deux catégories distinctes pour le logiciel.\n*   **Cellules vides pour les valeurs manquantes (NA)** : Laissez les cases vides. Ne codez jamais une valeur manquante par 99 ou -1 sans le déclarer explicitement, sinon vos moyennes et tests seront faussés.",
                 layout: "standard"
             },
             {
-                title: "2. Distinguer la Nature des Colonnes",
+                title: "2. Distinguer la nature des colonnes",
                 content: "Chaque colonne remplit un rôle méthodologique précis :\n\n*   **Identifiant (ID)** : Numéro de participant (1, 2, 3...) -> Sert à repérer les lignes, mais ne doit jamais faire l'objet d'un calcul statistique.\n*   **Catégorie (Variable Qualitative)** : 1 = Homme, 2 = Femme -> Ce 1 est une étiquette nominale, pas un nombre. On ne calcule ni moyenne ni écart-type dessus.\n*   **Score ou Mesure (Variable Quantitative)** : 12/20, temps en millisecondes, âge en années -> Vraie valeur numérique sur une échelle continue ou discrète.",
                 layout: "highlight"
             },
             {
-                title: "3. Traquer les Extrêmes et Aberrations",
+                title: "3. Traquer les extrêmes et aberrations",
                 content: "Une seule coquille dans la saisie peut fausser vos coefficients de corrélation et vos variances :\n\n*   **Erreur manifeste de saisie** : Un âge de 150 ans ou une taille de 10 mètres -> À corriger avec le questionnaire source ou à déclarer en valeur manquante (NA).\n*   **Outlier réel (valeur extrême authentique)** : Une observation très éloignée mais plausible -> Vérifiez si elle relève d'une distraction du répondant avant de décider de l'exclure ou d'utiliser un test non-paramétrique robuste.",
                 layout: "alert"
             }
         ],
-        footer: "La moitié du temps d'une recherche empirique est consacrée au nettoyage des données : des statistiques rigoureuses reposent toujours sur une base irréprochable."
+        footer: "La moitié du temps d'une recherche empirique est consacrée au nettoyage des données : des statistiques solides reposent toujours sur une base irréprochable."
     },
     "biais-enquete": {
         bloc: 0,
         type: "TYPE_FLEXIBLE",
-        title: "Biais de Collecte",
-        subtitle: "Débusquer les Biais d'Enquête",
+        title: "Biais de collecte",
+        subtitle: "Débusquer les biais d'enquête",
         character: { shape: "ambulance", color: "#ef4444", eyes: "surprised" },
         tags: ["méthodo", "biais", "désirabilité sociale", "non-réponse", "cadrage", "questionnaire", "erreur"],
         sections: [
@@ -138,8 +138,8 @@ const theoryData = {
     "intro-stats": {
         bloc: 1,
         type: "TYPE_FLEXIBLE",
-        title: "Statistique Descriptive",
-        subtitle: "La Statistique Descriptive",
+        title: "Statistique descriptive",
+        subtitle: "La statistique descriptive",
         character: { shape: "nexus", color: "#6366f1", eyes: "happy" },
         tags: ["statistique", "définition", "unité statistique", "variable", "modalité", "probabilités", "réduction"],
         sections: [
@@ -159,18 +159,18 @@ const theoryData = {
     "echantillon-pop": {
         bloc: 1,
         type: "TYPE_FLEXIBLE",
-        title: "Population vs Échantillon",
-        subtitle: "La Logique de l'Inférence",
+        title: "Population vs échantillon",
+        subtitle: "La logique de l'inférence",
         character: { shape: "marmite", color: "#4b5563", eyes: "calm" },
         tags: ["population", "échantillon", "paramètre", "statistique", "inférence", "taux de sondage", "cadre de sondage"],
         sections: [
             {
-                title: "1. La Population (N)",
+                title: "1. La population (N)",
                 content: "En statistique, la **Population** (notée **N**) est l'ensemble exhaustif des unités statistiques. \n\n*   **Paramètre** : Une valeur calculée sur N (ex: la vraie moyenne μ ou la vraie proportion π).\n*   **Cadre de sondage** : La liste physique de toutes les unités (annuaire, fichier client). Sans liste, pas de sondage probabiliste possible.",
                 layout: "highlight"
             },
             {
-                title: "2. L'Échantillon (n)",
+                title: "2. L'échantillon (n)",
                 content: "L'**Échantillon** (noté **n**) est le sous-ensemble prélevé. \n\n*   **Statistique** : Une valeur calculée sur n (ex: moyenne x̄ ou proportion p).\n*   **Taux de sondage (f)** : Le rapport n/N. Plus il est élevé, plus l'échantillon est 'puissant'.",
                 layout: "highlight"
             },
@@ -185,8 +185,8 @@ const theoryData = {
     "representativite": {
         bloc: 1,
         type: "TYPE_FLEXIBLE",
-        title: "La Représentativité",
-        subtitle: "Propriétés du Tirage Aléatoire",
+        title: "La représentativité",
+        subtitle: "Propriétés du tirage aléatoire",
         character: { shape: "star", color: "#fbbf24", eyes: "happy" },
         tags: ["représentativité", "tirage aléatoire", "biais de sélection", "marge d'erreur", "taille d'échantillon", "loi des grands nombres"],
         sections: [
@@ -215,8 +215,8 @@ const theoryData = {
     "types-variables": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "Les 3 Types de Variables",
-        subtitle: "Niveaux de Mesure et Échelles",
+        title: "Les 3 types de variables",
+        subtitle: "Niveaux de mesure et échelles",
         character: { shape: "bins", color: "#f97316", eyes: "happy" },
         tags: ["variables", "nominal", "ordinal", "continu", "qualitatif", "quantitatif", "échelle de mesure", "Jamovi"],
         sections: [
@@ -226,22 +226,22 @@ const theoryData = {
                 layout: "standard"
             },
             {
-                title: "1. Échelle Nominale",
+                title: "1. Échelle nominale",
                 content: "Ici, on ne mesure rien, on **nomme**. Les chiffres ne sont que des noms de code.\n*   **Exemples** : Genre (0=F, 1=H), Département, Type de logement.\n*   **Règle d'or** : On ne peut pas les additionner. Est-ce que 'Paris' + 'Lyon' = 'Marseille' ? Non.\n*   **Outil principal** : Le **Mode** (quelle étiquette revient le plus souvent ?).",
                 layout: "highlight"
             },
             {
-                title: "2. Le Bac 'Escalier' (Ordinal)",
+                title: "2. Le bac 'escalier' (ordinal)",
                 content: "Ici, il y a un **ordre logique**, une progression, mais l'écart entre les marches n'est pas fixe.\n*   **Exemples** : Niveau d'études (Bac < Master), Accord (Pas d'accord < D'accord < Très d'accord).\n*   **Règle d'or** : On sait qui est 'au-dessus', mais pas de combien exactement.\n*   **Outil principal** : La **Médiane** (quelle est la marche du milieu ?).",
                 layout: "highlight"
             },
             {
-                title: "3. Le Bac 'Mètre' (Continu / Ratio)",
+                title: "3. Le bac 'mètre' (continu / ratio)",
                 content: "Ici, on est dans la **mesure pure**. Les chiffres ont un sens mathématique complet.\n*   **Exemples** : Âge, Salaire, Poids, Temps de réaction.\n*   **Règle d'or** : Les écarts sont identiques (10 ans - 5 ans = 5 ans).\n*   **Outil principal** : La **Moyenne** et l'**Écart-Type**.",
                 layout: "highlight"
             },
             {
-                title: "Recommandation Méthodologique",
+                title: "Recommandation méthodologique",
                 content: "Dans les logiciels comme **Jamovi** ou **SPSS**, vous pouvez parfois 'tricher' : une variable ordinale avec beaucoup d'échelons (ex: une échelle de 1 à 10) est souvent traitée comme une variable continue pour avoir plus de puissance statistique. C'est un choix de chercheur, pas une vérité absolue !",
                 layout: "alert"
             }
@@ -251,8 +251,8 @@ const theoryData = {
     "stat-mode": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "Le Mode",
-        subtitle: "Fréquence et Valeur Modale",
+        title: "Le mode",
+        subtitle: "Fréquence et valeur modale",
         character: { shape: "podium", color: "#fbbf24", eyes: "happy" },
         tags: ["mode", "tendance centrale", "fréquence", "nominal", "qualitatif", "valeur la plus fréquente"],
         sections: [
@@ -277,8 +277,8 @@ const theoryData = {
     "stat-mediane": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "La Médiane",
-        subtitle: "Position Centrale et Partition",
+        title: "La médiane",
+        subtitle: "Position centrale et partition",
         character: { shape: "divider", color: "#6366f1", eyes: "focused" },
         tags: ["médiane", "tendance centrale", "position", "robustesse", "outlier", "ordinal", "asymétrie", "EIQ"],
         sections: [
@@ -303,8 +303,8 @@ const theoryData = {
     "stat-moyenne": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "La Moyenne",
-        subtitle: "Calcul de la Tendance Centrale",
+        title: "La moyenne",
+        subtitle: "Calcul de la tendance centrale",
         character: { shape: "ball", color: "#6366f1", eyes: "happy" },
         tags: ["moyenne", "tendance centrale", "arithmétique", "symétrie", "outlier", "écart-type", "continu"],
         sections: [
@@ -330,8 +330,8 @@ const theoryData = {
     "stat-variance": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "La Variance",
-        subtitle: "Mesure de la Variabilité Statistique",
+        title: "La variance",
+        subtitle: "Mesure de la variabilité statistique",
         character: { shape: "spark", color: "#f43f5e", eyes: "surprised" },
         tags: ["variance", "dispersion", "s²", "écart", "carrés", "degrés de liberté", "ANOVA"],
         sections: [
@@ -351,8 +351,8 @@ const theoryData = {
     "stat-ecart-type": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "L'Écart-Type",
-        subtitle: "Écart-Type et Standardisation",
+        title: "L'écart-type",
+        subtitle: "Écart-type et standardisation",
         character: { shape: "ruler", color: "#10b981", eyes: "focused" },
         tags: ["écart-type", "s", "dispersion", "variance", "erreur type", "SE", "loi normale", "68-95-99", "standardisation"],
         sections: [
@@ -377,8 +377,8 @@ const theoryData = {
     "stat-dist-comp": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "L'Indice de Gini",
-        subtitle: "Indice de Gini et Concentration",
+        title: "L'indice de Gini",
+        subtitle: "Indice de Gini et concentration",
         character: { shape: "nexus", color: "#f97316", eyes: "focused" },
         tags: ["gini", "inégalité", "concentration", "lorenz", "distribution", "richesse", "sociologie"],
         figure: { src: "images/figure_lorenz.png", caption: "Fig. 3 — Courbe de Lorenz : l'écart entre la droite d'égalité et la courbe mesure l'indice de Gini." },
@@ -404,8 +404,8 @@ const theoryData = {
     "stat-quantiles": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "Les Quantiles",
-        subtitle: "Quantiles et Écart Interquartile",
+        title: "Les quantiles",
+        subtitle: "Quantiles et écart interquartile",
         character: { shape: "grid", color: "#10b981", eyes: "calm" },
         tags: ["quantiles", "quartiles", "déciles", "centiles", "Q1", "Q3", "EIQ", "IQR", "position", "percentile"],
         sections: [
@@ -425,8 +425,8 @@ const theoryData = {
     "tri-plat": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "Le Tri à Plat",
-        subtitle: "Description Univariée des Fréquences",
+        title: "Le tri à plat",
+        subtitle: "Description univariée des fréquences",
         character: { shape: "grid", color: "#64748b", eyes: "happy" },
         tags: ["tri à plat", "effectifs", "pourcentages", "fréquences", "description", "univarié", "qualitatif"],
         figure: { src: "images/figure_histogram.png", caption: "Fig. 2 — Distribution des fréquences : l'histogramme permet de visualiser la répartition des effectifs." },
@@ -447,8 +447,8 @@ const theoryData = {
     "stat-boxplot": {
         bloc: 2,
         type: "TYPE_FLEXIBLE",
-        title: "La Boîte à Moustaches",
-        subtitle: "Visualisation de la Distribution",
+        title: "La boîte à moustaches",
+        subtitle: "Visualisation de la distribution",
         character: { shape: "vacuum", color: "#ec4899", eyes: "surprised" },
         tags: ["boxplot", "Q1", "Q3", "médiane", "EIQ", "outlier", "valeur atypique", "asymétrie", "non-paramétrique"],
         figure: { src: "images/figure_boxplot.png", caption: "Fig. 1 — Anatomie d’une boîte à moustaches : min, Q1, médiane, Q3, max et valeur atypique." },
@@ -478,8 +478,8 @@ const theoryData = {
     "principe-inference": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "Le Principe de l'Inférence",
-        subtitle: "Logique de la Généralisation",
+        title: "Le principe de l'inférence",
+        subtitle: "Logique de la généralisation",
         character: { shape: "telescope", color: "#6366f1", eyes: "focused" },
         tags: ["inférence", "généralisation", "population", "échantillon", "incertitude", "probabilité", "marge d'erreur"],
         sections: [
@@ -499,8 +499,8 @@ const theoryData = {
     "dist-echantillonnage": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "Distribution d'Échantillonnage",
-        subtitle: "Variable Aléatoire et Échantillonnage",
+        title: "Distribution d'échantillonnage",
+        subtitle: "Variable aléatoire et échantillonnage",
         character: { shape: "cloud", color: "#94a3b8", eyes: "surprised" },
         tags: ["distribution d'échantillonnage", "p-value", "loi normale", "TCL", "erreur type", "SE", "simulation"],
         sections: [
@@ -520,8 +520,8 @@ const theoryData = {
     "theoreme-central-limite": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "Théorème Central Limite",
-        subtitle: "Convergence vers la Normalité",
+        title: "Théorème central limite",
+        subtitle: "Convergence vers la normalité",
         character: { shape: "cloud", color: "#10b981", eyes: "happy" },
         tags: ["TCL", "théorème central limite", "loi normale", "n > 30", "moyenne", "distribution", "paramétrique"],
         sections: [
@@ -541,8 +541,8 @@ const theoryData = {
     "hypothese-nulle": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "L'Hypothèse Nulle (H0)",
-        subtitle: "Principe de Réfutabilité",
+        title: "L'hypothèse nulle (H0)",
+        subtitle: "Principe de réfutabilité",
         character: { shape: "shield", color: "#64748b", eyes: "focused" },
         tags: ["H0", "hypothèse nulle", "H1", "test", "significativité", "faux positif", "erreur de type I"],
         sections: [
@@ -562,8 +562,8 @@ const theoryData = {
     "p-value": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "La P-Value",
-        subtitle: "Seuil de Significativité",
+        title: "La p-value",
+        subtitle: "Seuil de significativité",
         character: { shape: "star", color: "#fbbf24", eyes: "surprised" },
         tags: ["p-value", "seuil alpha", "α", "significativité", "H0", "faux positif", "erreur de type I", "décision"],
         sections: [
@@ -588,7 +588,7 @@ const theoryData = {
     "loi-normale": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "La Loi Normale",
+        title: "La loi normale",
         subtitle: "Distribution de Gauss",
         character: { shape: "bell", color: "#6366f1", eyes: "happy" },
         tags: ["loi normale", "Gauss", "cloche", "μ", "σ", "Z-score", "standardisation", "68-95-99", "paramétrique"],
@@ -615,8 +615,8 @@ const theoryData = {
     "seuil-significativite": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "Le Seuil Alpha (α)",
-        subtitle: "Arbitrage Risque et Puissance",
+        title: "Le seuil alpha (α)",
+        subtitle: "Arbitrage risque et puissance",
         character: { shape: "divider", color: "#ef4444", eyes: "focused" },
         tags: ["alpha", "seuil", "risque", "significativité", "erreur de type I", "puissance", "arbitrage"],
         sections: [
@@ -636,8 +636,8 @@ const theoryData = {
     "concept-ic": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "Intervalle de Confiance (IC)",
-        subtitle: "Estimation par Intervalle",
+        title: "Intervalle de confiance (IC)",
+        subtitle: "Estimation par intervalle",
         character: { shape: "bubble", color: "#10b981", eyes: "calm" },
         tags: ["intervalle de confiance", "IC", "95%", "z", "erreur type", "estimation", "fourchette", "précision"],
         sections: [
@@ -657,8 +657,8 @@ const theoryData = {
     "degre-liberte": {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
-        title: "Degrés de Liberté (ddl)",
-        subtitle: "Degrés de Liberté",
+        title: "Degrés de liberté (ddl)",
+        subtitle: "Degrés de liberté",
         character: { shape: "puzzle", color: "#334155", eyes: "focused" },
         tags: ["ddl", "degrés de liberté", "n-1", "Student", "chi-deux", "Fisher", "table de distribution"],
         sections: [
@@ -682,8 +682,8 @@ const theoryData = {
     "cor-causalite": {
         bloc: 4,
         type: "TYPE_FLEXIBLE",
-        title: "Corrélation vs Causalité",
-        subtitle: "Distinction Conceptuelle",
+        title: "Corrélation vs causalité",
+        subtitle: "Distinction conceptuelle",
         character: { shape: "puzzle", color: "#f97316", eyes: "focused" },
         tags: ["causalité", "corrélation", "variable cachée", "confondante", "spurieuse", "inférence causale"],
         sections: [
@@ -703,8 +703,8 @@ const theoryData = {
     "test-chi2": {
         bloc: 4,
         type: "TYPE_FLEXIBLE",
-        title: "Test du Chi-Deux (χ²)",
-        subtitle: "Test d'Indépendance",
+        title: "Test du chi-deux (χ²)",
+        subtitle: "Test d'indépendance",
         character: { shape: "grid", color: "#f97316", eyes: "happy" },
         tags: ["chi2", "chi-carré", "indépendance", "tableau croisé", "cramer", "nominal", "catégoriel", "effectifs", "reporting"],
         figure: { src: "images/figure_chi2.png", caption: "Fig. 5 — Distribution du Chi-deux (χ²) : la zone ombrée représente la région de rejet pour p < 0,05." },
@@ -736,7 +736,7 @@ const theoryData = {
         bloc: 4,
         type: "TYPE_FLEXIBLE",
         title: "Test de Student (t)",
-        subtitle: "Comparaison de deux Moyennes",
+        subtitle: "Comparaison de deux moyennes",
         character: { shape: "twins", color: "#6366f1", eyes: "happy" },
         tags: ["t-test", "student", "deux groupes", "moyennes", "cohen", "levene", "indépendant", "pairé", "welch", "reporting"],
         figure: { src: "images/figure_ttest.png", caption: "Fig. 6 — Comparaison de moyennes : le test t évalue si l'écart entre les distributions est statistiquement significatif." },
@@ -768,7 +768,7 @@ const theoryData = {
         bloc: 4,
         type: "TYPE_FLEXIBLE",
         title: "L'ANOVA",
-        subtitle: "Comparaisons de Groupes Multiples",
+        subtitle: "Comparaisons de groupes multiples",
         character: { shape: "podiums", color: "#fbbf24", eyes: "happy" },
         tags: ["anova", "f de fisher", "groupes", "variance", "eta-carré", "post-hoc", "tukey", "SCE", "SCT", "reporting"],
         figure: { src: "images/figure_anova.png", caption: "Fig. 7 — Analyse de variance (ANOVA) : comparaison simultanée de plusieurs distributions." },
@@ -805,7 +805,7 @@ const theoryData = {
         bloc: 4,
         type: "TYPE_FLEXIBLE",
         title: "Corrélation de Pearson (r)",
-        subtitle: "Coefficient de Corrélation Linéaire",
+        subtitle: "Coefficient de corrélation linéaire",
         character: { shape: "line", color: "#6366f1", eyes: "happy" },
         tags: ["Pearson", "r", "corrélation", "linéaire", "r²", "covariance", "continu", "signification"],
         sections: [
@@ -831,7 +831,7 @@ const theoryData = {
         bloc: 4,
         type: "TYPE_FLEXIBLE",
         title: "Corrélation de Spearman (ρ)",
-        subtitle: "Test Non-Paramétrique de Corrélation",
+        subtitle: "Test non-paramétrique de corrélation",
         character: { shape: "snake", color: "#ec4899", eyes: "focused" },
         tags: ["Spearman", "ρ", "rho", "rangs", "non-paramétrique", "monotone", "ordinal", "outlier"],
         sections: [
@@ -855,8 +855,8 @@ const theoryData = {
     "raisonnement-cepa": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Toutes Choses Égales par Ailleurs",
-        subtitle: "Contrôle Statistique",
+        title: "Toutes choses égales par ailleurs",
+        subtitle: "Contrôle statistique",
         character: { shape: "vacuum", color: "#3b82f6", eyes: "focused" },
         tags: ["ceteris paribus", "CEPA", "contrôle statistique", "régression multiple", "variable confondante", "effet net"],
         sections: [
@@ -876,8 +876,8 @@ const theoryData = {
     "var-dep-indep": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Variable Dépendante / Indépendante",
-        subtitle: "Identification des Rôles Variables",
+        title: "Variable dépendante / indépendante",
+        subtitle: "Identification des rôles variables",
         character: { shape: "nexus", color: "#6366f1", eyes: "happy" },
         tags: ["variable dépendante", "variable indépendante", "Y", "X", "prédicteur", "critère", "modélisation"],
         sections: [
@@ -897,8 +897,8 @@ const theoryData = {
     "droite-regression": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Régression Linéaire",
-        subtitle: "L'Équation Prédictive",
+        title: "Régression linéaire",
+        subtitle: "L'équation prédictive",
         character: { shape: "line", color: "#f97316", eyes: "happy" },
         tags: ["régression", "beta", "coefficient", "pente", "linéaire", "résidu", "prédiction", "OLS", "MCO", "t-value", "reporting"],
         figure: { src: "images/figure_regression.png", caption: "Fig. 8 — Nuage de points avec droite OLS. Les segments verticaux représentent les résidus (ε = Y − Ŷ)." },
@@ -929,8 +929,8 @@ const theoryData = {
     "coeff-determination": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Le R-Carré (R²)",
-        subtitle: "La Qualité du Modèle",
+        title: "Le R-carré (R²)",
+        subtitle: "La qualité du modèle",
         character: { shape: "target", color: "#10b981", eyes: "happy" },
         tags: ["R2", "r carré", "variance expliquée", "qualité du modèle", "F global", "ajusté", "SS_res", "SS_tot", "régression", "Nagelkerke"],
         sections: [
@@ -964,8 +964,8 @@ const theoryData = {
     "cor-spurieuse": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Effet de Suppression",
-        subtitle: "Les Liens Invisibles",
+        title: "Effet de suppression",
+        subtitle: "Les liens invisibles",
         character: { shape: "nexus", color: "#ec4899", eyes: "surprised" },
         sections: [
             {
@@ -990,7 +990,7 @@ const theoryData = {
         bloc: 3,
         type: "TYPE_FLEXIBLE",
         title: "Test de Shapiro-Wilk",
-        subtitle: "Le Détecteur de Normalité",
+        subtitle: "Le détecteur de normalité",
         character: { shape: "bell", color: "#8b5cf6", eyes: "focused" },
         tags: ["shapiro", "wilk", "normalité", "distribution", "paramétrique", "condition", "Q-Q plot", "prérequis"],
         sections: [
@@ -1022,7 +1022,7 @@ const theoryData = {
         bloc: 4,
         type: "TYPE_FLEXIBLE",
         title: "Test de Levene",
-        subtitle: "L'Égalité des Variances",
+        subtitle: "L'égalité des variances",
         character: { shape: "twins", color: "#f97316", eyes: "focused" },
         tags: ["levene", "homogénéité", "variances", "homoscédasticité", "condition", "t-test", "anova", "welch", "vérification"],
         sections: [
@@ -1053,8 +1053,8 @@ const theoryData = {
     "residus-regression": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Résidus & Diagnostic du Modèle",
-        subtitle: "Vérifier les Hypothèses de la Régression",
+        title: "Résidus & diagnostic du modèle",
+        subtitle: "Vérifier les hypothèses de la régression",
         character: { shape: "target", color: "#ef4444", eyes: "focused" },
         tags: ["résidus", "diagnostic", "normalité", "homoscédasticité", "Q-Q plot", "Cook", "VIF", "Durbin-Watson", "outlier", "influence"],
         figure: { src: "images/figure_qqplot.png", caption: "Fig. 9 — Q-Q Plot des résidus : les points sur la diagonale indiquent la normalité." },
@@ -1091,8 +1091,8 @@ const theoryData = {
     "reg-logistique": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "Régression Logistique",
-        subtitle: "Prédire une Variable Binaire",
+        title: "Régression logistique",
+        subtitle: "Prédire une variable binaire",
         character: { shape: "nexus", color: "#6366f1", eyes: "happy" },
         tags: ["logistique", "odds ratio", "OR", "probabilité", "binaire", "logit", "pseudo R2", "AIC", "Nagelkerke", "0/1"],
         sections: [
@@ -1128,8 +1128,8 @@ const theoryData = {
     "multicolinearite": {
         bloc: 5,
         type: "TYPE_FLEXIBLE",
-        title: "La Multicolinéarité",
-        subtitle: "Diagnostics de Colinéarité",
+        title: "La multicolinéarité",
+        subtitle: "Diagnostics de colinéarité",
         character: { shape: "puzzle", color: "#f43f5e", eyes: "surprised" },
         tags: ["VIF", "multicolinéarité", "corrélation", "prédicteurs", "instabilité", "tolérance", "régression multiple"],
         sections: [
@@ -1163,8 +1163,8 @@ const theoryData = {
     "analyse-bayesienne": {
         bloc: 6,
         type: "TYPE_FLEXIBLE",
-        title: "Raisonnement Bayésien",
-        subtitle: "Incertitude et Mise à jour",
+        title: "Raisonnement bayésien",
+        subtitle: "Incertitude et mise à jour",
         character: { shape: "telescope", color: "#8b5cf6", eyes: "focused" },
         tags: ["Bayes", "probabilité", "mise à jour", "incertitude", "Laplace", "épistémologie"],
         sections: [
@@ -1185,7 +1185,7 @@ const theoryData = {
         bloc: 6,
         type: "TYPE_FLEXIBLE",
         title: "Logique MCMC",
-        subtitle: "Échantillonnage de Distributions Complexes",
+        subtitle: "Échantillonnage de distributions complexes",
         character: { shape: "snake", color: "#f43f5e", eyes: "surprised" },
         tags: ["MCMC", "chaîne de Markov", "Monte-Carlo", "Metropolis", "échantillonnage", "stochastique"],
         sections: [
@@ -1205,8 +1205,8 @@ const theoryData = {
     "priors-posteriors": {
         bloc: 6,
         type: "TYPE_FLEXIBLE",
-        title: "Priors & Posteriors",
-        subtitle: "L'Essence de Bayes",
+        title: "Priors & posteriors",
+        subtitle: "L'essence de Bayes",
         character: { shape: "bubble", color: "#10b981", eyes: "happy" },
         tags: ["prior", "posterior", "vraisemblance", "mise à jour", "connaissance", "subjectif", "information"],
         sections: [
@@ -1226,8 +1226,8 @@ const theoryData = {
     "overfitting-underfitting": {
         bloc: 6,
         type: "TYPE_FLEXIBLE",
-        title: "Overfitting & Underfitting",
-        subtitle: "Le Compromis Biais-Variance",
+        title: "Overfitting & underfitting",
+        subtitle: "Le compromis biais-variance",
         character: { shape: "target", color: "#ef4444", eyes: "surprised" },
         tags: ["overfitting", "complexité", "surajustement", "prédiction", "parsimonie", "AIC", "généralisation"],
         sections: [
