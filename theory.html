@@ -4,43 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiches Théoriques</title>
+    <title>Fiches théoriques — Significant</title>
+    <meta name="description" content="Fiches théoriques de statistiques : loi normale, tests paramétriques, régression et plus encore.">
     <link rel="stylesheet" href="style.css">
     <script src="translations.js" defer></script>
+    <script src="quiz_test_meta.js" defer></script>
+    <script src="booster_cards_engine.js?v=3" defer></script>
     <script src="i18n.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         /* Specific Theory Override Styles */
         body {
-            /* Theme Light applied via class in HTML tag */
             padding-top: 2rem;
+            color: var(--ink-2, #4A3F35);
         }
 
         h1.theory-title {
-            font-size: 3rem;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-family: 'DM Serif Display', Georgia, serif;
+            color: var(--ink, #1A1410);
             margin-bottom: 0.5rem;
             text-align: center;
         }
 
         .theory-subtitle {
-            font-size: 1.5rem;
-            color: var(--text-muted);
+            font-size: 1.15rem;
+            color: var(--ink-3, #7A6E64);
             margin-bottom: 3rem;
             font-style: italic;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--surface-2, #E2DAD0);
             padding-bottom: 2rem;
             text-align: center;
         }
 
-        /* Summary TOC Grid */
+        /* Summary TOC Grid — max 2 colonnes pour éviter le bento 3-cartes */
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
@@ -49,7 +52,7 @@
             text-align: center;
             padding: 4rem;
             font-size: 1.5rem;
-            color: var(--text-muted);
+            color: var(--ink-3, #7A6E64);
         }
 
         /* ===== Search Bar ===== */
@@ -61,26 +64,24 @@
 
         .theory-search-bar {
             width: 100%;
-            padding: 1rem 3.5rem 1rem 3.5rem;
-            border-radius: 16px;
-            border: 2px solid var(--border-subtle);
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-family: 'Outfit', sans-serif;
+            padding: 0.9rem 3rem 0.9rem 3rem;
+            border-radius: 6px;
+            border: 1px solid var(--surface-2, #E2DAD0);
+            background: var(--surface, #EDE8DF);
+            color: var(--ink, #1A1410);
+            font-size: 1rem;
+            font-family: 'Source Serif 4', Georgia, serif;
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            backdrop-filter: blur(10px);
+            transition: border-color 0.2s;
             box-sizing: border-box;
         }
 
         .theory-search-bar:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            border-color: var(--bordeaux, #6B2D3E);
         }
 
         .theory-search-bar::placeholder {
-            color: var(--text-muted);
+            color: var(--ink-3, #7A6E64);
         }
 
         .theory-search-icon {
@@ -88,7 +89,7 @@
             left: 1.1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-muted);
+            color: var(--ink-3, #7A6E64);
             pointer-events: none;
         }
 
@@ -97,20 +98,20 @@
             right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 0.8rem;
-            color: var(--primary-color);
-            background: rgba(99, 102, 241, 0.12);
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
+            font-size: 0.78rem;
+            color: var(--bordeaux, #6B2D3E);
+            background: var(--bordeaux-soft, #F0E6EA);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
             font-weight: 700;
             pointer-events: none;
-            transition: opacity 0.3s;
+            transition: opacity 0.2s;
         }
 
         /* Card enhancements */
         .card-subtitle-small {
             font-size: 0.82rem;
-            color: var(--text-muted);
+            color: var(--ink-3, #7A6E64);
             margin: 0.25rem 0 0;
             font-style: italic;
         }
@@ -124,12 +125,13 @@
 
         .card-tag {
             font-size: 0.68rem;
-            background: rgba(99, 102, 241, 0.12);
-            color: var(--primary-color);
-            padding: 0.15rem 0.55rem;
-            border-radius: 20px;
+            background: var(--bordeaux-soft, #F0E6EA);
+            color: var(--bordeaux, #6B2D3E);
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
             font-weight: 600;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
         .bloc-section {
@@ -141,18 +143,16 @@
         }
 
         .theory-card {
-            background: var(--card-bg);
+            background: var(--surface, #EDE8DF);
             padding: 1.5rem;
-            border-radius: 12px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-            border: 1px solid var(--glass-border);
+            transition: border-color 0.2s;
+            border: 1px solid var(--surface-2, #E2DAD0);
         }
 
         .theory-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            border-color: var(--primary-color);
+            border-color: var(--bordeaux, #6B2D3E);
         }
 
         .theory-card.search-hide {
@@ -162,7 +162,7 @@
         .no-results-msg {
             text-align: center;
             padding: 4rem 2rem;
-            color: var(--text-muted);
+            color: var(--ink-3, #7A6E64);
             font-size: 1.2rem;
             display: none;
         }
@@ -172,32 +172,33 @@
             text-align: center;
             margin-bottom: 3.5rem;
             padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--surface-2, #E2DAD0);
         }
 
         .fiche-bloc-badge {
             display: inline-block;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--primary-color);
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            padding: 0.3rem 0.9rem;
-            border-radius: 20px;
+            color: var(--bordeaux, #6B2D3E);
+            background: var(--bordeaux-soft, #F0E6EA);
+            border: 1px solid var(--bordeaux, #6B2D3E);
+            padding: 0.25rem 0.8rem;
+            border-radius: 3px;
             margin-bottom: 1.2rem;
         }
 
         .fiche-main-title {
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 800;
-            color: var(--text-primary);
+            color: var(--ink, #1A1410);
             margin: 0;
             line-height: 1.2;
+            font-family: 'DM Serif Display', Georgia, serif;
         }
 
-        /* Section cards */
+        /* Section cards / Encarts */
         .flexible-content {
             display: flex;
             flex-direction: column;
@@ -207,32 +208,29 @@
         }
 
         .section-card {
-            border-radius: 14px;
-            padding: 1.6rem 2rem;
+            border-radius: 6px;
+            padding: 1.5rem 2rem;
             position: relative;
-            border: 1px solid var(--border-subtle);
-            background: var(--glass-bg);
-            transition: transform 0.15s;
-        }
-
-        .section-card:hover {
-            transform: translateY(-1px);
+            border: 1.5px solid var(--surface-2, #E2DAD0);
+            background: #FAF8F5;
+            transition: border-color 0.2s, background 0.2s;
         }
 
         .section-card-title {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--ink, #1A1410);
             margin: 0 0 0.9rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-family: var(--font-body);
         }
 
         .section-card-body {
             font-size: 1.05rem;
             line-height: 1.75;
-            color: var(--text-secondary);
+            color: var(--ink-2, #382F28);
         }
 
         .section-card-body ul {
@@ -241,50 +239,63 @@
         }
 
         .section-card-body li {
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.35rem;
+            color: var(--ink-2, #382F28);
         }
 
         .section-card-body strong {
-            color: var(--text-primary);
+            color: var(--ink, #1A1410);
             font-weight: 700;
         }
 
         .section-card-body blockquote {
-            border-left: 3px solid var(--secondary-color);
-            padding: 0.5rem 1rem;
-            margin: 0.8rem 0;
+            border-left: 3px solid var(--bordeaux, #6B2D3E);
+            padding: 0.6rem 1.1rem;
+            margin: 0.9rem 0;
             font-style: italic;
-            background: var(--card-bg);
-            border-radius: 0 8px 8px 0;
+            background: rgba(107, 45, 62, 0.05);
+            color: var(--ink-2, #382F28);
+            border-radius: 0 6px 6px 0;
         }
 
-        /* Layout variants */
+        /* Layout variants — Encarts clairs avec bordures d'accent et texte foncé net */
         .section-standard {
-            border-left: 4px solid var(--primary-color);
+            border-left: 4px solid var(--bordeaux, #6B2D3E);
+            background: #FAF8F5;
         }
 
         .section-highlight {
-            border-left: 4px solid var(--secondary-color);
-            background: rgba(99, 102, 241, 0.05);
+            border: 1.5px solid #F0D5DD;
+            border-left: 4px solid var(--bordeaux, #6B2D3E);
+            background: #FCF5F7;
+        }
+
+        .section-highlight .section-card-title {
+            color: var(--bordeaux, #6B2D3E);
         }
 
         .section-alert {
-            border-left: 4px solid #f59e0b;
-            background: rgba(245, 158, 11, 0.05);
+            border: 1.5px solid #F6D5CB;
+            border-left: 4px solid #C0441D;
+            background: #FDF5F2;
         }
 
-        /* Formula blocks — auto-detected from ** formulas ** */
+        .section-alert .section-card-title {
+            color: #A33310;
+        }
+
+        /* Formula blocks */
         .section-card-body .formula-line {
             display: block;
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            background: var(--card-bg);
-            border: 1px solid var(--border-subtle);
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--bordeaux, #6B2D3E);
+            background: #FAF8F5;
+            border: 1px solid var(--surface-2, #E2DAD0);
             padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            margin: 0.7rem 0;
+            border-radius: 4px;
+            margin: 0.8rem 0;
             letter-spacing: 0.01em;
         }
 
@@ -296,32 +307,35 @@
 
         .section-card-body ol li {
             margin-bottom: 0.4rem;
+            color: var(--ink-2, #382F28);
         }
 
-        /* Footer quote */
+        /* Footer quote / Encart citation */
         .fiche-footer {
             max-width: 860px;
             margin: 2.5rem auto 0;
             padding: 1.2rem 1.8rem;
-            border-radius: 12px;
-            background: var(--glass-bg);
-            border: 1px solid var(--border-subtle);
-            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+            background: #FAF8F5;
+            border: 1.5px solid var(--surface-2, #E2DAD0);
+            border-left: 4px solid var(--bordeaux, #6B2D3E);
             font-style: italic;
-            font-size: 0.95rem;
-            color: var(--text-muted);
+            font-size: 0.98rem;
+            color: var(--ink-2, #382F28);
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            line-height: 1.6;
         }
 
         .fiche-footer::before {
             content: '\201C';
             font-size: 2.5rem;
-            color: var(--primary-color);
-            opacity: 0.4;
+            color: var(--bordeaux, #6B2D3E);
+            opacity: 0.6;
             line-height: 1;
             flex-shrink: 0;
+            font-family: 'DM Serif Display', Georgia, serif;
         }
 
         /* Figure block */
@@ -333,152 +347,235 @@
 
         .fiche-figure img {
             max-width: 100%;
-            border-radius: 12px;
-            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            border: 1px solid var(--surface-2, #E2DAD0);
             background: #fff;
             padding: 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         .fiche-figure figcaption {
             margin-top: 0.6rem;
             font-size: 0.82rem;
             font-style: italic;
-            color: var(--text-muted);
-            letter-spacing: 0.01em;
+            color: var(--ink-3, #7A6E64);
         }
 
-        /* ===== Dark Theme Variables (Midnight Glass) ===== */
+        /* ===== Dark Theme Variables (Encre Éditoriale Sombre Haute Lisibilité) ===== */
         body.theme-fiche-dark {
-            --bg-color: #020617;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --text-dim: #64748b;
-            --primary-color: #818cf8;
-            --secondary-color: #d946ef;
-            --accent-color: #22d3ee;
-            --brume-color: #0c1222;
+            background-color: #17120E !important;
+            color: #E8E2D9 !important;
+            --ink: #FAF8F5;
+            --ink-2: #DDD4C8;
+            --ink-3: #A89C90;
+            --surface: #231C17;
+            --surface-2: #3D322A;
+            --bg: #17120E;
+        }
 
-            --glass-bg: rgba(15, 23, 42, 0.82);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --card-bg: rgba(30, 41, 59, 0.4);
-            --border-subtle: rgba(255, 255, 255, 0.05);
+        body.theme-fiche-dark h1.theory-title,
+        body.theme-fiche-dark .fiche-main-title {
+            color: #FAF8F5 !important;
+        }
 
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
+        body.theme-fiche-dark .theory-subtitle {
+            color: #A89C90 !important;
+            border-bottom-color: #3D322A !important;
+        }
+
+        body.theme-fiche-dark .theory-search-bar {
+            background: #231C17 !important;
+            border-color: #3D322A !important;
+            color: #FAF8F5 !important;
+        }
+
+        body.theme-fiche-dark .theory-card {
+            background: #231C17 !important;
+            border-color: #3D322A !important;
+        }
+
+        body.theme-fiche-dark .theory-card:hover {
+            border-color: #9C455B !important;
+        }
+
+        body.theme-fiche-dark .theory-card h3 {
+            color: #FAF8F5 !important;
+        }
+
+        body.theme-fiche-dark .card-subtitle-small {
+            color: #A89C90 !important;
+        }
+
+        body.theme-fiche-dark .card-tag {
+            background: #361F27 !important;
+            color: #FFAEC0 !important;
+        }
+
+        body.theme-fiche-dark .fiche-header {
+            border-bottom-color: #3D322A !important;
+        }
+
+        body.theme-fiche-dark .fiche-bloc-badge {
+            background: #361F27 !important;
+            color: #FFAEC0 !important;
+            border-color: #8B3D52 !important;
         }
 
         body.theme-fiche-dark .section-card {
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+            background: #231C17 !important;
+            border: 1.5px solid #3D322A !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
-        body.theme-fiche-dark .fiche-footer {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(8px);
+        body.theme-fiche-dark .section-card-title {
+            color: #FAF8F5 !important;
         }
 
-        body.theme-fiche-dark .fiche-figure img {
-            background: #ffffff;
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(129, 140, 248, 0.1);
+        body.theme-fiche-dark .section-card-body {
+            color: #DDD4C8 !important;
         }
 
-        body.theme-fiche-dark .background-globes {
-            display: block;
-            opacity: 0.6;
+        body.theme-fiche-dark .section-card-body li {
+            color: #DDD4C8 !important;
+        }
+
+        body.theme-fiche-dark .section-card-body strong {
+            color: #FFFFFF !important;
+        }
+
+        body.theme-fiche-dark .section-card-body blockquote {
+            background: rgba(107, 45, 62, 0.25) !important;
+            border-left-color: #D6637D !important;
+            color: #DDD4C8 !important;
+        }
+
+        body.theme-fiche-dark .section-standard {
+            border-left: 4px solid #9C455B !important;
+            background: #231C17 !important;
+        }
+
+        body.theme-fiche-dark .section-highlight {
+            border: 1.5px solid #4D2834 !important;
+            border-left: 4px solid #D6637D !important;
+            background: #2C1B21 !important;
+        }
+
+        body.theme-fiche-dark .section-highlight .section-card-title {
+            color: #FFAEC0 !important;
+        }
+
+        body.theme-fiche-dark .section-alert {
+            border: 1.5px solid #542B1F !important;
+            border-left: 4px solid #E56E47 !important;
+            background: #2D1A14 !important;
+        }
+
+        body.theme-fiche-dark .section-alert .section-card-title {
+            color: #FFB399 !important;
         }
 
         body.theme-fiche-dark .formula-line {
-            background: rgba(15, 23, 42, 0.9);
-            border-color: rgba(129, 140, 248, 0.3);
-            color: #a5b4fc;
+            background: #1C1612 !important;
+            border-color: #3D322A !important;
+            color: #FFAEC0 !important;
+        }
+
+        body.theme-fiche-dark .fiche-footer {
+            background: #231C17 !important;
+            border: 1.5px solid #3D322A !important;
+            border-left: 4px solid #9C455B !important;
+            color: #DDD4C8 !important;
+        }
+
+        body.theme-fiche-dark .fiche-footer::before {
+            color: #D6637D !important;
+            opacity: 0.8 !important;
+        }
+
+        body.theme-fiche-dark .step-card {
+            background: #231C17 !important;
+            border-color: #3D322A !important;
+            border-left: 4px solid #9C455B !important;
+            color: #DDD4C8 !important;
+        }
+
+        body.theme-fiche-dark .step-card strong {
+            color: #FFFFFF !important;
+        }
+
+        body.theme-fiche-dark .theme-toggle {
+            background: #231C17 !important;
+            border-color: #3D322A !important;
+            color: #FAF8F5 !important;
         }
 
         /* ===== Theme Toggle Button ===== */
         .theme-toggle {
             position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            z-index: 1000;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            color: var(--text-primary);
+            top: 1rem;
+            right: 1rem;
+            z-index: 200;
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            background: var(--bg, #F5F2EC);
+            border: 1px solid var(--surface-2, #E2DAD0);
+            color: var(--ink-3, #7A6E64);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+            transition: border-color 0.2s;
         }
 
         .theme-toggle:hover {
-            transform: scale(1.1);
-            border-color: var(--primary-color);
+            border-color: var(--bordeaux, #6B2D3E);
         }
 
-        .theme-toggle svg {
-            width: 22px;
-            height: 22px;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .theme-toggle .sun-icon {
-            display: none;
-        }
-
-        .theme-toggle .moon-icon {
-            display: block;
-        }
-
-        body.theme-fiche-dark .theme-toggle .sun-icon {
-            display: block;
-        }
-
-        body.theme-fiche-dark .theme-toggle .moon-icon {
-            display: none;
-        }
-
-        body.theme-fiche-dark .theme-toggle svg {
-            transform: rotate(360deg);
-        }
+        .theme-toggle svg { width: 18px; height: 18px; }
+        .theme-toggle .sun-icon { display: none; }
+        .theme-toggle .moon-icon { display: block; }
+        body.theme-fiche-dark .theme-toggle .sun-icon { display: block; }
+        body.theme-fiche-dark .theme-toggle .moon-icon { display: none; }
     </style>
 </head>
 
-<body class="theme-midnight">
-    <button class="theme-toggle" id="theme-toggle" title="Changer le thème">
+<body>
+
+    <!-- Loader -->
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-wordmark">significant</div>
+            <div class="loader-shimmer-text text-shimmer" data-i18n="loading">Chargement...</div>
+            <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" id="theme-toggle" title="Changer le thème" aria-label="Basculer le thème clair/sombre">
         <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5" />
-            <path
-                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
         </svg>
         <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
     </button>
-    <div class="background-globes">
-        <div class="globe globe-1"></div>
-        <div class="globe globe-2"></div>
-    </div>
 
-    <nav class="navbar" style="position: relative; margin-bottom: 2rem;">
-        <div class="logo">Les Fiches <span>Stats</span></div>
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+        <a href="index.html" class="logo" aria-label="Significant — Accueil">significant <span>stats</span></a>
         <div class="nav-links">
             <a href="index.html" data-i18n="nav-accueil">Accueil</a>
-            <a href="#" class="active" data-i18n="nav-fiches">Fiches</a>
-            <a href="gpower.html" target="_blank" data-i18n="nav-gpower">G*Power</a>
-            <button id="lang-toggle" class="lang-btn">EN</button>
+            <a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a>
+            <a href="methodo.html" data-i18n="nav-methodo">Méthodo</a>
+            <a href="theory.html" class="active" data-i18n="nav-fiches">Fiches</a>
+            <a href="about.html" data-i18n="nav-about">À propos</a>
+            <button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button>
         </div>
     </nav>
 
     <div class="theory-container container">
 
         <div id="theory-content">
-            <div class="loading">Tié un tigre...</div>
+            <div class="loading text-shimmer" data-i18n="loading">Chargement des fiches...</div>
         </div>
     </div>
 
@@ -495,24 +592,15 @@
                 const pageId = params.get('id');
                 const container = document.getElementById('theory-content');
 
-                // Initialize Theme (Integrated Logic v49)
-                const savedTheme = localStorage.getItem('theory-theme') || (pageId ? 'light' : 'dark');
+                // Initialize Theme (Default is light academic theme)
+                const savedTheme = localStorage.getItem('theory-theme') || 'light';
 
                 function applyTheme(theme) {
                     document.body.classList.remove('theme-midnight', 'theme-fiche-dark', 'theme-fiche-light');
-                    if (pageId) {
-                        if (theme === 'dark') {
-                            document.body.classList.add('theme-fiche-dark');
-                        } else {
-                            document.body.classList.add('theme-fiche-light');
-                        }
+                    if (theme === 'dark') {
+                        document.body.classList.add('theme-fiche-dark');
                     } else {
-                        // Summary view: 'dark' corresponds to Midnight, 'light' to a light variant
-                        if (theme === 'dark') {
-                            document.body.classList.add('theme-midnight');
-                        } else {
-                            document.body.classList.add('theme-fiche-light'); // Use light fiche theme as base for light summary
-                        }
+                        document.body.classList.add('theme-fiche-light');
                     }
                 }
 
@@ -521,7 +609,7 @@
                 // Theme Toggle Logic
                 const toggleBtn = document.getElementById('theme-toggle');
                 toggleBtn.addEventListener('click', () => {
-                    const currentTheme = localStorage.getItem('theory-theme') || (pageId ? 'light' : 'dark');
+                    const currentTheme = localStorage.getItem('theory-theme') || 'light';
                     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                     localStorage.setItem('theory-theme', newTheme);
                     applyTheme(newTheme);
@@ -532,11 +620,18 @@
                     return uiTranslations[lang][key] || key;
                 }
 
+                const blocks = {
+                    0: getT('bloc-0'),
+                    1: getT('bloc-1'),
+                    2: getT('bloc-2'),
+                    3: getT('bloc-3'),
+                    4: getT('bloc-4'),
+                    5: getT('bloc-5'),
+                    6: getT('bloc-6')
+                };
+
                 if (pageId && theoryData[pageId]) {
                     const data = theoryData[pageId];
-
-                    // Removed hardcoded theme apply to use logic above
-
 
                     // --- Improved formatText ---
                     function formatText(text) {
@@ -561,9 +656,9 @@
                         return html;
                     }
 
-                    // --- Header (no character, no subtitle) ---
+                    // --- Header with category badge ---
                     let contentHtml = `
-                        <button class="back-btn" onclick="window.location.href='theory.html'" style="color: var(--primary-color);">
+                        <button class="back-btn" onclick="window.location.href='theory.html'" style="color: var(--bordeaux);">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M19 12H5M12 19l-7-7 7-7"/>
                             </svg>
@@ -571,7 +666,9 @@
                         </button>
 
                         <div class="fiche-header animate-pop">
+                            ${blocks[data.bloc] ? `<span class="fiche-bloc-badge">${blocks[data.bloc]}</span>` : ''}
                             <h1 class="fiche-title">${data.title}</h1>
+                            ${data.subtitle ? `<p class="card-subtitle-small" style="font-size: 1.1rem; margin-top: 0.5rem; color: var(--ink-3);">${data.subtitle}</p>` : ''}
                         </div>
 
                         ${data.definition ? `
@@ -598,7 +695,7 @@
                                 <div class="chapter-section">
                                     <h2 data-i18n="theory-conditions">${getT('theory-conditions')}</h2>
                                     <ul class="var-list">
-                                        ${data.conditions.map(c => `<li>✅ ${formatText(c)}</li>`).join('')}
+                                        ${data.conditions.map(c => `<li>${formatText(c)}</li>`).join('')}
                                     </ul>
                                 </div>
                                 <div class="chapter-section">
@@ -706,7 +803,7 @@
                                 <div class="chapter-section">
                                     <h2 data-i18n="theory-ingredients">${getT('theory-ingredients')}</h2>
                                     <ul class="var-list">
-                                        ${data.subjects.map(s => `<li>🔹 ${formatText(s)}</li>`).join('')}
+                                        ${data.subjects.map(s => `<li>${formatText(s)}</li>`).join('')}
                                     </ul>
                                 </div>
                                 <div class="chapter-section">
@@ -721,21 +818,38 @@
 
                     container.innerHTML = contentHtml;
                 } else {
-                    // Show Summary Table of Contents in Midnight Theme logic handled at init
-
-
-                    const blocks = {
-                        1: getT('bloc-1'),
-                        2: getT('bloc-2'),
-                        3: getT('bloc-3'),
-                        4: getT('bloc-4'),
-                        5: getT('bloc-5')
-                    };
-
                     const placeholderTxt = currentLang === 'fr' ? 'Rechercher un concept, une formule...' : 'Search a concept, formula...';
-                    const noResultTxt = currentLang === 'fr' ? '🔍 Aucun résultat pour cette recherche.' : '🔍 No results found.';
+                    const noResultTxt = currentLang === 'fr' ? 'Aucun résultat pour cette recherche.' : 'No results found.';
 
                     let summaryHtml = `
+                        <!-- ==============================================
+                             SECTION DECK DE TESTS STATISTIQUES (TOUT EN HAUT)
+                             ============================================== -->
+                        <section class="theory-deck-section" id="theory-deck-section">
+                            <div class="theory-deck-header">
+                                <span class="theory-deck-kicker" data-i18n="theory-deck-kicker">${getT('theory-deck-kicker') || 'COLLECTION COLLECTOR'}</span>
+                                <h2 class="theory-deck-title" data-i18n="theory-deck-title">${getT('theory-deck-title') || 'Deck des Tests Statistiques'}</h2>
+                                <p class="theory-deck-desc" data-i18n="theory-deck-desc">${getT('theory-deck-desc') || 'Explorez l\'ensemble des tests statistiques. Cliquez sur une carte pour l\'examiner en 3D, la retourner et afficher son chemin de décision dans le quiz.'}</p>
+                                
+                                <div class="theory-deck-filter-bar">
+                                    <button type="button" class="deck-filter-btn active" onclick="filterTheoryCardsDeck('all', this)" data-i18n="theory-deck-filter-all">${getT('theory-deck-filter-all') || 'Tous les tests'}</button>
+                                    <button type="button" class="deck-filter-btn" onclick="filterTheoryCardsDeck('comparer', this)" data-i18n="theory-deck-filter-compare">${getT('theory-deck-filter-compare') || 'Comparer'}</button>
+                                    <button type="button" class="deck-filter-btn" onclick="filterTheoryCardsDeck('relation', this)" data-i18n="theory-deck-filter-link">${getT('theory-deck-filter-link') || 'Relation'}</button>
+                                    <button type="button" class="deck-filter-btn" onclick="filterTheoryCardsDeck('predire', this)" data-i18n="theory-deck-filter-predict">${getT('theory-deck-filter-predict') || 'Prédire'}</button>
+                                    <button type="button" class="deck-filter-btn" onclick="filterTheoryCardsDeck('decrire', this)" data-i18n="theory-deck-filter-desc">${getT('theory-deck-filter-desc') || 'Décrire'}</button>
+                                    <button type="button" class="deck-filter-btn" onclick="filterTheoryCardsDeck('verifier', this)" data-i18n="theory-deck-filter-check">${getT('theory-deck-filter-check') || 'Vérifier'}</button>
+                                </div>
+                            </div>
+
+                            <div class="theory-deck-scroll-wrapper">
+                                <button type="button" class="deck-scroll-arrow deck-scroll-left" onclick="scrollDeckRibbon(-320)" aria-label="Défiler vers la gauche">‹</button>
+                                <div class="theory-cards-ribbon" id="theory-cards-ribbon">
+                                    <!-- Mini boosters injectés dynamiquement -->
+                                </div>
+                                <button type="button" class="deck-scroll-arrow deck-scroll-right" onclick="scrollDeckRibbon(320)" aria-label="Défiler vers la droite">›</button>
+                            </div>
+                        </section>
+
                         <h1 class="theory-title" data-i18n="summary-title">${getT('summary-title')}</h1>
                         <p class="theory-subtitle" data-i18n="summary-subtitle">${getT('summary-subtitle')}</p>
 
@@ -749,7 +863,8 @@
                         <p id="no-results-msg" class="no-results-msg">${noResultTxt}</p>
                     `;
 
-                    for (let i = 1; i <= 5; i++) {
+                    const blocKeys = [0, 1, 2, 3, 4, 5, 6];
+                    for (const i of blocKeys) {
                         const blocFiches = Object.entries(theoryData).filter(([k, v]) => v.bloc === i);
                         if (blocFiches.length > 0) {
                             const cardsHtml = blocFiches.map(([key, item]) => {
@@ -757,19 +872,24 @@
                                 const tagsHtml = (item.tags || []).slice(0, 4).map(t => `<span class="card-tag">${t}</span>`).join('');
                                 return `
                                     <div class="theory-card" data-searchable="${searchable}" onclick="window.location.href='?id=${key}'">
-                                        <h4 style="color: var(--primary-color); margin: 0;">${item.title}</h4>
+                                        <h3 style="font-family: var(--font-serif); color: var(--ink); margin: 0 0 0.35rem; font-size: 1.15rem; font-weight: 600;">${item.title}</h3>
+                                        ${item.subtitle ? `<p class="card-subtitle-small">${item.subtitle}</p>` : ''}
                                         ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
                                     </div>`;
                             }).join('');
                             summaryHtml += `
                                 <div class="bloc-section" data-bloc="${i}">
-                                    <h2 style="margin-top: 3rem; color: var(--secondary-color); font-size: 1.8rem; border-bottom: 2px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 2rem;">${blocks[i]}</h2>
-                                    <div class="grid-3" style="column-gap: 2rem; row-gap: 2rem;">${cardsHtml}</div>
+                                    <h2 style="margin-top: 3.5rem; font-family: var(--font-serif); color: var(--bordeaux); font-size: 1.8rem; border-bottom: 1px solid var(--surface-2); padding-bottom: 0.6rem; margin-bottom: 1.8rem;">${blocks[i]}</h2>
+                                    <div class="grid-3" style="column-gap: 1.5rem; row-gap: 1.5rem;">${cardsHtml}</div>
                                 </div>`;
                         }
                     }
 
                     container.innerHTML = summaryHtml;
+
+                    if (typeof renderTheoryCardsGallery === 'function') {
+                        renderTheoryCardsGallery('theory-cards-ribbon');
+                    }
 
                     // ===== Live Search =====
                     const searchInput = document.getElementById('theory-search');
@@ -806,15 +926,23 @@
         })();
     </script>
 
-    <footer class="footer">
-        <div class="container" style="text-align: center;">
-            <div class="mobile-bottom-nav">
-                <a href="index.html" data-i18n="nav-accueil">Accueil</a>
-                <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
-                <a href="gpower.html" data-i18n="nav-gpower">G*Power</a>
-            </div>
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-links">
+            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
+            <a href="theory.html" data-i18n="nav-fiches">Fiches théoriques</a>
+            <a href="gpower.html" data-i18n="nav-gpower">G*Power</a>
+            <a href="glossary.html" data-i18n="nav-glossaire">Glossaire</a>
+            <a href="privacy.html">Politique de confidentialité</a>
+            <a href="legal.html">Mentions légales</a>
         </div>
+        <p>Significant — Fait pour simplifier vos analyses statistiques.</p>
     </footer>
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+        });
+    </script>
 </body>
 
 </html>

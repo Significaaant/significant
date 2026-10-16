@@ -1,6 +1,139 @@
 const theoryData = {
     // ==========================================
-    // BLOC 1 : Introduction et Esprit Critique
+    // BLOC 0 : Méthodo (Méthodologie & Enquêtes)
+    // ==========================================
+    "reflexivite": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Réflexivité et Construction des Données",
+        subtitle: "La Construction des Données",
+        character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
+        tags: ["méthodo", "réflexivité", "biais", "construction des données", "questionnaire", "épistémologie", "objectivité"],
+        sections: [
+            {
+                title: "Construction des données",
+                content: "Le moment de la collecte, c'est celui qui donne une direction à toute l'étude. Les données se construisent : selon les questions qu'on pose et les indicateurs qu'on retient ou qu'on laisse de côté, leur forme sera très différente. Réfléchir en amont à l'incidence de la méthode de recueil, c'est l'étape la plus importante de toute démarche statistique.",
+                layout: "standard"
+            },
+            {
+                title: "Analyse du dispositif de collecte",
+                content: "Avant d'analyser un chiffre, demande-toi comment il est né :\n*   **La question posée** : une formulation change tout à la réponse obtenue.\n*   **Le contexte** : par téléphone, en face-à-face, en ligne, le format compte.\n*   **Les invisibles** : les données qu'on ne peut pas récolter à cause d'un détail logistique, ou simplement parce qu'on n'a pas pensé à les demander.",
+                layout: "highlight"
+            },
+            {
+                title: "Limites et angles morts",
+                content: "Il est impossible de tout capter en une seule étude. L'angle mort, c'est l'information qu'on rate, et il faut réfléchir à ce qu'on est en train de rater autant qu'à ce qu'on a récolté. La réponse, c'est de multiplier les études pour se rapprocher d'une vue d'ensemble, sachant qu'on ne l'atteindra jamais parfaitement.",
+                layout: "alert"
+            }
+        ],
+        footer: "La méthode de collecte oriente l'étude avant même que l'analyse commence."
+    },
+    "guide-traducteur": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Guide du Traducteur (Cas Réel)",
+        subtitle: "Traduire un problème réel en variables et en tests",
+        character: { shape: "nexus", color: "#6366f1", eyes: "focused" },
+        tags: ["méthodo", "traducteur", "cas réel", "grossetti", "sociologie", "variables", "corrélation"],
+        sections: [
+            {
+                title: "Le Cas Réel (Sociologie des sciences)",
+                content: "Avant d'ouvrir votre logiciel, il faut traduire votre question de recherche en langage statistique.\n\nPrenons un cas réel d'enquête en sociologie des sciences (étude de Michel Grossetti) : *« L'évolution de la présence du topic 'Cancer du Sein' dans les publications scientifiques de 1920 à 2016. »*\n\nFace à un tel objet d'étude, il est inutile de chercher un test au hasard. Il faut décomposer minutieusement ce qui est mesuré.",
+                layout: "standard"
+            },
+            {
+                title: "La Grille de Traduction",
+                content: "Voici comment traduire les composantes de votre étude :\n\n*   **L'Année (1920, 1921... 2016)** : C'est une mesure continue dans le temps. -> **Variable Quantitative**.\n*   **La Présence du Topic (12 %, 5 %...)** : C'est un pourcentage chiffré dans les articles de l'année. -> **Variable Quantitative**.\n*   **La Question de Recherche** : *« Est-ce que cette présence augmente ou baisse avec le temps ? »* -> Vous cherchez le lien ou la co-variation entre deux grandeurs numériques. -> **Corrélation**.",
+                layout: "highlight"
+            },
+            {
+                title: "Du Terrain au Choix du Test",
+                content: "Grâce à cette traduction, le choix de l'outil devient évident :\n\n*   Deux variables quantitatives sur les mêmes observations -> **Test de Corrélation** (Pearson si les données sont normales, Spearman si elles ne le sont pas).\n*   Si l'on cherche à modéliser et prédire le pourcentage selon l'année -> **Régression Linéaire Simple**.\n*   Si l'on comparait deux revues médicales différentes sur ce topic -> **Test t de Student ou Mann-Whitney**.",
+                layout: "standard"
+            }
+        ],
+        footer: "Traduire sa question en nature de variables, c'est déjà avoir fait 80 % du travail d'analyse."
+    },
+    "conception-questionnaire": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Conception du Questionnaire & Enquêtes",
+        subtitle: "Méthodes de collecte, neutralité et formulation",
+        character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
+        tags: ["méthodo", "questionnaire", "enquête", "recueil", "neutralité", "formulation", "biais"],
+        sections: [
+            {
+                title: "Les Trois Méthodes de Recueil",
+                content: "Selon votre problématique, trois démarches principales s'offrent à vous :\n\n*   **L'Enquête par questionnaire** : Interroger un échantillon au moyen de questions standardisées (mesure d'attitudes, d'opinions ou de pratiques déclarées).\n*   **L'Observation directe** : Relever systématiquement les faits ou comportements tels qu'ils se produisent, sans passer par le filtre déclaratif des répondants.\n*   **L'Expérimentation** : Provoquer délibérément une situation et manipuler une variable indépendante (VI) pour observer son impact sur une variable dépendante (VD) en contrôlant les facteurs parasites.",
+                layout: "standard"
+            },
+            {
+                title: "Les Règles d'Or d'un Bon Questionnaire",
+                content: "Pour obtenir des données exploitables et de qualité :\n\n*   **Court et ciblé** : Chaque question doit servir directement une hypothèse de recherche. Bannissez les questions superflues qui alourdissent la passation.\n*   **Clair et accessible** : Évitez tout jargon académique, sigle non explicité ou terme technique qui risquerait de dérouter le répondant.\n*   **Univoque** : Ne posez jamais deux questions en une (ex : *« Êtes-vous satisfait de votre salaire et de vos horaires ? »* -> Impossible à traiter si la personne aime ses horaires mais déplore son salaire).",
+                layout: "highlight"
+            },
+            {
+                title: "Neutralité et Biais de Formulation",
+                content: "La façon de poser une question influence directement le résultat statistique :\n\n*   **Question biaisée (à proscrire)** : *« Ne pensez-vous pas que la politique actuelle est désastreuse ? »* -> La tournure induit d'emblée la réponse et crée un biais d'acquiescement.\n*   **Question neutre (recommandée)** : *« Quel est votre degré de satisfaction concernant la politique actuelle ? »* avec des modalités équilibrées allant de *Très insatisfait* à *Très satisfait*.",
+                layout: "alert"
+            }
+        ],
+        footer: "Un bon questionnaire ne cherche pas à confirmer vos intuitions, mais à donner aux répondants l'espace d'exprimer la réalité de leurs pratiques."
+    },
+    "nettoyage-donnees": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Nettoyage & Préparation des Données",
+        subtitle: "Format, codage des colonnes et valeurs aberrantes",
+        character: { shape: "spark", color: "#f59e0b", eyes: "focused" },
+        tags: ["méthodo", "nettoyage", "données", "outliers", "valeurs manquantes", "format", "r", "jamovi"],
+        sections: [
+            {
+                title: "1. Le Format Propre Requis",
+                content: "Avant d'importer vos données dans R, Jamovi, SPSS ou Python, trois règles techniques évitent 90 % des bugs d'importation :\n\n*   **Décimales avec un POINT** : Utilisez toujours un point (ex : 1.75) et jamais de virgule, qui transforme souvent toute une colonne numérique en texte.\n*   **Pas d'espaces parasites** : Un espace invisible en fin de mot ('Homme ' vs 'Homme') crée deux catégories distinctes pour le logiciel.\n*   **Cellules vides pour les valeurs manquantes (NA)** : Laissez les cases vides. Ne codez jamais une valeur manquante par 99 ou -1 sans le déclarer explicitement, sinon vos moyennes et tests seront faussés.",
+                layout: "standard"
+            },
+            {
+                title: "2. Distinguer la Nature des Colonnes",
+                content: "Chaque colonne remplit un rôle méthodologique précis :\n\n*   **Identifiant (ID)** : Numéro de participant (1, 2, 3...) -> Sert à repérer les lignes, mais ne doit jamais faire l'objet d'un calcul statistique.\n*   **Catégorie (Variable Qualitative)** : 1 = Homme, 2 = Femme -> Ce 1 est une étiquette nominale, pas un nombre. On ne calcule ni moyenne ni écart-type dessus.\n*   **Score ou Mesure (Variable Quantitative)** : 12/20, temps en millisecondes, âge en années -> Vraie valeur numérique sur une échelle continue ou discrète.",
+                layout: "highlight"
+            },
+            {
+                title: "3. Traquer les Extrêmes et Aberrations",
+                content: "Une seule coquille dans la saisie peut fausser vos coefficients de corrélation et vos variances :\n\n*   **Erreur manifeste de saisie** : Un âge de 150 ans ou une taille de 10 mètres -> À corriger avec le questionnaire source ou à déclarer en valeur manquante (NA).\n*   **Outlier réel (valeur extrême authentique)** : Une observation très éloignée mais plausible -> Vérifiez si elle relève d'une distraction du répondant avant de décider de l'exclure ou d'utiliser un test non-paramétrique robuste.",
+                layout: "alert"
+            }
+        ],
+        footer: "La moitié du temps d'une recherche empirique est consacrée au nettoyage des données : des statistiques rigoureuses reposent toujours sur une base irréprochable."
+    },
+    "biais-enquete": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Biais de Collecte",
+        subtitle: "Débusquer les Biais d'Enquête",
+        character: { shape: "ambulance", color: "#ef4444", eyes: "surprised" },
+        tags: ["méthodo", "biais", "désirabilité sociale", "non-réponse", "cadrage", "questionnaire", "erreur"],
+        sections: [
+            {
+                title: "Biais de désirabilité sociale",
+                content: "C'est l'un des plus redoutables : les répondants modifient inconsciemment leurs déclarations pour **paraître sous un meilleur jour**.\n\n*Exemple* : Dans un sondage d'hygiène, la quasi-totalité des participants affirme se laver systématiquement les mains. Une observation directe montre une réalité très différente.",
+                layout: "alert"
+            },
+            {
+                title: "Biais de non-réponse",
+                content: "Ceux qui refusent de répondre ou abandonnent en cours de route ne sont pas neutres. Si vous interrogez les usagers d'un service, les plus mécontents ont peut-être déjà renoncé : votre échantillon devient mécaniquement **sur-optimiste**.",
+                layout: "highlight"
+            },
+            {
+                title: "Effet de cadrage (Framing)",
+                content: "La façon dont la question est posée induit subtilement la tonalité de la réponse : comparer *« Pensez-vous que ce dispositif est satisfaisant ? »* avec *« Quelles sont les principales lacunes de ce dispositif ? »*.",
+                layout: "standard"
+            }
+        ],
+        footer: "Chaque biais est une menace systématique à la validité interne ou externe de votre étude."
+    },
+    // ==========================================
+    // BLOC 1 : Fondements Scientifiques
     // ==========================================
     "intro-stats": {
         bloc: 1,
@@ -8,71 +141,20 @@ const theoryData = {
         title: "Statistique Descriptive",
         subtitle: "La Statistique Descriptive",
         character: { shape: "nexus", color: "#6366f1", eyes: "happy" },
+        tags: ["statistique", "définition", "unité statistique", "variable", "modalité", "probabilités", "réduction"],
         sections: [
             {
                 title: "Définitions fondamentales",
-                content: "La statistique est la science de la collecte, de l'analyse et de l'interprétation des données. On distingue :\n*   **L'Unité Statistique** : L'entité de base (individu, ménage, entreprise).\n*   **La Variable** : La caractéristique mesurée (ex: âge, revenu).\n*   **La Modalité** : La valeur précise prise par une variable (ex: 25 ans, 'Marseille').",
+                content: "Seule, une information peut être le fruit du hasard. Rassemblées, elles racontent quelque chose. La statistique, c'est ça : traiter des données toutes ensemble pour voir ce qu'elles disent d'un phénomène.\n\n*   **L'Unité Statistique** : ce qu'on observe (une personne, une entreprise, un pays).\n*   **La Variable** : la caractéristique qu'on mesure — elle contient *l'ensemble* des réponses possibles.\n*   **La Modalité** : une réponse précise parmi celles-là (ex: la variable 'sexe' a les modalités 'F' et 'H').",
                 layout: "standard"
             },
             {
                 title: "Statistique et Probabilités",
-                content: "Alors que les **Probabilités** modélisent le futur (connaître la loi pour prédire le tirage), la **Statistique** analyse le passé (partir des données pour retrouver la loi). Passer du chiffre au récit :\n*   **Réduction de l'information** : Passer de N données à k paramètres clés.\n*   **Généralisation** : Estimer l'inconnu (Population) à partir du connu (Échantillon).",
+                content: "Les probabilités regardent *vers le futur* : connaître une loi pour prédire ce qui va arriver. La statistique regarde *vers le passé* : partir des données pour comprendre d'où elles viennent.\n\nConcrètement, ça consiste à faire deux choses :\n*   **Réduire** : passer de 500 réponses à 3 chiffres qui résument tout.\n*   **Généraliser** : tirer des conclusions sur tout le monde à partir d'un échantillon.",
                 layout: "highlight"
             }
         ],
-        footer: "La statistique est un processus de réduction et de généralisation de l'information, soumis à des hypothèses explicites."
-    },
-    "reflexivite": {
-        bloc: 1,
-        type: "TYPE_FLEXIBLE",
-        title: "Réflexivité et Construction des Données",
-        subtitle: "La Construction des Données",
-        character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
-        tags: ["réflexivité", "biais", "construction des données", "questionnaire", "épistémologie", "objectivité"],
-        sections: [
-            {
-                title: "Construction des données",
-                content: "Contrairement à ce que leur nom suggère, les données ne tombent pas du ciel. On ne les 'cueille' pas, on les **fabrique**.\n\nUne donnée est toujours le résultat d'un dispositif technique, humain et politique.",
-                layout: "standard"
-            },
-            {
-                title: "Analyse du dispositif de collecte",
-                content: "Avant d'analyser un chiffre, demandez-vous comment il est né :\n*   **Le Questionnaire** : Quelle question a été posée ? Un mot peut tout changer.\n*   **Le Contexte** : L'enquête a-t-elle eu lieu par téléphone ou face-à-face ?\n*   **Les Invisibles** : Qui a-t-on oublié d'interroger ?",
-                layout: "highlight"
-            },
-            {
-                title: "Limites et angles morts",
-                content: "Toute donnée est une **ombre projetée**. Elle montre une partie de la réalité mais en cache une autre. La réflexivité, c'est admettre ces angles morts.",
-                layout: "alert"
-            }
-        ],
-        footer: "L'analyse critique du dispositif de collecte est un préalable à toute interprétation substantielle."
-    },
-    "biais-enquete": {
-        bloc: 1,
-        type: "TYPE_FLEXIBLE",
-        title: "Biais de Collecte",
-        subtitle: "Débusquer les Biais",
-        character: { shape: "ambulance", color: "#ef4444", eyes: "surprised" },
-        tags: ["biais", "désirabilité sociale", "non-réponse", "cadrage", "questionnaire", "erreur"],
-        sections: [
-            {
-                title: "Biais de désirabilité sociale",
-                content: "C'est l'un des plus redoutables : les gens mentent inconsciemment pour **paraître meilleurs**. \n\n*Exemple* : Dans un sondage, tout le monde se lave les mains après les toilettes. En réalité, une observation directe montre un chiffre bien plus bas.",
-                layout: "alert"
-            },
-            {
-                title: "Biais de non-réponse",
-                content: "Les gens qui ne répondent pas ne sont pas 'neutres'. Si vous interrogez les clients d'un restaurant, les plus mécontents sont peut-être déjà partis sans répondre : votre échantillon est **biaisé vers le haut**.",
-                layout: "highlight"
-            },
-            {
-                title: "Effet de cadrage",
-                content: "La forme de la question suggère la réponse. 'Pensez-vous que ce produit est utile ?' vs 'Quel est le principal défaut de ce produit ?'.",
-                layout: "standard"
-            }
-        ],
-        footer: "Chaque biais est une menace systématique à la validité interne ou externe de l'étude."
+        footer: "La statistique sert à organiser l'information pour comprendre comment le monde est construit — à mettre des chiffres là où il y a du sens à trouver."
     },
     "echantillon-pop": {
         bloc: 1,
@@ -259,7 +341,7 @@ const theoryData = {
                 layout: "standard"
             },
             {
-                title: "📐 Signification Physique",
+                title: "Signification physique",
                 content: "La variance exprime l'**inertie** d'un nuage de points. Plus elle est élevée, plus l'information est dispersée. Elle est à la base du calcul de l'ANOVA (Analyse de la Variance).",
                 layout: "highlight"
             }
@@ -928,7 +1010,7 @@ const theoryData = {
                 layout: "alert"
             },
             {
-                title: "💻 Code Rapide",
+                title: "Code rapide",
                 content: "**R** : `shapiro.test(residuals(mon_modele))`\n\n**Jamovi** : Analyses → Exploration → Shapiro-Wilk (cocher la case)",
                 layout: "standard"
             }
@@ -960,7 +1042,7 @@ const theoryData = {
                 layout: "alert"
             },
             {
-                title: "💻 Code Rapide",
+                title: "Code rapide",
                 content: "**R** : `leveneTest(y ~ group, data = df)` *(package car)*\n\n**Jamovi** : T-Test → Homogeneity of variances (Levene's)",
                 layout: "standard"
             }
@@ -1073,5 +1155,98 @@ const theoryData = {
             }
         ],
         footer: "Un VIF > 10 signale une multicolinéarité sévère compromettant la stabilité et l'interprétabilité des estimateurs OLS."
+    },
+
+    // ==========================================
+    // BLOC 6 : Fondements Bayésiens & Modélisation
+    // ==========================================
+    "analyse-bayesienne": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "Raisonnement Bayésien",
+        subtitle: "Incertitude et Mise à jour",
+        character: { shape: "telescope", color: "#8b5cf6", eyes: "focused" },
+        tags: ["Bayes", "probabilité", "mise à jour", "incertitude", "Laplace", "épistémologie"],
+        sections: [
+            {
+                title: "Inversion de la probabilité",
+                content: "Contrairement à la statistique fréquentiste (P-Value), l'approche bayésienne calcule directement la **plausibilité des hypothèses** sachant les données. On ne teste pas la rareté d'un résultat sous H0, on cherche la distribution de ce qui est vrai.",
+                layout: "standard"
+            },
+            {
+                title: "Le cycle de l'apprentissage",
+                content: "C'est un processus continu : \n1. **Prior** : Ce que je savais avant.\n2. **Likelihood** : Ce que les nouvelles données me disent.\n3. **Posterior** : Ma nouvelle connaissance mise à jour.",
+                layout: "highlight"
+            }
+        ],
+        footer: "Le raisonnement bayésien transforme l'incertitude initiale en connaissance actualisée par l'observation."
+    },
+    "mcmc-logic": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "Logique MCMC",
+        subtitle: "Échantillonnage de Distributions Complexes",
+        character: { shape: "snake", color: "#f43f5e", eyes: "surprised" },
+        tags: ["MCMC", "chaîne de Markov", "Monte-Carlo", "Metropolis", "échantillonnage", "stochastique"],
+        sections: [
+            {
+                title: "Pourquoi l'échantillonnage ?",
+                content: "Dans les modèles complexes, calculer la distribution exacte mathématiquement est impossible. On envoie donc des 'explorateurs' (algorithmes) qui parcourent la distribution et notent les zones les plus denses.",
+                layout: "standard"
+            },
+            {
+                title: "L'Algorithme de Metropolis",
+                content: "L'explorateur propose un saut aléatoire. Si la nouvelle zone est plus probable que l'actuelle, il y va. Si elle l'est moins, il y va avec une certaine probabilité. À force, les pas des explorateurs dessinent la forme de la réalité.",
+                layout: "highlight"
+            }
+        ],
+        footer: "MCMC permet d'estimer des modèles impossibles à résoudre par les méthodes algébriques classiques."
+    },
+    "priors-posteriors": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "Priors & Posteriors",
+        subtitle: "L'Essence de Bayes",
+        character: { shape: "bubble", color: "#10b981", eyes: "happy" },
+        tags: ["prior", "posterior", "vraisemblance", "mise à jour", "connaissance", "subjectif", "information"],
+        sections: [
+            {
+                title: "La Probabilité a priori (Prior)",
+                content: "C'est l'information que vous avez *avant* de regarder les données. Un bon prior est 'régularisateur' : il évite que le modèle ne s'emballe sur des bruits aléatoires en privilégiant les valeurs raisonnables.",
+                layout: "standard"
+            },
+            {
+                title: "La distribution a posteriori",
+                content: "C'est le résultat final : le compromis parfait entre vos hypothèses initiales et la force des preuves apportées par les données.",
+                layout: "highlight"
+            }
+        ],
+        footer: "L'inférence bayésienne est la formalisation mathématique de la révision rationnelle des croyances."
+    },
+    "overfitting-underfitting": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "Overfitting & Underfitting",
+        subtitle: "Le Compromis Biais-Variance",
+        character: { shape: "target", color: "#ef4444", eyes: "surprised" },
+        tags: ["overfitting", "complexité", "surajustement", "prédiction", "parsimonie", "AIC", "généralisation"],
+        sections: [
+            {
+                title: "Le piège du surajustement (Overfitting)",
+                content: "On dit qu'un modèle 'overfit' quand il apprend les bruits de votre échantillon par cœur. Il semble génial sur vos données actuelles, mais devient nul pour prédire le futur car il a confondu le signal et le bruit.",
+                layout: "alert"
+            },
+            {
+                title: "Sous-ajustement (Underfitting)",
+                content: "À l'inverse, l'underfitting survient quand le modèle est trop simple pour voir la vraie structure des données. Il est aveugle à la réalité.",
+                layout: "standard"
+            },
+            {
+                title: "La voie du juste milieu",
+                content: "Le but est de trouver le modèle qui a la meilleure puissance prédictive hors-échantillon. On utilise pour cela des critères comme l'AIC ou la Validation Croisée.",
+                layout: "highlight"
+            }
+        ],
+        footer: "Un bon modèle ne cherche pas à décrire parfaitement le passé, mais à prédire correctement le futur."
     }
 };

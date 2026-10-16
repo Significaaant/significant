@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions légales — Significant</title>
+    <meta name="description" content="Mentions légales du site Significant.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="i18n.js" defer></script>
+</head>
+
+<body>
+
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-wordmark">significant</div>
+            <div class="loader-shimmer-text text-shimmer">Chargement...</div>
+            <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <nav class="navbar" role="navigation">
+        <a href="index.html" class="logo">significant <span>stats</span></a>
+        <div class="nav-links">
+            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
+            <a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a>
+            <a href="methodo.html" data-i18n="nav-methodo">Méthodo</a>
+            <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
+            <a href="about.html" data-i18n="nav-about">À propos</a>
+            <button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button>
+        </div>
+    </nav>
+
+    <main class="legal-content">
+        <h1>Mentions légales</h1>
+        <p style="color: var(--ink-3); font-size: 0.88rem; margin-bottom: 2rem;">Dernière mise à jour : octobre 2026</p>
+
+        <h2>Éditeur du site</h2>
+        <p>
+            Le site <strong>Significant</strong> est un projet personnel à vocation pédagogique, édité par Chaïma Moghrani, étudiante en Master.
+        </p>
+
+        <h2>Hébergement</h2>
+        <p>
+            Le site est hébergé statiquement. Aucune infrastructure serveur propriétaire ne traite vos données.
+        </p>
+
+        <h2>Propriété intellectuelle</h2>
+        <p>
+            L'ensemble des contenus présents sur Significant (textes, codes, mise en page) est la propriété de l'éditrice, sauf mention contraire. Toute reproduction, même partielle, est soumise à autorisation préalable.
+        </p>
+        <p>
+            Les extraits de code R, Python et Jamovi sont fournis à titre pédagogique et librement réutilisables dans un cadre non commercial avec attribution.
+        </p>
+
+        <h2>Limitation de responsabilité</h2>
+        <p>
+            Les informations présentées sur ce site ont un caractère pédagogique. Elles ne constituent pas un avis statistique professionnel. L'éditrice ne saurait être tenue responsable d'erreurs dans les analyses réalisées par les utilisateurs sur la base des contenus du site.
+        </p>
+
+        <h2>Liens externes</h2>
+        <p>
+            Significant contient des liens vers des sites tiers (LinkedIn, ressources académiques). L'éditrice n'est pas responsable du contenu de ces sites.
+        </p>
+
+        <h2>Droit applicable</h2>
+        <p>
+            Le site est soumis au droit français. Tout litige relève de la compétence des tribunaux français.
+        </p>
+
+        <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--surface-2);">
+            <a href="index.html" class="btn-secondary" style="text-decoration: none;">Retour à l'accueil</a>
+            <a href="privacy.html" class="discrete-link" style="margin-left: 1.5rem;">Politique de confidentialité</a>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-links">
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="privacy.html">Politique de confidentialité</a>
+            <a href="legal.html">Mentions légales</a>
+        </div>
+        <p>Significant — Fait pour simplifier vos analyses statistiques.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+        });
+    </script>
+</body>
+</html>

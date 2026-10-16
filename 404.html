@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page introuvable (404) — Significant</title>
+    <meta name="description" content="La page ou ressource demandée n'existe pas ou a été déplacée.">
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js" defer></script>
+    <script src="i18n.js" defer></script>
+</head>
+
+<body>
+
+    <!-- =============== LOADER =============== -->
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-wordmark">significant</div>
+            <div class="loader-shimmer-text text-shimmer" data-i18n="loading">Chargement...</div>
+            <div class="loader-bar-track">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =============== NAVIGATION =============== -->
+    <nav class="site-nav" role="navigation" aria-label="Navigation principale">
+        <div class="nav-inner">
+            <a href="index.html" class="site-wordmark" aria-label="Significant — Accueil">significant</a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+
+            <ul class="nav-links" id="nav-links" role="list">
+                <li><a href="index.html" data-i18n="nav-accueil">Accueil</a></li>
+                <li><a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a></li>
+                <li><a href="methodo.html" data-i18n="nav-methodo">Méthodo</a></li>
+                <li><a href="theory.html" data-i18n="nav-fiches">Fiches</a></li>
+                <li><a href="about.html" data-i18n="nav-about">À propos</a></li>
+                <li><button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- =============== ERROR MAIN (WATERMELON ERROR-1) =============== -->
+    <main class="error-page-main" role="main">
+        <!-- Radial-masked subtle architectural graph texture -->
+        <div class="error-bg-pattern" aria-hidden="true"></div>
+
+        <section class="error-container" aria-labelledby="error-title">
+            <!-- Dashed stroked SVG error code -->
+            <svg viewBox="0 0 800 300" class="error-code-svg" aria-hidden="true">
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="error-code-text">
+                    404
+                </text>
+            </svg>
+
+            <div class="error-content">
+                <h1 id="error-title" class="error-title" data-i18n="error-title">
+                    Page introuvable
+                </h1>
+                <p class="error-description" data-i18n="error-desc">
+                    La ressource ou la fiche méthodologique demandée n'existe pas ou a été déplacée.
+                </p>
+
+                <!-- Pill Action Button with Home Icon -->
+                <a href="index.html" class="error-pill-btn">
+                    <span data-i18n="error-action">Retour à l'accueil</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- =============== FOOTER =============== -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-links">
+            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
+            <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
+            <a href="gpower.html" data-i18n="nav-gpower">G*Power</a>
+            <a href="glossary.html" data-i18n="nav-glossaire">Glossaire</a>
+            <a href="about.html" data-i18n="nav-about">À propos</a>
+            <a href="privacy.html">Confidentialité</a>
+            <a href="legal.html">Mentions légales</a>
+        </div>
+        <p data-i18n="footer-text">Significant — Fait pour simplifier vos analyses statistiques.</p>
+    </footer>
+
+    <script>
+        // Smooth loader fadeout
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+                setTimeout(() => loader.remove(), 450);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,83 +1,160 @@
 const theoryData = {
     // ==========================================
-    // BLOCK 1: Introduction and Critical Thinking
+    // BLOCK 0: Methodology (Data & Survey Design)
+    // ==========================================
+    "reflexivite": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Reflexivity and Data Construction",
+        subtitle: "Data Construction & Scientific Stance",
+        character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
+        tags: ["methodology", "reflexivity", "bias", "data construction", "questionnaire", "epistemology", "objectivity"],
+        sections: [
+            {
+                title: "Data Construction",
+                content: "The moment of collection shapes the entire direction of the study. Data are constructed: depending on the questions asked and the indicators kept or discarded, their shape will be radically different. Reflecting upfront on the impact of your collection method is the single most important step of any statistical inquiry.",
+                layout: "standard"
+            },
+            {
+                title: "Analysis of Collection Mechanisms",
+                content: "Before analyzing any figure, ask yourself how it was born:\n*   **The Question Asked**: A single word can flip the meaning of an answer.\n*   **The Context**: Phone, face-to-face, online — the format always matters.\n*   **The Invisibles**: The data that could not be gathered due to logistical details, or simply because no one thought to ask.",
+                layout: "highlight"
+            },
+            {
+                title: "Limitations and Blind Spots",
+                content: "It is impossible to capture everything in a single investigation. A blind spot is the information you miss, and you must consider what you are missing just as much as what you collected. The answer is to cross-reference multiple studies to approach an overall view, knowing perfection will never be reached.",
+                layout: "alert"
+            }
+        ],
+        footer: "The collection method guides the study long before statistical analysis even begins."
+    },
+    "guide-traducteur": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Translator's Guide (Real-World Case)",
+        subtitle: "Translating field research questions into variables and statistical tests",
+        character: { shape: "nexus", color: "#6366f1", eyes: "focused" },
+        tags: ["methodology", "translator", "real case", "grossetti", "sociology", "variables", "correlation"],
+        sections: [
+            {
+                title: "A Real Case Study (Sociology of Science)",
+                content: "Before opening any software, real-world research questions must be translated into statistical language.\n\nConsider a real empirical case from sociology of science (study by Michel Grossetti): *« The historical evolution of the topic 'Breast Cancer' across scientific publications from 1920 to 2016. »*\n\nFaced with this question, the common mistake is picking a test randomly without breaking down what is actually measured.",
+                layout: "standard"
+            },
+            {
+                title: "The Translation Matrix",
+                content: "Here is how to map the elements of your study:\n\n*   **Year (1920, 1921... 2016)**: Continuous numeric time measure. -> **Quantitative Variable**.\n*   **Topic Presence (12%, 5%...)**: Percentage or proportion of articles in that year. -> **Quantitative Variable**.\n*   **Research Question**: *« Does topic presence increase or decrease over time? »* -> You are examining the association between two continuous numbers. -> **Correlation**.",
+                layout: "highlight"
+            },
+            {
+                title: "From Fieldwork to Test Selection",
+                content: "Once translated, your decision path is clear:\n\n*   Two quantitative variables measured on the same units -> **Correlation Test** (Pearson if normal, Spearman if non-normal).\n*   If you seek to model and predict percentage as a function of time -> **Simple Linear Regression**.\n*   If you had compared two different journals on this topic -> **Student's t-test or Mann-Whitney U**.",
+                layout: "standard"
+            }
+        ],
+        footer: "Translating your question into variable types is already doing 80% of the analytical work."
+    },
+    "conception-questionnaire": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Questionnaire Design & Survey Methods",
+        subtitle: "Golden rules for reliable, neutral and unbiased data collection",
+        character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
+        tags: ["methodology", "questionnaire", "survey", "collection", "neutrality", "wording", "bias"],
+        sections: [
+            {
+                title: "Three Main Collection Modalities",
+                content: "Depending on your research design, three principal avenues exist:\n\n*   **Survey Questionnaire**: Interrogating a sample through standardized questions (measuring declared attitudes, opinions, or habits).\n*   **Direct Observation**: Systematically recording events or behaviors as they happen, bypassing self-reporting bias.\n*   **Experimentation**: Deliberately creating a controlled condition and manipulating an independent variable (IV) to measure its effect on a dependent variable (DV).",
+                layout: "standard"
+            },
+            {
+                title: "Golden Rules for a Quality Questionnaire",
+                content: "To collect actionable, solid data:\n\n*   **Short & Targeted**: Every question must directly serve a specific hypothesis. Cut any curiosity question that overburdens respondent attention.\n*   **Clear & Accessible**: Eliminate academic jargon, unexplained acronyms, or ambiguous phrasing.\n*   **Single-Barreled**: Never combine two questions in one (e.g. *« Are you satisfied with your salary and working hours? »* -> Unanswerable if the respondent likes their hours but hates their pay).",
+                layout: "highlight"
+            },
+            {
+                title: "Neutrality and Wording Bias",
+                content: "How a question is phrased directly dictates the statistical output:\n\n*   **Biased question (avoid)**: *« Don't you think the current policy is disastrous? »* -> The prompt pushes compliance and negative priming.\n*   **Neutral question (recommended)**: *« What is your level of satisfaction regarding the current policy? »* on a balanced Likert scale from *Very dissatisfied* to *Very satisfied*.",
+                layout: "alert"
+            }
+        ],
+        footer: "A good questionnaire does not seek to confirm your hunches, but to give respondents room to express the truth of their practice."
+    },
+    "nettoyage-donnees": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Data Cleaning & Preparation",
+        subtitle: "Formatting, variable typing and outlier management",
+        character: { shape: "spark", color: "#f59e0b", eyes: "focused" },
+        tags: ["methodology", "cleaning", "data", "outliers", "missing values", "format", "r", "jamovi"],
+        sections: [
+            {
+                title: "1. The Clean Format Required",
+                content: "Before opening R, Jamovi, SPSS or Python, three technical rules eliminate 90% of import bugs:\n\n*   **Decimal separator with a PERIOD**: Always use a point (e.g. 1.75) and never a comma, which often coerces numeric columns into character strings.\n*   **No trailing spaces**: An invisible space ('Male ' vs 'Male') creates two separate categories in your software.\n*   **Empty cells for missing values (NA)**: Keep cells blank. Never code missing data with numbers like 99 or -1 without declaring them, or they will corrupt your means and variances.",
+                layout: "standard"
+            },
+            {
+                title: "2. Distinguishing Column Roles",
+                content: "Every column serves a distinct methodological purpose:\n\n*   **Identifier (ID)**: Participant number (1, 2, 3...) -> Used to trace rows, never to run statistical metrics on.\n*   **Categorical Factor**: 1 = Male, 2 = Female -> The '1' is a label, not a quantity. Do not calculate means on it.\n*   **Metric Measure (Quantitative)**: Score, reaction time, age in years -> Genuine numerical continuous or discrete scale.",
+                layout: "highlight"
+            },
+            {
+                title: "3. Hunting Down Outliers & Input Errors",
+                content: "A single typographical typo can destroy correlations and inflate variances:\n\n*   **Obvious Typo**: An age recorded as 150 or a height of 10 meters -> Correct against the raw questionnaire or code as NA.\n*   **Genuine Outlier**: A legitimate but extreme observation -> Verify whether it stemmed from participant distraction before choosing to exclude it or run robust non-parametric tests.",
+                layout: "alert"
+            }
+        ],
+        footer: "Half of empirical research time is spent cleaning data: solid statistics always rely on an immaculate foundation."
+    },
+    "biais-enquete": {
+        bloc: 0,
+        type: "TYPE_FLEXIBLE",
+        title: "Survey Biases",
+        subtitle: "Spotting and Countering Survey Biases",
+        character: { shape: "ambulance", color: "#ef4444", eyes: "surprised" },
+        tags: ["methodology", "bias", "social desirability", "non-response", "framing", "questionnaire", "error"],
+        sections: [
+            {
+                title: "Social Desirability Bias",
+                content: "One of the most insidious: respondents unconsciously adjust answers to **appear in a better light**.\n\n*Example*: In hygiene surveys, nearly everyone reports always washing their hands. Direct observation reveals a very different reality.",
+                layout: "alert"
+            },
+            {
+                title: "Non-Response Bias",
+                content: "Those who refuse to participate or drop out along the way are not random. In a customer service survey, the most dissatisfied users may have already left without answering, making the sample artificially **over-optimistic**.",
+                layout: "highlight"
+            },
+            {
+                title: "Framing Effect",
+                content: "The framing of a question subtly leads the emotional valence of answers: compare *« Do you find this system satisfactory? »* with *« What are the primary shortcomings of this system? »*.",
+                layout: "standard"
+            }
+        ],
+        footer: "Every bias is a systematic threat to the internal or external validity of your study."
+    },
+    // ==========================================
+    // BLOCK 1: Scientific Foundations
     // ==========================================
     "intro-stats": {
         bloc: 1,
         type: "TYPE_FLEXIBLE",
         title: "Descriptive Statistics",
-        subtitle: "Descriptive Statistics",
+        subtitle: "The Essence of Descriptive Statistics",
         character: { shape: "nexus", color: "#6366f1", eyes: "happy" },
+        tags: ["statistics", "definition", "statistical unit", "variable", "modality", "probabilities", "reduction"],
         sections: [
             {
                 title: "Fundamental Definitions",
-                content: "Descriptive statistics serves as a **reduction tool**: it simplifies complexity by summarizing raw data into intelligible indicators without losing essential information.",
+                content: "Alone, a piece of information can be a fluke. Brought together, they tell a story. Statistics is precisely that: analyzing data collectively to understand what they reveal about a phenomenon.\n\n*   **Statistical Unit**: What you observe (a person, a firm, a country).\n*   **Variable**: The measured attribute — containing the *full set* of possible answers.\n*   **Modality**: One specific value among those possible answers (e.g. variable 'gender' with modalities 'F' and 'M').",
                 layout: "standard"
             },
             {
-                title: "Statistics and Probabilities",
-                content: "The analytical objective is to synthesize complex data points into a meaningful description:\n*   **Essential extraction**: Reduction of large datasets to key indicators (mean, standard deviation).\n*   **Interpretation**: Transformation of raw numerical values into intelligible scientific findings.",
+                title: "Statistics and Probability",
+                content: "Probability looks *forward into the future*: knowing a law to predict what will happen. Statistics looks *backward into the past*: starting from observed data to understand where they come from.\n\nPractically, this achieves two core operations:\n*   **Reduce**: Condense 500 raw responses into 3 summary numbers that capture the essence.\n*   **Generalize**: Draw reliable conclusions about a broader population from a carefully selected sample.",
                 layout: "highlight"
-            },
-            {
-                title: "Information Reduction and Generalization",
-                content: "There is no 'perfect' summary. Choosing a mean over a median is a **political and scientific act**. Statistics are a tool to frame reality according to the question you're asking.",
-                layout: "standard"
             }
         ],
-        footer: "Statistics is a process of information reduction and generalization, subject to explicit assumptions."
-    },
-    "reflexivite": {
-        bloc: 1,
-        type: "TYPE_FLEXIBLE",
-        title: "Reflexivity and Data Construction",
-        subtitle: "Data Construction",
-        character: { shape: "mirror", color: "#8b5cf6", eyes: "calm" },
-        tags: ["reflexivity", "bias", "data construction", "questionnaire", "epistemology", "objectivity"],
-        sections: [
-            {
-                title: "Construction of Data",
-                content: "Data are not pre-existing entities but result from a specific collection and measurement process. They are the outcome of technical, methodological, and theoretical frameworks.",
-                layout: "standard"
-            },
-            {
-                title: "Analysis of Collection Mechanisms",
-                content: "Before analyzing a figure, ask yourself how it was born:\n*   **The Questionnaire**: What question was asked? One word can change everything.\n*   **The Context**: Did the survey take place by phone or face-to-face?\n*   **The Invisibles**: Who was forgotten in the survey?",
-                layout: "highlight"
-            },
-            {
-                title: "Limitations and Blind Spots",
-                content: "All data is a **projected shadow**. It shows part of reality but hides another. Reflexivity is about admitting these blind spots.",
-                layout: "alert"
-            }
-        ],
-        footer: "The critical analysis of data collection procedures is a prerequisite for any substantive interpretation."
-    },
-    "biais-enquete": {
-        bloc: 1,
-        type: "TYPE_FLEXIBLE",
-        title: "Survey Biases",
-        subtitle: "Spotting Bias",
-        character: { shape: "ambulance", color: "#ef4444", eyes: "surprised" },
-        tags: ["bias", "social desirability", "non-response", "framing effect", "questionnaire", "error"],
-        sections: [
-            {
-                title: "Social Desirability",
-                content: "This is one of the most formidable: people lie unconsciously to **appear better**. \n\n*Example*: In a survey, everyone washes their hands after using the toilet. In reality, direct observation shows a much lower figure.",
-                layout: "alert"
-            },
-            {
-                title: "Non-Response Bias",
-                content: "People who don't answer are not 'neutral'. If you survey restaurant customers, the most dissatisfied may have already left without answering: your sample is **biased upward**.",
-                layout: "highlight"
-            },
-            {
-                title: "Framing Effects",
-                content: "The form of the question suggests the answer. 'Do you think this product is useful?' vs 'What is the main flaw of this product?'.",
-                layout: "standard"
-            }
-        ],
-        footer: "Each bias represents a systematic threat to the internal or external validity of the study."
+        footer: "Statistics organizes information to understand how the world is structured — placing numbers where there is meaning to uncover."
     },
     "echantillon-pop": {
         bloc: 1,
@@ -1048,13 +1125,13 @@ footer: "Adjusted R² is the standard criterion for assessing goodness-of-fit in
             footer: "The Odds Ratio: the exchange currency of logistic regression."
 },
 
-"multicolinearite": {
-    bloc: 5,
+    "multicolinearite": {
+        bloc: 5,
         type: "TYPE_FLEXIBLE",
-            title: "Multicollinearity",
-                subtitle: "Collinearity Diagnostics",
-                    character: { shape: "puzzle", color: "#f43f5e", eyes: "surprised" },
-    tags: ["VIF", "multicollinearity", "correlation", "predictors", "instability", "tolerance", "multiple regression"],
+        title: "Multicollinearity",
+        subtitle: "Collinearity Diagnostics",
+        character: { shape: "puzzle", color: "#f43f5e", eyes: "surprised" },
+        tags: ["VIF", "multicollinearity", "correlation", "predictors", "instability", "tolerance", "multiple regression"],
         sections: [
             {
                 title: "Multicollinearity Concept",
@@ -1077,6 +1154,99 @@ footer: "Adjusted R² is the standard criterion for assessing goodness-of-fit in
                 layout: "standard"
             }
         ],
-            footer: "Predictors too correlated? Your model doesn't know who to believe."
-}
+        footer: "Predictors too correlated? Your model doesn't know who to believe."
+    },
+
+    // ==========================================
+    // BLOC 6: Bayesian Foundations & Modeling
+    // ==========================================
+    "analyse-bayesienne": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "Bayesian Reasoning",
+        subtitle: "Uncertainty and Update",
+        character: { shape: "telescope", color: "#8b5cf6", eyes: "focused" },
+        tags: ["Bayes", "probability", "update", "uncertainty", "Laplace", "epistemology"],
+        sections: [
+            {
+                title: "Inverting Probability",
+                content: "Unlike frequentist statistics (P-Value), the Bayesian approach directly calculates the **plausibility of hypotheses** given the data. We don't test the rarity of a result under H0; we seek the distribution of what is true.",
+                layout: "standard"
+            },
+            {
+                title: "The Learning Cycle",
+                content: "It's a continuous process: \n1. **Prior**: What I knew before.\n2. **Likelihood**: What the new data tells me.\n3. **Posterior**: My new updated knowledge.",
+                layout: "highlight"
+            }
+        ],
+        footer: "Bayesian reasoning transforms initial uncertainty into knowledge updated by observation."
+    },
+    "mcmc-logic": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "MCMC Logic",
+        subtitle: "Sampling Complex Distributions",
+        character: { shape: "snake", color: "#f43f5e", eyes: "surprised" },
+        tags: ["MCMC", "Markov chain", "Monte-Carlo", "Metropolis", "sampling", "stochastic"],
+        sections: [
+            {
+                title: "Why Sampling?",
+                content: "In complex models, calculating the exact mathematical distribution is impossible. We send 'explorers' (algorithms) that traverse the distribution and note the densest areas.",
+                layout: "standard"
+            },
+            {
+                title: "The Metropolis Algorithm",
+                content: "The explorer proposes a random jump. If the new area is more probable than the current one, it moves there. If it's less probable, it moves with a certain probability. Eventually, the explorers' steps outline the shape of reality.",
+                layout: "highlight"
+            }
+        ],
+        footer: "MCMC enables the estimation of models that are impossible to solve using classical algebraic methods."
+    },
+    "priors-posteriors": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "Priors & Posteriors",
+        subtitle: "The Essence of Bayes",
+        character: { shape: "bubble", color: "#10b981", eyes: "happy" },
+        tags: ["prior", "posterior", "likelihood", "update", "knowledge", "subjective", "information"],
+        sections: [
+            {
+                title: "The Prior Probability",
+                content: "This is the information you have *before* looking at the data. A good prior is 'regularizing': it prevents the model from runaway on random noise by favoring reasonable values.",
+                layout: "standard"
+            },
+            {
+                title: "The Posterior Distribution",
+                content: "This is the final result: the perfect compromise between your initial hypotheses and the strength of the evidence provided by the data.",
+                layout: "highlight"
+            }
+        ],
+        footer: "Bayesian inference is the mathematical formalization of the rational revision of beliefs."
+    },
+    "overfitting-underfitting": {
+        bloc: 6,
+        type: "TYPE_FLEXIBLE",
+        title: "Overfitting & Underfitting",
+        subtitle: "The Bias-Variance Tradeoff",
+        character: { shape: "target", color: "#ef4444", eyes: "surprised" },
+        tags: ["overfitting", "complexity", "prediction", "parsimony", "AIC", "generalization"],
+        sections: [
+            {
+                title: "The Overfitting Trap",
+                content: "A model 'overfits' when it learns the noise of your sample by heart. It looks great on your current data but fails to predict the future because it confused signal with noise.",
+                layout: "alert"
+            },
+            {
+                title: "Underfitting",
+                content: "In contrast, underfitting occurs when the model is too simple to capture the true structure of the data. It is blind to reality.",
+                layout: "standard"
+            },
+            {
+                title: "Seeking the Middle Ground",
+                content: "The goal is to find the model with the best out-of-sample predictive power. Criteria like AIC or Cross-Validation are used for this purpose.",
+                layout: "highlight"
+            }
+        ],
+        footer: "A good model doesn't aim to perfectly describe the past, but to correctly predict the future."
+    }
 };

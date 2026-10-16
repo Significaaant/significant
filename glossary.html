@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossaire statistique — Significant</title>
+    <meta name="description" content="Lexique complet des termes statistiques, triable par ordre alphabétique, chronologique ou niveau de difficulté.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js" defer></script>
+    <script src="i18n.js" defer></script>
+    <script src="glossary_data.js" defer></script>
+</head>
+
+<body>
+
+    <!-- =============== LOADER =============== -->
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-wordmark">significant</div>
+            <div class="loader-shimmer-text text-shimmer" data-i18n="loading">Chargement...</div>
+            <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- =============== NAV =============== -->
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+        <a href="index.html" class="logo" aria-label="Significant — Accueil">significant <span>stats</span></a>
+        <ul class="nav-links" role="list">
+            <li><a href="index.html" data-i18n="nav-accueil">Accueil</a></li>
+            <li><a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a></li>
+            <li><a href="methodo.html" data-i18n="nav-methodo">Méthodo</a></li>
+            <li><a href="theory.html" data-i18n="nav-fiches">Fiches</a></li>
+            <li><a href="about.html" data-i18n="nav-about">À propos</a></li>
+            <li><button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button></li>
+        </ul>
+    </nav>
+
+    <!-- =============== CONTENU =============== -->
+    <div class="container" style="padding-top: 3rem; padding-bottom: 5rem;">
+
+        <header class="glossary-header">
+            <h1>Glossaire statistique</h1>
+            <p class="glossary-subtitle">Tous les termes clés pour décrypter vos analyses, de la moyenne à la MANOVA.</p>
+        </header>
+
+        <section class="controls-wrapper" aria-label="Filtres et tri du glossaire">
+            <div class="search-container">
+                <label for="glossary-search" class="sr-only">Rechercher un terme</label>
+                <input type="text" id="glossary-search" class="glossary-search-bar"
+                       placeholder="Rechercher un terme (ex : Shapiro, Pearson…)"
+                       autocomplete="off" aria-label="Rechercher un terme statistique">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+            </div>
+
+            <div class="sort-controls" role="group" aria-label="Trier par">
+                <button class="sort-btn active" data-sort="az" id="sort-az">
+                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M10.027 13.493 8.447 9.071H3.528l-1.59 4.422H.666L4.67 2h2.611l4.035 11.493h-1.29ZM4.777 5.274 3.834 8.01h3.603l-.944-2.736h-.065Z"/><path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14Z"/></svg>
+                    A–Z
+                </button>
+                <button class="sort-btn" data-sort="chrono" id="sort-chrono">
+                    Chronologique
+                </button>
+                <button class="sort-btn" data-sort="diff" id="sort-diff">
+                    Difficulté
+                </button>
+            </div>
+        </section>
+
+        <div id="glossary-grid" class="glossary-grid" role="list" aria-live="polite">
+            <!-- Cartes injectées ici par JS -->
+        </div>
+
+        <div id="no-results" class="no-results" role="status" aria-live="polite">
+            Aucun terme ne correspond à votre recherche.
+        </div>
+
+    </div>
+
+    <!-- =============== FOOTER =============== -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-links">
+            <a href="index.html">Accueil</a>
+            <a href="theory.html">Fiches théoriques</a>
+            <a href="gpower.html">G*Power</a>
+            <a href="privacy.html">Politique de confidentialité</a>
+            <a href="legal.html">Mentions légales</a>
+        </div>
+        <p>Significant — Fait pour simplifier vos analyses statistiques.</p>
+    </footer>
+
+    <style>
+        .sr-only {
+            position: absolute; width: 1px; height: 1px;
+            padding: 0; margin: -1px; overflow: hidden;
+            clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid        = document.getElementById('glossary-grid');
+            const searchInput = document.getElementById('glossary-search');
+            const sortButtons = document.querySelectorAll('.sort-btn');
+            const noResults   = document.getElementById('no-results');
+
+            let currentSort  = 'az';
+            let currentQuery = '';
+
+            function render() {
+                const filtered = glossaryData.filter(t =>
+                    t.title.toLowerCase().includes(currentQuery.toLowerCase()) ||
+                    t.definition.toLowerCase().includes(currentQuery.toLowerCase())
+                );
+
+                filtered.sort((a, b) => {
+                    if (currentSort === 'az')     return a.title.localeCompare(b.title);
+                    if (currentSort === 'chrono') return a.order_chrono - b.order_chrono;
+                    if (currentSort === 'diff')   return a.order_diff   - b.order_diff;
+                    return 0;
+                });
+
+                grid.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    noResults.style.display = 'block';
+                    return;
+                }
+                noResults.style.display = 'none';
+
+                filtered.forEach((term, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'term-card';
+                    card.setAttribute('role', 'listitem');
+                    card.style.animation = `fadeInUp 0.4s ease ${index * 0.02}s backwards`;
+
+                    let badgesHtml = '';
+                    if (currentSort === 'chrono') {
+                        badgesHtml = `<span class="term-badge badge-chrono">Chap. ${Math.floor(term.order_chrono / 3) + 1}</span>`;
+                    } else if (currentSort === 'diff') {
+                        const level = term.order_diff < 15 ? 'Débutant' : (term.order_diff < 30 ? 'Intermédiaire' : 'Expert');
+                        badgesHtml = `<span class="term-badge badge-diff">${level}</span>`;
+                    }
+
+                    const linkHtml = term.theoryId ? `
+                        <a href="theory.html?id=${term.theoryId}" class="theory-link">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                            Consulter la fiche théorique
+                        </a>
+                    ` : '';
+
+                    card.innerHTML = `
+                        <div class="term-title">
+                            ${term.title}
+                            ${badgesHtml}
+                        </div>
+                        <div class="term-definition">${term.definition}</div>
+                        ${linkHtml}
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                currentQuery = e.target.value;
+                render();
+            });
+
+            sortButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sortButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentSort = btn.dataset.sort;
+                    render();
+                });
+            });
+
+            render();
+        });
+    </script>
+</body>
+</html>

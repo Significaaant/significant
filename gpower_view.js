@@ -128,12 +128,12 @@ function hideTooltip() {
 function showDetailCard(node) {
     const lang = localStorage.getItem('site-lang') || 'fr';
     
-    let html = `<h2 class="gradient-text">${node.title[lang]}</h2>`;
+    let html = `<h2 style="font-family: var(--font-serif); color: var(--bordeaux); margin-bottom: 0.5rem;">${node.title[lang]}</h2>`;
     html += `<p class="pedagogical-desc">${node.hoverDesc ? node.hoverDesc[lang] : ''}</p>`;
 
     // Detailed Indicator Section
     html += `<div class="indicators-summary" style="margin-top: 2rem;">`;
-    html += `<h3 style="font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--primary-color);">📚 ${lang === 'fr' ? 'Concepts clés à maîtriser' : 'Key Concepts to Master'}</h3>`;
+    html += `<h3 style="font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--surface-2); font-family: var(--font-serif);">${lang === 'fr' ? 'Concepts clés à maîtriser' : 'Key Concepts to Master'}</h3>`;
     
     if (node.params) {
         node.params.forEach(paramKey => {
@@ -141,7 +141,7 @@ function showDetailCard(node) {
             if (term) {
                 html += `
                 <div class="indicator-item" style="margin-bottom: 1.2rem;">
-                    <strong style="color: var(--primary-color); display: block; margin-bottom: 3px;">${term.term}</strong>
+                    <strong style="color: var(--bordeaux); display: block; margin-bottom: 3px;">${term.term}</strong>
                     <p style="font-size: 0.9rem; margin: 0; line-height: 1.4;">${term.def}</p>
                 </div>`;
             }
@@ -152,8 +152,8 @@ function showDetailCard(node) {
     if (node.id.includes('t-test') || node.id.includes('anova')) {
         const pVal = GPowerData.glossary[lang]['p-value'];
         html += `
-        <div class="indicator-item" style="margin-bottom: 1.2rem; border-top: 1px dashed var(--border-subtle); pt: 10px;">
-            <strong style="color: var(--accent-color); display: block; margin-bottom: 3px;">${pVal.term}</strong>
+        <div class="indicator-item" style="margin-bottom: 1.2rem; border-top: 1px dashed var(--surface-2); padding-top: 10px;">
+            <strong style="color: var(--ink); display: block; margin-bottom: 3px;">${pVal.term}</strong>
             <p style="font-size: 0.9rem; margin: 0; line-height: 1.4;">${pVal.def}</p>
         </div>`;
     }
@@ -161,8 +161,8 @@ function showDetailCard(node) {
     html += `</div>`;
 
     // Reporting Example
-    html += `<div class="reporting-box glass-panel" style="margin-top: 2rem; background: rgba(var(--primary-rgb), 0.05);">`;
-    html += `<p style="font-size: 0.9rem; font-style: italic;">` + (lang === 'fr' ? '💡 <b>Conseil de rédaction :</b> Toujours rapporter la taille d’effet (d ou f) en plus de la p-value pour montrer l’importance pratique de votre résultat.' : '💡 <b>Writing Tip:</b> Always report the effect size (d or f) alongside the p-value to show the practical importance of your result.') + `</p>`;
+    html += `<div class="reporting-box" style="margin-top: 2rem; background: var(--surface); border: 1px solid var(--surface-2); padding: 1rem 1.2rem; border-radius: 3px;">`;
+    html += `<p style="font-size: 0.9rem; font-style: italic; margin: 0;">` + (lang === 'fr' ? '<b>Conseil de rédaction :</b> Toujours rapporter la taille d’effet (d ou f) en plus de la p-value pour montrer l’importance pratique de votre résultat.' : '<b>Writing Tip:</b> Always report the effect size (d or f) alongside the p-value to show the practical importance of your result.') + `</p>`;
     html += `</div>`;
 
     detailContent.innerHTML = html;

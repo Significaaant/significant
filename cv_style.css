@@ -1,0 +1,259 @@
+/* ==========================================================================
+   CV SPECIFIC STYLES — Significant Editorial Redesign
+   ========================================================================== */
+
+.cv-container {
+    max-width: 1100px;
+    margin: 2rem auto 4rem;
+    padding: 0 1.5rem;
+}
+
+.cv-header {
+    margin-bottom: 2.5rem;
+    padding: 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--radius-sm);
+}
+
+.cv-header .hero-kicker {
+    margin-bottom: 0.5rem;
+}
+
+.cv-header h1 {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0.2rem 0 0.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.headline {
+    font-size: 1.15rem;
+    color: var(--ink-2);
+    font-style: italic;
+    margin-bottom: 1.2rem;
+}
+
+.contact-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--ink-3);
+}
+
+.contact-links .sep {
+    color: var(--surface-2);
+}
+
+.contact-links a {
+    color: var(--bordeaux);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
+}
+
+.contact-links a:hover {
+    color: var(--ink);
+}
+
+/* GRID */
+.cv-grid {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 860px) {
+    .cv-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cv-section {
+    background: var(--surface);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--radius-sm);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.cv-section h2 {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--ink);
+    margin-top: 0;
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--surface-2);
+}
+
+.cv-section p {
+    color: var(--ink-2);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* TIMELINE */
+.timeline {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--surface-2);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.85rem;
+    top: 0.35rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bordeaux);
+    border: 2px solid var(--bg);
+}
+
+.timeline-item .time {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.timeline-item .content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 0 0.2rem;
+}
+
+.timeline-item .content .org {
+    font-size: 0.88rem;
+    color: var(--bordeaux);
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+
+.timeline-item .content p {
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* COMPLEMENTARY GRID */
+.complementary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--ink-2);
+}
+
+.complementary-grid div {
+    padding: 0.6rem 0.8rem;
+    background: var(--bg);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--radius-sm);
+}
+
+@media (max-width: 550px) {
+    .complementary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ASIDE ITEMS */
+.project-card {
+    background: var(--bg);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--radius-sm);
+    padding: 1.4rem;
+}
+
+.project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--bordeaux);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+}
+
+.project-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin: 0 0 0.5rem;
+}
+
+.project-card p {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin: 0;
+}
+
+.skill-group {
+    margin-bottom: 1.5rem;
+}
+
+.skill-group:last-child {
+    margin-bottom: 0;
+}
+
+.skill-group h4 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    margin: 0 0 0.6rem;
+}
+
+.pill-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.pill {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    background: var(--bg);
+    color: var(--ink);
+    border: 1px solid var(--surface-2);
+    padding: 0.3rem 0.65rem;
+    border-radius: 2px;
+}
+
+.soft-skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.soft-skills-list li {
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    padding: 0.45rem 0;
+    border-bottom: 1px dashed var(--surface-2);
+}
+
+.soft-skills-list li:last-child {
+    border-bottom: none;
+}

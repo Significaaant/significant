@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Méthodologie & Planification — Significant</title>
+    <meta name="description" content="Guide méthodologique complet : de la conception rigoureuse de l'enquête et la réflexion sur les variables jusqu'au calcul de taille d'échantillon avec G*Power.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js"></script>
+    <script src="i18n.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="gpower_calc.js" defer></script>
+</head>
+
+<body>
+
+    <!-- =============== LOADER =============== -->
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-wordmark">significant</div>
+            <div class="loader-shimmer-text text-shimmer" data-i18n="loading">Chargement...</div>
+            <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- =============== NAVIGATION =============== -->
+    <nav class="site-nav" role="navigation" aria-label="Navigation principale">
+        <div class="nav-inner">
+            <a href="index.html" class="site-wordmark" aria-label="Significant — Accueil">significant</a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+
+            <ul class="nav-links" id="nav-links" role="list">
+                <li><a href="index.html" data-i18n="nav-accueil">Accueil</a></li>
+                <li><a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a></li>
+                <li><a href="methodo.html" class="active" data-i18n="nav-methodo">Méthodo</a></li>
+                <li><a href="theory.html" data-i18n="nav-fiches">Fiches</a></li>
+                <li><a href="about.html" data-i18n="nav-about">À propos</a></li>
+                <li><button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- =============== HERO =============== -->
+    <header class="small-hero" role="banner">
+        <div class="container text-center">
+            <span class="hero-kicker" data-i18n="hub-kicker">Section Méthodologie</span>
+            <h1 data-i18n="methodo-title">Méthodologie &amp; Planification</h1>
+            <p class="hero-subtitle-centered" data-i18n="methodo-subtitle">
+                De la conception rigoureuse de votre protocole jusqu'au dimensionnement statistique de votre échantillon.
+            </p>
+
+            <!-- Onglets de sélection du volet méthodologique -->
+            <div class="methodo-tab-selector" role="tablist" aria-label="Volets méthodologiques">
+                <button type="button" class="methodo-tab-btn active" id="tab-btn-conception" role="tab" aria-selected="true" aria-controls="section-conception" onclick="switchMethodoTab('conception')">
+                    <span class="methodo-tab-badge">Volet 1</span>
+                    <strong data-i18n="methodo-tab-conception">1. Conception &amp; Réflexion d'enquête</strong>
+                </button>
+                <button type="button" class="methodo-tab-btn" id="tab-btn-gpower" role="tab" aria-selected="false" aria-controls="section-gpower" onclick="switchMethodoTab('gpower')">
+                    <span class="methodo-tab-badge">Volet 2</span>
+                    <strong data-i18n="methodo-tab-gpower">2. Taille d'échantillon &amp; G*Power</strong>
+                </button>
+                <button type="button" class="methodo-tab-btn" id="tab-btn-codes" role="tab" aria-selected="false" aria-controls="section-codes" onclick="switchMethodoTab('codes')">
+                    <span class="methodo-tab-badge">Volet 3</span>
+                    <strong data-i18n="methodo-tab-codes">3. Scripts &amp; Codes d'analyse</strong>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 1rem; padding-bottom: 5rem;">
+
+        <!-- ========================================================
+             VOLET 1 : CONCEPTION & RÉFLEXION THÉORIQUE D'ENQUÊTE
+             ======================================================== -->
+        <section id="section-conception" class="methodo-section" role="tabpanel" aria-labelledby="tab-btn-conception">
+            <div class="methodo-intro-box">
+                <span class="methodo-lead-kicker">Démarche scientifique préalable</span>
+                <h2>Comment penser son enquête avant d'ouvrir un logiciel ?</h2>
+                <p>
+                    Une analyse quantitative rigoureuse ne commence pas lors du clic sur le bouton de test statistique. 
+                    Elle dépend entièrement de la façon dont les questions de recherche ont été posées, dont les variables ont été opérationnalisées et dont le recueil a été protégé contre les biais de mesure.
+                </p>
+            </div>
+
+            <div class="methodo-cards-grid">
+                <!-- Carte 1 : Formulation des questions et hypothèses -->
+                <article class="methodo-card">
+                    <span class="methodo-card-num">Étape 01</span>
+                    <h3>Formulation des hypothèses de recherche</h3>
+                    <p class="methodo-card-desc">
+                        Passer d'une intuition générale à une hypothèse opérationnelle testable et réfutable.
+                    </p>
+                    <ul class="methodo-card-points">
+                        <li><strong>Hypothèse nulle (H₀) :</strong> postulat d'absence d'effet ou de différence (ce qu'on cherche à rejeter).</li>
+                        <li><strong>Hypothèse alternative (H₁) :</strong> existence d'une différence ou relation directionnelle/non-directionnelle.</li>
+                        <li><strong>Critère de réfutabilité :</strong> définir à l'avance quel résultat empirique invaliderait votre supposition.</li>
+                    </ul>
+                    <div class="methodo-card-footer">
+                        <a href="theory.html?cat=methodo" class="methodo-card-link">Consulter les repères théoriques →</a>
+                    </div>
+                </article>
+
+                <!-- Carte 2 : Opérationnalisation des variables -->
+                <article class="methodo-card">
+                    <span class="methodo-card-num">Étape 02</span>
+                    <h3>Définition &amp; Échelles des variables</h3>
+                    <p class="methodo-card-desc">
+                        La nature de vos variables dicte mathématiquement les tests statistiques autorisés.
+                    </p>
+                    <ul class="methodo-card-points">
+                        <li><strong>VI (Variable Indépendante) :</strong> facteur explicatif ou condition manipulée.</li>
+                        <li><strong>VD (Variable Dépendante) :</strong> mesure du résultat observé.</li>
+                        <li><strong>Échelles de Stevens :</strong> nominale (catégories pures), ordinale (rangs), d'intervalle (zéro arbitraire) et de rapport (vrai zéro absolu).</li>
+                    </ul>
+                    <div class="methodo-card-footer">
+                        <a href="index.html#quiz" class="methodo-card-link">Identifier le test adapté via le Quiz →</a>
+                    </div>
+                </article>
+
+                <!-- Carte 3 : Biais de recueil et d'instrument -->
+                <article class="methodo-card">
+                    <span class="methodo-card-num">Étape 03</span>
+                    <h3>Biais d'échantillonnage &amp; Pièges de mesure</h3>
+                    <p class="methodo-card-desc">
+                        Anticiper les déformations systématiques qui menacent la validité interne et externe.
+                    </p>
+                    <ul class="methodo-card-points">
+                        <li><strong>Biais d'échantillonnage :</strong> autosélection des répondants sur les réseaux sociaux.</li>
+                        <li><strong>Désirabilité sociale &amp; Acquiescement :</strong> tendance à répondre positivement ou conformément aux normes perçues.</li>
+                        <li><strong>Effet de fatigue et formulation :</strong> éviter les questions doubles (« double-barrelled ») et les items ambigus.</li>
+                    </ul>
+                    <div class="methodo-card-footer">
+                        <a href="theory.html?id=methodo_biais_recueil" class="methodo-card-link">Fiche : Biais de recueil &amp; Protocoles →</a>
+                    </div>
+                </article>
+
+                <!-- Carte 4 : Réflexivité & Sociologie quantitative -->
+                <article class="methodo-card">
+                    <span class="methodo-card-num">Étape 04</span>
+                    <h3>Réflexivité &amp; Posture du chercheur</h3>
+                    <p class="methodo-card-desc">
+                        Les chiffres ne sont jamais des vérités brutes : ils sont le produit d'un dispositif social de mesure.
+                    </p>
+                    <ul class="methodo-card-points">
+                        <li><strong>L'apport de Michel Grossetti :</strong> articulation entre niveaux d'action, réseaux sociaux et dispositifs statistiques.</li>
+                        <li><strong>Vigilance épistémologique :</strong> documenter les limites du dispositif, les conditions de passation et les non-réponses.</li>
+                        <li><strong>Éviter le fétichisme du p-value :</strong> une différence statistiquement significative n'est pas forcément cliniquement ou socialement pertinente.</li>
+                    </ul>
+                    <div class="methodo-card-footer">
+                        <a href="theory.html?id=methodo_grossetti" class="methodo-card-link">Fiche : Réflexivité &amp; Grossetti →</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Callout vers G*Power -->
+            <div class="methodo-switch-callout">
+                <div class="methodo-switch-text">
+                    <h4>Vos hypothèses sont prêtes ? Passez au dimensionnement.</h4>
+                    <p>Déterminez combien de sujets vous devez recruter pour que votre étude soit statistiquement solide grâce à notre guide G*Power.</p>
+                </div>
+                <button type="button" class="methodo-cta-btn" onclick="switchMethodoTab('gpower')">
+                    Accéder à G*Power (Volet 2) →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             VOLET 2 : TAILLE D'ÉCHANTILLON & GUIDE G*POWER
+             ======================================================== -->
+        <section id="section-gpower" class="methodo-section" role="tabpanel" aria-labelledby="tab-btn-gpower" style="display: none;">
+            <div class="methodo-intro-box">
+                <span class="methodo-lead-kicker">Planification de la puissance statistique (1 - β)</span>
+                <h2 data-i18n="gpower-title" id="gpower-title-main">Guide interactif G*Power &amp; Calcul d'échantillon</h2>
+                <p data-i18n="gpower-subtitle" id="gpower-hero-subtitle">
+                    Calculez précisément votre taille d'échantillon <em>a priori</em> et évitez les études sous-dimensionnées incapables de détecter un effet réel.
+                </p>
+            </div>
+
+            <!-- Explications clés G*Power -->
+            <div class="gpower-primer-grid">
+                <div class="gpower-primer-card">
+                    <h4>Seuil de signification (α)</h4>
+                    <p>Le risque d'erreur de Type I (faux positif). Fixé classiquement à <strong>0.05</strong> (5% de risque de rejeter H₀ à tort).</p>
+                </div>
+                <div class="gpower-primer-card">
+                    <h4>Puissance statistique (1 - β)</h4>
+                    <p>La probabilité de détecter un effet s'il existe réellement. La norme académique recommande au minimum <strong>0.80</strong> (voire 0.95).</p>
+                </div>
+                <div class="gpower-primer-card">
+                    <h4>Taille d'effet attendue (ES)</h4>
+                    <p>L'ampleur du phénomène étudié dans la population : <em>d</em> de Cohen (T-test), <em>f</em> (ANOVA), <em>r</em> (Corrélation) ou <em>w</em> (Chi-deux).</p>
+                </div>
+            </div>
+
+            <!-- Mindmap et Calculateur interactif G*Power -->
+            <div class="mindmap-viewport" id="mindmap-viewport">
+                <button id="map-back-btn" class="map-nav-btn back-btn-fixed" onclick="mapGoBack()" style="display: none;">
+                    ← <span data-i18n="nav-retour">Retour</span>
+                </button>
+
+                <button id="map-reset-btn" class="map-nav-btn reset-btn-fixed" onclick="mapReset()">
+                    ↺ <span data-i18n="quiz-restart-btn">Recommencer</span>
+                </button>
+
+                <div id="mindmap-tooltip" class="mindmap-tooltip"></div>
+
+                <div id="mindmap-container" class="mindmap-container">
+                    <!-- Bulles rendues ici par JS -->
+                </div>
+
+                <!-- Carte détail contextuelle -->
+                <div id="detail-card" class="detail-card fade-in" style="display: none;">
+                    <button class="close-btn" onclick="closeDetailCard()" aria-label="Fermer">×</button>
+                    <div id="detail-content"></div>
+                </div>
+            </div>
+
+            <div class="mindmap-ctrl mobile-only"></div>
+        </section>
+
+        <!-- ========================================================
+             VOLET 3 : SCRIPTS & CODES D'ANALYSE (PYTHON • R • JAMOVI)
+             ======================================================== -->
+        <section id="section-codes" class="methodo-section" role="tabpanel" aria-labelledby="tab-btn-codes" style="display: none;">
+            <div class="methodo-intro-box">
+                <span class="methodo-lead-kicker">Prêt à l'emploi • Python • R • Jamovi</span>
+                <h2>Bibliothèque des Scripts &amp; Codes d'Analyse</h2>
+                <p>
+                    Retrouvez le code d'exécution complet pour chaque test statistique. Copiez le script en un clic pour vos notebooks Jupyter ou scripts R, ou suivez le chemin pas à pas dans l'interface Jamovi.
+                </p>
+            </div>
+
+            <!-- Barre de recherche rapide & filtres de langage -->
+            <div class="codes-search-toolbar">
+                <div class="codes-search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" id="codes-search-input" placeholder="Rechercher un test (ex: Student, Anova, Chi-2, Régression...)" aria-label="Rechercher un test" oninput="filterCodes(this.value)">
+                    <button type="button" id="codes-search-clear" class="codes-search-clear" onclick="clearCodesSearch()" style="display:none;" aria-label="Effacer">✕</button>
+                </div>
+                <div class="codes-lang-global-toggles">
+                    <span class="codes-toggle-label">Langage par défaut :</span>
+                    <button type="button" class="codes-lang-pill active" onclick="setGlobalCodeLang('python', this)">Python</button>
+                    <button type="button" class="codes-lang-pill" onclick="setGlobalCodeLang('r', this)">R</button>
+                    <button type="button" class="codes-lang-pill" onclick="setGlobalCodeLang('jamovi', this)">Jamovi</button>
+                </div>
+            </div>
+
+            <!-- Grille des cartes de codes générée depuis quizTestMeta -->
+            <div class="codes-cards-grid" id="codes-cards-list"></div>
+        </section>
+
+    </main>
+
+    <!-- =============== MODAL GLOSSAIRE =============== -->
+    <div id="glossary-modal" class="modal-overlay" style="display: none;" onclick="closeGlossary()" role="dialog" aria-modal="true" aria-labelledby="glossary-term">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeGlossary()" aria-label="Fermer">×</button>
+            <div id="glossary-content">
+                <h3 id="glossary-term">Terme</h3>
+                <p id="glossary-def">Définition</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =============== FOOTER =============== -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-links">
+            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
+            <a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a>
+            <a href="methodo.html" data-i18n="nav-methodo">Méthodo</a>
+            <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
+            <a href="about.html" data-i18n="nav-about">À propos</a>
+            <a href="privacy.html">Confidentialité</a>
+            <a href="legal.html">Mentions légales</a>
+        </div>
+        <p data-i18n="footer-text">Significant — Fait pour simplifier vos analyses statistiques.</p>
+    </footer>
+
+    <!-- Scripts G*Power, Méthodo & Métadonnées des Tests -->
+    <script src="quiz_test_meta.js"></script>
+    <script src="gpower_data.js"></script>
+    <script src="gpower_view.js"></script>
+
+    <script>
+        let activeGlobalLang = 'python';
+
+        function escapeCodeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Construction dynamique de la bibliothèque de codes
+        function renderCodesSection(targetTestKey = null) {
+            const container = document.getElementById('codes-cards-list');
+            if (!container || typeof quizTestMeta === 'undefined') return;
+
+            const currentLang = (typeof currentLanguage !== 'undefined' && currentLanguage) || 'fr';
+            let html = '';
+
+            for (const [testKey, meta] of Object.entries(quizTestMeta)) {
+                const title = (meta.displayTitle && (meta.displayTitle[currentLang] || meta.displayTitle.fr)) || testKey;
+                const desc = (meta.description && (meta.description[currentLang] || meta.description.fr)) || '';
+                const howToUse = (meta.howToUse && (meta.howToUse[currentLang] || meta.howToUse.fr)) || '';
+                const courseId = meta.courseId || '';
+                const courseUrl = courseId ? `theory.html#${courseId}` : 'theory.html';
+                const pythonCode = escapeCodeHtml(meta.codePython || '# Code indisponible');
+                const rCode = escapeCodeHtml(meta.codeR || '# Code indisponible');
+                const jamoviText = escapeCodeHtml((meta.jamoviPath && (meta.jamoviPath[currentLang] || meta.jamoviPath.fr)) || 'Analyses › Consulter le manuel');
+
+                html += `
+                    <article class="code-card" id="code-card-${testKey}" data-test-key="${testKey}">
+                        <div class="code-card-header">
+                            <div class="code-card-title-group">
+                                <span class="code-card-rarity rarity-${meta.rarity || 'commune'}">${meta.rarity || 'Test'}</span>
+                                <h3 class="code-card-title">${title}</h3>
+                            </div>
+                            <a href="${courseUrl}" class="code-card-theory-link" target="_blank" title="Lire la fiche théorique">
+                                Fiche Théorie →
+                            </a>
+                        </div>
+
+                        ${desc ? `<p class="code-card-desc">${desc}</p>` : ''}
+                        ${howToUse ? `
+                            <div class="code-card-usage">
+                                <strong>Cas d'usage &amp; Prérequis :</strong> ${howToUse}
+                            </div>
+                        ` : ''}
+
+                        <div class="code-card-tabs-bar">
+                            <div class="code-card-lang-tabs" role="tablist">
+                                <button type="button" class="code-tab-btn ${activeGlobalLang === 'python' ? 'active' : ''}" data-lang="python" onclick="switchCardLang('${testKey}', 'python', this)">Python</button>
+                                <button type="button" class="code-tab-btn ${activeGlobalLang === 'r' ? 'active' : ''}" data-lang="r" onclick="switchCardLang('${testKey}', 'r', this)">R</button>
+                                <button type="button" class="code-tab-btn ${activeGlobalLang === 'jamovi' ? 'active' : ''}" data-lang="jamovi" onclick="switchCardLang('${testKey}', 'jamovi', this)">Jamovi</button>
+                            </div>
+                        </div>
+
+                        <div class="code-card-pane" id="pane-${testKey}-python" style="${activeGlobalLang === 'python' ? '' : 'display:none;'}">
+                            <div class="code-card-pane-toolbar">
+                                <span class="code-lib-tag">scipy.stats / statsmodels</span>
+                                <button type="button" class="code-copy-action-btn" onclick="copySnippet('snippet-${testKey}-python', this)" aria-label="Copier le code Python">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    <span>Copier le code</span>
+                                </button>
+                            </div>
+                            <pre><code id="snippet-${testKey}-python">${pythonCode}</code></pre>
+                        </div>
+
+                        <div class="code-card-pane" id="pane-${testKey}-r" style="${activeGlobalLang === 'r' ? '' : 'display:none;'}">
+                            <div class="code-card-pane-toolbar">
+                                <span class="code-lib-tag">R base / stats</span>
+                                <button type="button" class="code-copy-action-btn" onclick="copySnippet('snippet-${testKey}-r', this)" aria-label="Copier le code R">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    <span>Copier le code</span>
+                                </button>
+                            </div>
+                            <pre><code id="snippet-${testKey}-r">${rCode}</code></pre>
+                        </div>
+
+                        <div class="code-card-pane" id="pane-${testKey}-jamovi" style="${activeGlobalLang === 'jamovi' ? '' : 'display:none;'}">
+                            <div class="code-card-pane-toolbar">
+                                <span class="code-lib-tag">Jamovi • Interface</span>
+                                <button type="button" class="code-copy-action-btn" onclick="copySnippet('snippet-${testKey}-jamovi', this)" aria-label="Copier les instructions Jamovi">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    <span>Copier le chemin</span>
+                                </button>
+                            </div>
+                            <div class="jamovi-instruction-box">
+                                <div class="jamovi-instruction-path" id="snippet-${testKey}-jamovi">${jamoviText}</div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+
+            container.innerHTML = html;
+
+            if (targetTestKey) {
+                setTimeout(() => {
+                    const card = document.getElementById(`code-card-${targetTestKey}`);
+                    if (card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        card.classList.add('code-card-highlighted');
+                        setTimeout(() => card.classList.remove('code-card-highlighted'), 3200);
+                    }
+                }, 200);
+            }
+        }
+
+        function switchCardLang(testKey, lang, btn) {
+            const card = document.getElementById(`code-card-${testKey}`);
+            if (!card) return;
+            const tabs = card.querySelectorAll('.code-card-lang-tabs .code-tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const panes = card.querySelectorAll('.code-card-pane');
+            panes.forEach(p => p.style.display = 'none');
+
+            const targetPane = document.getElementById(`pane-${testKey}-${lang}`);
+            if (targetPane) targetPane.style.display = 'block';
+        }
+
+        function setGlobalCodeLang(lang, btn) {
+            activeGlobalLang = lang;
+            const pills = document.querySelectorAll('.codes-lang-pill');
+            pills.forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            document.querySelectorAll('.code-card').forEach(card => {
+                const testKey = card.getAttribute('data-test-key');
+                const tabBtn = card.querySelector(`.code-card-lang-tabs .code-tab-btn[data-lang="${lang}"]`);
+                if (testKey && tabBtn) {
+                    switchCardLang(testKey, lang, tabBtn);
+                }
+            });
+        }
+
+        function copySnippet(elementId, btn) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const text = el.innerText || el.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span style="color:#22c55e;font-weight:700;">Copié !</span>`;
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.remove('copied');
+                }, 2200);
+            }).catch(() => {
+                // Fallback de sélection
+                const range = document.createRange();
+                range.selectNodeContents(el);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            });
+        }
+
+        function filterCodes(query) {
+            const q = (query || '').toLowerCase().trim();
+            const clearBtn = document.getElementById('codes-search-clear');
+            if (clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+            const cards = document.querySelectorAll('.code-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const key = card.getAttribute('data-test-key') || '';
+                if (!q || text.includes(q) || key.includes(q)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function clearCodesSearch() {
+            const input = document.getElementById('codes-search-input');
+            if (input) {
+                input.value = '';
+                filterCodes('');
+                input.focus();
+            }
+        }
+
+        // Gestion des 3 volets méthodologiques avec support du Hash (#conception / #gpower / #codes)
+        function switchMethodoTab(tabKey, targetTest = null) {
+            const tabConception = document.getElementById('tab-btn-conception');
+            const tabGpower = document.getElementById('tab-btn-gpower');
+            const tabCodes = document.getElementById('tab-btn-codes');
+            const secConception = document.getElementById('section-conception');
+            const secGpower = document.getElementById('section-gpower');
+            const secCodes = document.getElementById('section-codes');
+
+            [tabConception, tabGpower, tabCodes].forEach(t => {
+                if (t) {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                }
+            });
+            if (secConception) secConception.style.display = 'none';
+            if (secGpower) secGpower.style.display = 'none';
+            if (secCodes) secCodes.style.display = 'none';
+
+            if (tabKey === 'gpower') {
+                tabGpower.classList.add('active');
+                tabGpower.setAttribute('aria-selected', 'true');
+                secGpower.style.display = 'block';
+                window.location.hash = 'gpower';
+
+                if (typeof mapReset === 'function') {
+                    mapReset();
+                }
+            } else if (tabKey === 'codes') {
+                tabCodes.classList.add('active');
+                tabCodes.setAttribute('aria-selected', 'true');
+                secCodes.style.display = 'block';
+                window.location.hash = 'codes';
+                renderCodesSection(targetTest);
+            } else {
+                tabConception.classList.add('active');
+                tabConception.setAttribute('aria-selected', 'true');
+                secConception.style.display = 'block';
+                window.location.hash = 'conception';
+            }
+        }
+
+        // Détection initiale de l'ancre URL et des paramètres d'URL (?test=...)
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const testParam = urlParams.get('test');
+            const hash = window.location.hash.toLowerCase();
+
+            if (testParam || hash.includes('code')) {
+                switchMethodoTab('codes', testParam);
+            } else if (hash.includes('gpower') || hash.includes('puissance')) {
+                switchMethodoTab('gpower');
+            } else {
+                switchMethodoTab('conception');
+            }
+        });
+
+        // Smooth loader fadeout
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+                setTimeout(() => loader.remove(), 450);
+            }
+        });
+    </script>
+</body>
+
+</html>

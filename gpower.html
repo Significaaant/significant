@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr" class="theme-midnight">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G*Power - 𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭</title>
-    <link rel="stylesheet" href="style.css">
+    <title>G*Power — Significant</title>
+    <meta name="description" content="Calculateur interactif G*Power : planifiez votre puissance statistique et calculez votre taille d'échantillon.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
     <script src="translations.js"></script>
     <script src="i18n.js" defer></script>
     <script src="script.js" defer></script>
@@ -16,63 +19,72 @@
 </head>
 
 <body>
-    <!-- Theme Selection Visual Feedback -->
-    <div class="glass-orb orb-1"></div>
-    <div class="glass-orb orb-2"></div>
 
-    <nav class="navbar">
-        <div class="logo">𝐬𝐢𝐠𝐧𝐢𝐟𝐢𝐜𝐚𝐧𝐭 <span>Stats</span></div>
+    <!-- =============== LOADER =============== -->
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-wordmark">significant</div>
+            <div class="loader-shimmer-text text-shimmer" data-i18n="loading">Chargement...</div>
+            <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- =============== NAV =============== -->
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
+        <a href="index.html" class="logo" aria-label="Significant — Accueil">significant <span>stats</span></a>
         <div class="nav-links">
             <a href="index.html" data-i18n="nav-accueil">Accueil</a>
-            <a href="theory.html" target="_blank" data-i18n="nav-fiches">Fiches</a>
-            <a href="#" class="active" data-i18n="nav-gpower">G*Power</a>
-            <button id="lang-toggle" class="lang-btn">EN</button>
+            <a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a>
+            <a href="methodo.html#gpower" class="active" data-i18n="nav-methodo">Méthodo</a>
+            <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
+            <a href="about.html" data-i18n="nav-about">À propos</a>
+            <button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button>
         </div>
     </nav>
 
-    <header class="hero small-hero">
+    <!-- =============== HERO =============== -->
+    <header class="small-hero">
         <div class="container">
-            <h1 data-i18n="gpower-title" id="gpower-title-main">Guide <span class="gradient-text">G*Power</span></h1>
-            <p data-i18n="gpower-subtitle" id="gpower-hero-subtitle">Planification interactive de la puissance</p>
+            <span class="hero-kicker">Planification statistique</span>
+            <h1 data-i18n="gpower-title" id="gpower-title-main">Guide G*Power</h1>
+            <p data-i18n="gpower-subtitle" id="gpower-hero-subtitle">Calculez votre puissance statistique et déterminez la taille d'échantillon nécessaire.</p>
         </div>
     </header>
 
-    <main class="container">
+    <!-- =============== MINDMAP =============== -->
+    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
         <div class="mindmap-viewport" id="mindmap-viewport">
-            <!-- Back Button Inside Viewport -->
+
             <button id="map-back-btn" class="map-nav-btn back-btn-fixed" onclick="mapGoBack()" style="display: none;">
                 ← <span data-i18n="nav-retour">Retour</span>
             </button>
 
-            <!-- Reset Button Inside Viewport -->
             <button id="map-reset-btn" class="map-nav-btn reset-btn-fixed" onclick="mapReset()">
                 ↺ <span data-i18n="quiz-restart-btn">Recommencer</span>
             </button>
 
-            <!-- Tooltip container -->
             <div id="mindmap-tooltip" class="mindmap-tooltip"></div>
 
             <div id="mindmap-container" class="mindmap-container">
-                <!-- Bubbles rendered here -->
+                <!-- Bulles rendues ici par JS -->
             </div>
-            
-            <!-- Contextual Detail Card -->
-            <div id="detail-card" class="detail-card glass-panel fade-in" style="display: none;">
-                <button class="close-btn" onclick="closeDetailCard()">×</button>
+
+            <!-- Carte détail contextuelle -->
+            <div id="detail-card" class="detail-card fade-in" style="display: none;">
+                <button class="close-btn" onclick="closeDetailCard()" aria-label="Fermer">×</button>
                 <div id="detail-content"></div>
             </div>
         </div>
 
-        <!-- MOBILE NAV CTRLS (Visible only on mobile if viewport is too tight) -->
         <div class="mindmap-ctrl mobile-only">
-             <!-- Same buttons as above if needed for mobile -->
+            <!-- Boutons alternatifs mobile si besoin -->
         </div>
     </main>
 
-    <!-- GLOSSARY MODAL -->
-    <div id="glossary-modal" class="modal-overlay" style="display: none;" onclick="closeGlossary()">
-        <div class="modal-content glass-panel" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeGlossary()">×</button>
+    <!-- =============== MODAL GLOSSAIRE =============== -->
+    <div id="glossary-modal" class="modal-overlay" style="display: none;" onclick="closeGlossary()" role="dialog" aria-modal="true" aria-labelledby="glossary-term">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeGlossary()" aria-label="Fermer">×</button>
             <div id="glossary-content">
                 <h3 id="glossary-term">Terme</h3>
                 <p id="glossary-def">Définition</p>
@@ -80,44 +92,34 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container" style="text-align: center;">
-            <p data-i18n="footer-text">Made with love • Retour à l'Accueil</p>
-            <div class="mobile-bottom-nav">
-                <a href="index.html" data-i18n="nav-accueil">Accueil</a>
-                <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
-                <a href="gpower.html" data-i18n="nav-gpower">G*Power</a>
-            </div>
+    <!-- =============== FOOTER =============== -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-links">
+            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
+            <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
+            <a href="gpower.html" data-i18n="nav-gpower">G*Power</a>
+            <a href="privacy.html">Politique de confidentialité</a>
+            <a href="legal.html">Mentions légales</a>
         </div>
+        <p data-i18n="footer-text">Significant — Fait pour simplifier vos analyses statistiques.</p>
     </footer>
 
-    <!-- CSS Tweaks for fixed buttons in viewport -->
     <style>
-        .map-nav-btn {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            padding: 8px 16px;
-            border-radius: 30px;
-            color: var(--text-color);
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-        .map-nav-btn:hover { background: var(--primary-color); color: white; }
-        .back-btn-fixed { top: 20px; left: 20px; }
-        .reset-btn-fixed { top: 20px; right: 20px; }
-        
+        .back-btn-fixed { position: absolute; top: 20px; left: 20px; }
+        .reset-btn-fixed { position: absolute; top: 20px; right: 20px; }
         .mobile-only { display: none; }
         @media (max-width: 768px) {
             .mobile-only { display: flex; }
-            .back-btn-fixed, .reset-btn-fixed { position: static; margin: 10px; }
-            .mindmap-viewport { flex-direction: column; min-height: 400px; }
+            .back-btn-fixed, .reset-btn-fixed { position: static; margin: 8px; }
         }
     </style>
 
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+        });
+    </script>
     <script src="gpower_data.js"></script>
     <script src="gpower_view.js"></script>
 </body>

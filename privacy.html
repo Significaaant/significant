@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de confidentialité — Significant</title>
+    <meta name="description" content="Politique de confidentialité du site Significant.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="i18n.js" defer></script>
+</head>
+
+<body>
+
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-wordmark">significant</div>
+            <div class="loader-shimmer-text text-shimmer">Chargement...</div>
+            <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <nav class="navbar" role="navigation">
+        <a href="index.html" class="logo">significant <span>stats</span></a>
+        <div class="nav-links">
+            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
+            <a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a>
+            <a href="methodo.html" data-i18n="nav-methodo">Méthodo</a>
+            <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
+            <a href="about.html" data-i18n="nav-about">À propos</a>
+            <button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button>
+        </div>
+    </nav>
+
+    <main class="legal-content">
+        <h1>Politique de confidentialité</h1>
+        <p style="color: var(--ink-3); font-size: 0.88rem; margin-bottom: 2rem;">Dernière mise à jour : octobre 2026</p>
+
+        <h2>Collecte de données</h2>
+        <p>
+            Significant ne collecte aucune donnée personnelle identifiable. Le site fonctionne entièrement côté client (JavaScript dans votre navigateur) sans envoi d'informations vers un serveur externe.
+        </p>
+
+        <h2>Stockage local (localStorage)</h2>
+        <p>
+            Le site utilise le <code style="font-family: monospace; font-size: 0.9rem; background: var(--surface); padding: 2px 6px; border-radius: 3px;">localStorage</code> de votre navigateur pour retenir votre préférence de langue (français ou anglais). Cette information reste uniquement sur votre appareil et n'est jamais transmise.
+        </p>
+
+        <h2>Cookies</h2>
+        <p>
+            Significant n'utilise pas de cookies à des fins de tracking ou de publicité. Aucun outil d'analyse de trafic tiers (Google Analytics, etc.) n'est intégré au site.
+        </p>
+
+        <h2>Polices Google Fonts</h2>
+        <p>
+            Ce site charge des polices de caractères depuis Google Fonts. Ce chargement implique une requête vers les serveurs de Google, qui peuvent enregistrer votre adresse IP. Consultez la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">politique de confidentialité de Google</a> pour plus d'informations.
+        </p>
+
+        <h2>Droits</h2>
+        <p>
+            Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de toute donnée vous concernant. Compte tenu de l'absence de collecte de données personnelles sur ce site, ces droits s'exercent principalement en effaçant les données de votre propre navigateur.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+            Pour toute question relative à la confidentialité, contactez la créatrice via <a href="https://www.linkedin.com/in/chaima-moghrani/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+        </p>
+
+        <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--surface-2);">
+            <a href="index.html" class="btn-secondary" style="text-decoration: none;">Retour à l'accueil</a>
+            <a href="legal.html" class="discrete-link" style="margin-left: 1.5rem;">Mentions légales</a>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-links">
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="privacy.html">Politique de confidentialité</a>
+            <a href="legal.html">Mentions légales</a>
+        </div>
+        <p>Significant — Fait pour simplifier vos analyses statistiques.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 500); }
+        });
+    </script>
+</body>
+</html>

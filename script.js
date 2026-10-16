@@ -1,4 +1,4 @@
-const quizContainer = document.getElementById('quiz-content');
+let quizContainer = document.getElementById('quiz-content');
 
 
 
@@ -20,25 +20,188 @@ function getT(key) {
 let pathHistory = []; // Text history for Recap
 let keyStack = [];    // ID history for Back Button
 
+function updateProgressBar(key) {
+    const progressBar = document.getElementById('quiz-progress-bar');
+    if (!progressBar) return;
+    
+    const container = progressBar.closest('.progress-container');
+    const depth = keyStack.length;
+    let progress = 0;
+    if (key === 'start') progress = 12;
+    else if (quizData['fr'][key] && quizData['fr'][key].isResult) progress = 100;
+    else progress = Math.min(25 + (depth * 22), 92);
+    
+    progressBar.style.width = `${progress}%`;
+    if (container) {
+        container.setAttribute('aria-valuenow', Math.round(progress));
+    }
+}
+
+function renderBreadcrumbs() {
+    const breadcrumbsContainer = document.getElementById('quiz-breadcrumbs');
+    if (!breadcrumbsContainer) return;
+    
+    breadcrumbsContainer.innerHTML = '';
+    
+    // Always add "Goal" (start) if we are past it
+    const steps = [getT('quiz-step-label') + " 1"];
+    
+    pathHistory.forEach((text, i) => {
+        steps.push(text);
+    });
+    
+    steps.forEach((stepText, i) => {
+        const step = document.createElement('div');
+        step.className = 'breadcrumb-step' + (i === steps.length - 1 ? ' active' : ' completed');
+        step.innerHTML = `<span>${stepText}</span>`;
+        breadcrumbsContainer.appendChild(step);
+    });
+}
+
+// --- HELPERS POUR CARTE BOOSTER RÉVERSIBLE ---
+function flipBoosterCard(toBack) {
+    const flipper = document.getElementById('booster-flipper');
+    if (!flipper) return;
+    if (typeof toBack === 'boolean') {
+        if (toBack) flipper.classList.add('is-flipped');
+        else flipper.classList.remove('is-flipped');
+    } else {
+        flipper.classList.toggle('is-flipped');
+    }
+}
+
+function openMethodoDrawer() {
+    const drawer = document.getElementById('booster-methodo-drawer');
+    if (drawer) {
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+    }
+}
+
+function closeMethodoDrawer() {
+    const drawer = document.getElementById('booster-methodo-drawer');
+    if (drawer) {
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+    }
+}
+
+function switchCodeTab(tabName, btn) {
+    const drawer = document.getElementById('booster-methodo-drawer');
+    if (!drawer) return;
+    drawer.querySelectorAll('.code-tab-btn').forEach(b => b.classList.remove('active'));
+    drawer.querySelectorAll('.code-pane').forEach(p => p.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    const pane = document.getElementById('pane-' + tabName);
+    if (pane) pane.classList.add('active');
+}
+
+function copyCodeFrom(elemId, btn) {
+    const elem = document.getElementById(elemId);
+    if (!elem) return;
+    const text = elem.innerText || elem.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = getT('methodo-copied-btn') || 'Copié !';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove('copied');
+        }, 1800);
+    }).catch(err => {
+        console.error('Clipboard copy failed:', err);
+    });
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function attachTiltEffect(tiltTarget) {
+    if (!tiltTarget) return;
+    const glares = tiltTarget.querySelectorAll('.booster-card-glare');
+    const rotationFactor = 8;
+    const isReverse = true;
+
+    function handleMouseMove(e) {
+        const rect = tiltTarget.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+
+        const rotX = isReverse ? (y - 0.5) * rotationFactor * 2 : (0.5 - y) * rotationFactor * 2;
+        const rotY = isReverse ? (0.5 - x) * rotationFactor * 2 : (x - 0.5) * rotationFactor * 2;
+
+        tiltTarget.style.transform = `perspective(1200px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+
+        glares.forEach(glare => {
+            glare.style.opacity = '1';
+            glare.style.background = `radial-gradient(circle at ${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%, rgba(255, 255, 255, 0.45) 0%, transparent 60%)`;
+        });
+    }
+
+    function handleMouseLeave() {
+        tiltTarget.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        glares.forEach(glare => {
+            glare.style.opacity = '0';
+        });
+    }
+
+    tiltTarget.addEventListener('mousemove', handleMouseMove);
+    tiltTarget.addEventListener('mouseleave', handleMouseLeave);
+}
+
+function renderResult(data, key) {
+    if (!quizContainer) quizContainer = document.getElementById('quiz-content');
+    if (!quizContainer) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'booster-scene-wrapper';
+
+    if (typeof buildBoosterCardHtml === 'function') {
+        wrapper.innerHTML = buildBoosterCardHtml(key, { 
+            showRestart: true,
+            title: data ? data.testName : null,
+            desc: data ? data.text : null
+        });
+    }
+
+    quizContainer.innerHTML = '';
+    quizContainer.appendChild(wrapper);
+
+    const tiltTarget = document.getElementById('booster-tilt-target');
+    if (tiltTarget && typeof initBoosterCard3DTilt === 'function') {
+        initBoosterCard3DTilt(tiltTarget);
+    }
+
+    setTimeout(() => {
+        wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
+}
+
 function renderQuestion(key, fromOptionText = null, isBackStep = false) {
     const data = getQuizData()[key];
 
-    // --- NAVIGATION LOGIC (V27) ---
+    // --- NAVIGATION LOGIC ---
     if (key === 'start') {
         pathHistory = [];
         keyStack = [];
     } else if (!isBackStep) {
-        // Normal navigation: Push to history
         if (fromOptionText) pathHistory.push(fromOptionText);
-        // Push the *previous* key to the stack so we can go back to it
-        // BUT wait, we need to know where we came FROM. 
-        // Actually, simpler: push the CURRENT key to stack *before* moving? 
-        // No, we need a stack of "where we have been". 
-        // Strategy: 
-        // 1. When we enter a node, we push the *previous* node ID to the stack? 
-        //    No, because we don't pass the previous ID.
-        // 2. Better: When we click an option, BEFORE calling renderQuestion, we push 'key' (current) to stack.
     }
+    
+    renderBreadcrumbs();
+    updateProgressBar(key);
+
+    if (!quizContainer) quizContainer = document.getElementById('quiz-content');
+    if (!quizContainer) return;
 
     // Animation fade out
     quizContainer.style.opacity = 0;
@@ -46,18 +209,17 @@ function renderQuestion(key, fromOptionText = null, isBackStep = false) {
     setTimeout(() => {
         quizContainer.innerHTML = '';
 
-        // --- BACK BUTTON (V27) ---
-        // If we are deep in the quiz (stack not empty), show Back button
+        // --- BACK BUTTON ---
         if (keyStack.length > 0) {
             const backBtn = document.createElement('button');
             backBtn.className = 'back-btn';
-            backBtn.innerHTML = getT('quiz-back');
+            backBtn.innerHTML = `<span>←</span> ${getT('quiz-back')}`;
             backBtn.onclick = goBack;
             quizContainer.appendChild(backBtn);
         }
 
         if (data.isResult) {
-            renderResult(data);
+            renderResult(data, key);
         } else {
             const card = document.createElement('div');
             card.className = 'question-card';
@@ -67,19 +229,15 @@ function renderQuestion(key, fromOptionText = null, isBackStep = false) {
             card.appendChild(title);
 
             const grid = document.createElement('div');
-            grid.className = (key === 'start' || key.includes('bi')) ? 'options-grid start-options-grid' : 'options-grid';
+            grid.className = (key === 'start') ? 'options-grid start-options-grid' : 'options-grid';
 
             data.options.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'quiz-btn';
                 btn.textContent = opt.text;
                 btn.onclick = () => {
-                    // Cleaner Recap
-                    let recapText = opt.recap || opt.text.split(" (")[0];
-
-                    // PUSH TO STACK (V27)
+                    let recapText = opt.recap || opt.text;
                     keyStack.push(key);
-
                     if (opt.next) renderQuestion(opt.next, recapText);
                     if (opt.result) renderQuestion(opt.result, recapText);
                 };
@@ -183,14 +341,14 @@ function toggleHelp(btn, helpData) {
                 <button class="tab-btn" onclick="switchHelpTab(this, 1)">Python</button>
                 <button class="tab-btn" onclick="switchHelpTab(this, 2)">Jamovi</button>
             </div>
-            <div class="code-content active" style="display:block; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 0 0 8px 8px;">
-                <pre style="color: #a5b4fc; margin:0;">${helpData.inlineCode.code}</pre>
+            <div class="code-content active" style="display:block; padding: 12px 14px; background: var(--code-bg, #2A2420); border-radius: 0 0 6px 6px;">
+                <pre style="color: var(--code-text, #E8D5B7); font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.5; margin:0; overflow-x: auto;">${helpData.inlineCode.code}</pre>
             </div>
-            <div class="code-content" style="display:none; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 0 0 8px 8px;">
-                <pre style="color: #fca5a5; margin:0;">${helpData.inlineCode.code2}</pre>
+            <div class="code-content" style="display:none; padding: 12px 14px; background: var(--code-bg, #2A2420); border-radius: 0 0 6px 6px;">
+                <pre style="color: var(--code-text, #E8D5B7); font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.5; margin:0; overflow-x: auto;">${helpData.inlineCode.code2}</pre>
             </div>
-            <div class="code-content" style="display:none; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 0 0 8px 8px;">
-                 <pre style="color: #fdba74; margin:0;">${jamoviCode}</pre>
+            <div class="code-content" style="display:none; padding: 12px 14px; background: var(--code-bg, #2A2420); border-radius: 0 0 6px 6px;">
+                 <pre style="color: var(--code-text, #E8D5B7); font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.5; margin:0; overflow-x: auto;">${jamoviCode}</pre>
             </div>
         `;
         helpContainer.appendChild(codeWrapper);
@@ -232,61 +390,14 @@ function toggleExpert(btn, expertData) {
     expertContainer.innerHTML = `
         <h4>${getT('quiz-expert-title')}</h4>
         <div class="expert-content">
-            <p><strong>📐 Formule :</strong> <code>${expertData.formula}</code></p>
-            <p><strong>🧠 Hypothèses :</strong> ${expertData.assumptions}</p>
-            <p><strong>⚠️ Conditions :</strong> ${expertData.conditions}</p>
-            <p><strong>🔄 Alternative :</strong> ${expertData.alternatives}</p>
+            <p><strong>Formule :</strong> <code>${expertData.formula}</code></p>
+            <p><strong>Hypothèses :</strong> ${expertData.assumptions}</p>
+            <p><strong>Conditions d'application :</strong> ${expertData.conditions}</p>
+            <p><strong>Alternative non paramétrique :</strong> ${expertData.alternatives}</p>
         </div>
     `;
 
     btn.parentNode.insertBefore(expertContainer, btn.nextSibling);
-}
-
-function renderResult(data) {
-    const card = document.createElement('div');
-    card.className = 'result-card';
-
-    // Build Recap HTML
-    const recapHtml = pathHistory.length > 0
-        ? `<div class="recap-box" style="margin-bottom: 2rem; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; border-left: 4px solid #facc15;">
-             <h5 style="color: #facc15; margin-bottom: 0.5rem;">${getT('quiz-recap-title')}</h5>
-             <p style="font-size: 0.9rem; color: #e2e8f0;">
-                ${pathHistory.map((step, i) => `<span style="opacity: ${0.6 + (i * 0.1)}">${i + 1}. ${step}</span>`).join(' &nbsp;➝&nbsp; ')}
-             </p>
-           </div>`
-        : '';
-
-    const content = document.createElement('div');
-    content.innerHTML = `
-        <!-- V28 Winner Banner -->
-        <div class="winner-banner">
-            <div class="winner-icon">🏆</div>
-            <div class="winner-info">
-                <span class="winner-label">${getT('quiz-winner-label')}</span>
-                <h2 class="winner-title">${data.testName || "Résultat"}</h2>
-            </div>
-        </div>
-        
-        ${recapHtml}
-        
-        <p style="margin-top: 1.5rem;">${data.text}</p>
-        
-        <!-- V11 Expert Button (Redirect to Theory Page) -->
-        ${data.expert ? `<button class="quiz-btn expert-btn" onclick="window.open('theory.html?id=${data.expert}', '_blank')">${getT('quiz-more-btn')}</button>` : ''}
-        
-        <!-- V13 Safety Net: Diagnostic Button -->
-        <button class="quiz-btn help-btn" onclick="window.open('theory.html?id=${data.sos || 'troubleshooting'}', '_blank')" style="margin-top: 0.5rem; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); color: #fca5a5;">
-            ${getT('quiz-sos-btn')}
-        </button>
-
-        <br><br>
-        <a href="#${data.targetId}" class="result-action-btn" onclick="scrollToId('${data.targetId}')">${getT('quiz-code-btn')}</a>
-        <br>
-        <button class="result-action-btn" onclick="renderQuestion('start')" style="margin-top: 10px; background: transparent; border-color: rgba(255,255,255,0.3);">${getT('quiz-restart-btn')}</button>
-    `;
-    card.appendChild(content);
-
-    quizContainer.appendChild(card);
 }
 
 // Remove old toggleExpert if it exists, as we now redirect.
@@ -344,11 +455,18 @@ function copyCode(btn) {
 }
 
 // Initial Render
-document.addEventListener('DOMContentLoaded', () => {
+function initQuiz() {
+    quizContainer = document.getElementById('quiz-content');
     if (quizContainer) {
         renderQuestion('start');
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initQuiz);
+} else {
+    initQuiz();
+}
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

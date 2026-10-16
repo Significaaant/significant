@@ -1,278 +1,202 @@
 const quizData = {
     fr: {
         start: {
-            question: "Quel est ton objectif d'analyse ?",
+            question: "Quel est votre objectif principal ?",
             options: [
-                { text: "Décrire mes données", next: "q2", recap: "Description" },
-                { text: "Comparer des groupes", next: "q5", recap: "Comparaison de groupes" },
-                { text: "Étudier une relation entre deux variables", next: "q10", recap: "Relation" },
-                { text: "Prédire une variable à partir d'autres", next: "q15", recap: "Prédiction" },
-                { text: "Vérifier un postulat statistique", next: "q19", recap: "Vérification postulat" }
+                { text: "Comparer des groupes", next: "compare_goal", recap: "Comparaison" },
+                { text: "Étudier une relation", next: "link_goal", recap: "Relation" },
+                { text: "Prédire un résultat", next: "predict_goal", recap: "Prédiction" },
+                { text: "Décrire des données", next: "desc_goal", recap: "Description" },
+                { text: "Vérifier un postulat", next: "check_goal", recap: "Vérification" }
             ],
             help: {
-                title: "Bien choisir son objectif",
-                optionA: { title: "Décrire", desc: "Tu veux résumer tes données (moyenne, fréquences) sans chercher de lien complexe.", ex: "Quel est l'âge moyen de mon groupe ?" },
-                optionB: { title: "Comparer", desc: "Tu veux savoir si deux groupes (ex: Hommes/Femmes) sont différents sur un critère.", ex: "Est-ce que les femmes dorment plus que les hommes ?" },
-                optionC: { title: "Relation", desc: "Tu veux voir si deux variables évoluent ensemble (ex: Taille et Poids).", ex: "Plus on est grand, plus on est lourd ?" },
-                optionD: { title: "Prédire", desc: "Tu veux modéliser une relation pour prédire un futur résultat (Régression).", ex: "Puis-je prédire le salaire à partir des années d'études ?" },
-                optionE: { title: "Postulat", desc: "Tu veux t'assurer que tes données respectent les règles mathématiques (Normalité, Homogénéité).", ex: "Mes données suivent-elles une loi normale ?" }
+                title: "Déterminer l'objectif",
+                optionA: { title: "Comparer", desc: "Vérifier si un facteur (ex: traitement) crée une différence entre des groupes.", ex: "Le médicament A est-il plus efficace que le B ?" },
+                optionB: { title: "Relation", desc: "Voir si deux variables varient ensemble sans forcément qu'une cause l'autre.", ex: "La taille est-elle liée au poids ?" },
+                optionC: { title: "Prédire", desc: "Utiliser une ou plusieurs variables pour estimer la valeur d'une autre.", ex: "Prédire le succès à l'examen selon le temps d'étude." }
             }
         },
 
-        // Branch 1: Décrire mes données
-        q2: {
-            question: "Quel type de variable veux-tu décrire ?",
+        // --- BRANCH: COMPARER ---
+        compare_goal: {
+            question: "Quelle est la nature de votre variable de résultat (VD) ?",
             options: [
-                { text: "Variable quantitative (continue)", next: "q3", recap: "Quanti" },
-                { text: "Variable qualitative (catégorielle)", next: "q4", recap: "Quali" }
+                { text: "Numérique / Échelle (ex: Score, temps)", next: "compare_quanti_groups", recap: "VD Numérique" },
+                { text: "Catégorielle / Nominale (ex: Oui/Non, Type)", next: "compare_quali_groups", recap: "VD Catégorielle" }
             ],
             help: {
-                title: "Types de Variables",
-                optionA: { title: "Quantitative", desc: "Des chiffres mesurables ou comptables.", ex: "L'âge, la température, le score à un examen." },
-                optionB: { title: "Qualitative", desc: "Des catégories ou des étiquettes.", ex: "Le sexe, le groupe sanguin, la couleur préférée." }
-            }
-        },
-        q3: {
-            question: "Que veux-tu calculer ?",
-            options: [
-                { text: "La tendance centrale", result: "res_tendance_centrale", recap: "Tendance centrale" },
-                { text: "La dispersion", result: "res_dispersion", recap: "Dispersion" },
-                { text: "Visualiser la distribution", result: "res_visu_quanti", recap: "Visualisation" },
-                { text: "Estimer la valeur dans la population", result: "res_intervalle_confiance", recap: "Estimation" }
-            ],
-            help: {
-                title: "Que mesurer ?",
-                optionA: { title: "Tendance centrale", desc: "Le 'centre' de tes données.", ex: "La moyenne de la classe." },
-                optionB: { title: "Dispersion", desc: "Si tes données sont serrées ou étalées.", ex: "L'écart-type des résultats." },
-                optionC: { title: "Distribution", desc: "La 'forme' de tes données.", ex: "Histogramme ou Boxplot." },
-                optionD: { title: "Population", desc: "Généraliser ton échantillon à tout le monde.", ex: "Intervalle de confiance." }
-            }
-        },
-        q4: {
-            question: "Que veux-tu faire ?",
-            options: [
-                { text: "Résumer les fréquences", result: "res_tri_plat", recap: "Fréquences" },
-                { text: "Visualiser", result: "res_visu_quali", recap: "Visualisation" }
-            ],
-            help: {
-                title: "Décrire des catégories",
-                optionA: { title: "Fréquences", desc: "Compter combien il y en a par groupe.", ex: "30% de Femmes, 70% d'Hommes." },
-                optionB: { title: "Visualiser", desc: "Faire un graphique simple.", ex: "Diagramme en barres ou camembert." }
+                title: "Nature de la VD",
+                optionA: { title: "Numérique", desc: "Votre résultat est une mesure continue ou un score.", ex: "Score d'anxiété, Temps de réaction." },
+                optionB: { title: "Catégorielle", desc: "Votre résultat est un état ou une catégorie.", ex: "Réussite/Échec, Choix A/B/C." }
             }
         },
 
-        // Branch 2: Comparer des groupes (Quali x Quanti)
-        q5: {
-            question: "Combien de groupes compares-tu ?",
+        // Compare Quanti
+        compare_quanti_groups: {
+            question: "Combien de groupes ou conditions comparez-vous ?",
             options: [
-                { text: "2 groupes", next: "q6", recap: "2 groupes" },
-                { text: "3 groupes ou plus", next: "q9", recap: "3+ groupes" }
-            ],
-            help: {
-                title: "Nombre de groupes",
-                optionA: { title: "2 groupes", desc: "Comparaison simple entre deux entités.", ex: "Filles vs Garçons." },
-                optionB: { title: "3+ groupes", desc: "Comparaison multiple entre plusieurs entités.", ex: "France vs Belgique vs Suisse." }
-            }
+                { text: "2 groupes / mesures", next: "compare_quanti_2_link", recap: "2 groupes" },
+                { text: "3 groupes ou plus", next: "compare_quanti_3_link", recap: "3+ groupes" }
+            ]
         },
-        q6: {
-            question: "Tes mesures sont-elles appariées ? (ex : même individu mesuré deux fois)",
+
+        compare_quanti_2_link: {
+            question: "Les groupes sont-ils indépendants ou appariés ?",
             options: [
-                { text: "Oui", next: "q7", recap: "Appariées" },
-                { text: "Non", next: "q8", recap: "Indépendantes" }
+                { text: "Indépendants (individus différents)", next: "compare_quanti_2_ind_norm", recap: "Indépendants" },
+                { text: "Appariés (mêmes individus / paires)", next: "compare_quanti_2_paired_norm", recap: "Appariés" }
             ],
             help: {
-                title: "Lien entre les mesures",
-                optionA: { title: "Appariées", desc: "Les mêmes personnes sont testées plusieurs fois.", ex: "Poids avant régime vs Poids après régime." },
-                optionB: { title: "Indépendantes", desc: "Deux groupes de personnes totalement différents.", ex: "Groupe A (médicament) vs Groupe B (placebo)." }
-            }
-        },
-        q7: {
-            question: "Tes données suivent-elles une loi normale ? (ou n > 30)",
-            options: [
-                { text: "Oui", result: "res_ttest_paired", recap: "Normalité OK" },
-                { text: "Non", result: "res_wilcoxon", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Loi Normale",
-                optionA: { title: "Normalité OK", desc: "Tes données forment une courbe en cloche.", ex: "Shapiro-Wilk p > .05" },
-                optionB: { title: "Non-normal", desc: "Tes données sont asymétriques ou trop dispersées.", ex: "Shapiro-Wilk p < .05" }
-            }
-        },
-        q8: {
-            question: "Les variances des groupes sont-elles égales ?",
-            options: [
-                { text: "Oui (ou je ne sais pas)", result: "res_ttest_ind", recap: "Variances égales" },
-                { text: "Non", result: "res_welch", recap: "Variances inégales" },
-                { text: "Je ne sais pas si mes données sont normales", next: "q8b", recap: "Incertitude normalité" }
-            ],
-            help: {
-                title: "L'égalité des variances",
-                optionA: { title: "Égales", desc: "Les deux groupes ont un étalement similaire.", ex: "Test de Levene p > .05" },
-                optionB: { title: "Inégales", desc: "Un groupe est beaucoup plus 'étalé' que l'autre.", ex: "Test de Levene p < .05" },
-                optionC: { title: "Incertitude", desc: "Si tu n'as pas encore testé la normalité.", ex: "Aide-moi à vérifier la normalité d'abord." }
-            }
-        },
-        q8b: {
-            question: "Tes données suivent-elles une loi normale ?",
-            options: [
-                { text: "Oui", result: "res_ttest_ind_welch", recap: "Normalité OK" },
-                { text: "Non", result: "res_mann_whitney", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Loi Normale",
-                optionA: { title: "Normalité OK", desc: "Courbe en cloche symétrique.", ex: "Indispensable pour le Test t." },
-                optionB: { title: "Non-normal", desc: "Distribution irrégulière ou échantillons < 30.", ex: "Utiliser Mann-Whitney (non-paramétrique)." }
-            }
-        },
-        q9: {
-            question: "Tes données suivent-elles une loi normale ?",
-            options: [
-                { text: "Oui", result: "res_anova", recap: "Normalité OK" },
-                { text: "Non", result: "res_kruskal_wallis", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Loi Normale",
-                optionA: { title: "Normalité OK", desc: "Tendance centrale symétrique.", ex: "Indispensable pour l'ANOVA." },
-                optionB: { title: "Non-normal", desc: "Échantillons asymétriques.", ex: "Utiliser Kruskal-Wallis (non-paramétrique)." }
+                title: "Dépendance des groupes",
+                optionA: { title: "Indépendants", desc: "Deux personnes différentes dans chaque groupe.", ex: "Hommes vs Femmes." },
+                optionB: { title: "Appariés", desc: "Les mêmes personnes mesurées deux fois.", ex: "Avant Traitement vs Après Traitement." }
             }
         },
 
-        // Branch 3: Comparer des proportions (Quali x Quali)
-        q10: {
-            question: "Tes deux variables sont-elles qualitatives ?",
+        compare_quanti_2_ind_norm: {
+            question: "Les conditions de normalité et d'homocédasticité sont-elles remplies ?",
             options: [
-                { text: "Oui", next: "q11", recap: "Quali x Quali" },
-                { text: "Non (une quanti et une quali)", next: "q5", recap: "Quanti x Quali" },
-                { text: "Non (deux quanti)", next: "q13", recap: "Quanti x Quanti" }
+                { text: "Oui (Test Paramétrique)", result: "res_ttest_ind", recap: "Paramétrique" },
+                { text: "Non / Je ne sais pas", next: "compare_quanti_2_ind_nonparam", recap: "Incertitude" }
             ],
             help: {
-                title: "Type de lien",
-                optionA: { title: "Quali x Quali", desc: "Deux catégories s'influencent-elles ?", ex: "Lien entre métier et satisfaction (Oui/Non)." },
-                optionB: { title: "Quanti x Quali", desc: "Une moyenne change-t-elle selon un groupe ?", ex: "Salaire moyen par Diplôme." },
-                optionC: { title: "Quanti x Quanti", desc: "Deux chiffres évoluent-ils ensemble ?", ex: "Lien entre consommation et prix." }
-            }
-        },
-        q11: {
-            question: "Quel est l'effectif de ton échantillon ?",
-            options: [
-                { text: "Grand (toutes les cases > 5)", next: "q12", recap: "Grand échantillon" },
-                { text: "Petit (au moins une case ≤ 5)", result: "res_fisher", recap: "Petit échantillon" }
-            ],
-            help: {
-                title: "Effectif des cases",
-                optionA: { title: "Grand", desc: "Tes groupes sont assez grands pour le χ².", ex: "Toutes les cases du tableau > 5." },
-                optionB: { title: "Petit", desc: "Échantillon trop faible pour le χ².", ex: "Une case vide ou < 5 individus." }
-            }
-        },
-        q12: {
-            question: "Que veux-tu mesurer ?",
-            options: [
-                { text: "S'il y a une association", result: "res_chi2", recap: "Association" },
-                { text: "La force de l'association", result: "res_cramer_v", recap: "Force" },
-                { text: "Les deux", result: "res_chi2_cramer", recap: "Les deux" }
-            ],
-            help: {
-                title: "Significativité vs Force",
-                optionA: { title: "Association", desc: "Y a-t-il un lien réel ou dû au hasard ?", ex: "Test du χ²." },
-                optionB: { title: "Force", desc: "Le lien est-il faible ou puissant ?", ex: "V de Cramer (0 à 1)." },
-                optionC: { title: "Les deux", desc: "Prouver le lien ET mesurer son importance.", ex: "χ² + V de Cramer." }
+                title: "Conditions d'application",
+                optionA: { title: "Normalité", desc: "Distribution en cloche et variances similaires.", ex: "Shapiro > .05 et Levene > .05" }
             }
         },
 
-        // Branch 4: Étudier une relation (Quanti x Quanti)
-        q13: {
-            question: "Que veux-tu faire ?",
+        compare_quanti_2_ind_nonparam: {
+            question: "Voulez-vous une alternative robuste (non-paramétrique) ?",
             options: [
-                { text: "Mesurer la force du lien", next: "q14", recap: "Intensité" },
-                { text: "Expliquer ou prédire une variable", next: "q15", recap: "Prédiction" }
-            ],
-            help: {
-                title: "Corrélation vs Régression",
-                optionA: { title: "Force du lien", desc: "Est-ce qu'ils bougent ensemble ?", ex: "Corrélation (Pearson)." },
-                optionB: { title: "Prédire", desc: "Calculer la valeur de Y si je connais X.", ex: "Régression linéaire." }
-            }
-        },
-        q14: {
-            question: "Tes données sont-elles normales et sans valeurs aberrantes ?",
-            options: [
-                { text: "Oui", result: "res_pearson", recap: "Normalité OK" },
-                { text: "Non", result: "res_spearman", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Loi Normale",
-                optionA: { title: "Normalité OK", desc: "La relation forme une ligne droite.", ex: "Corrélation de Pearson." },
-                optionB: { title: "Non-normal", desc: "La relation est courbe ou non-normale.", ex: "Corrélation de Spearman." }
-            }
+                { text: "Oui, utiliser les rangs", result: "res_mann_whitney", recap: "Non-paramétrique" },
+                { text: "Non, tester avec correction (Welch)", result: "res_welch", recap: "Correction Welch" }
+            ]
         },
 
-        // Branch 5: Prédire / Expliquer
-        q15: {
-            question: "Ta variable à expliquer (dépendante) est-elle... ?",
+        compare_quanti_2_paired_norm: {
+            question: "Vos données suivent-elles une loi normale ?",
             options: [
-                { text: "Continue (ex : score, âge, revenu)", next: "q16", recap: "Y Continue" },
-                { text: "Binaire (ex : succès/échec, oui/non)", result: "res_logistic_reg", recap: "Y Binaire" }
-            ],
-            help: {
-                title: "Variable Dépendante (Y)",
-                optionA: { title: "Continue", desc: "Ce que tu veux expliquer est un nombre.", ex: "Prédire les ventes (en €)." },
-                optionB: { title: "Binaire", desc: "Ce que tu veux expliquer est un choix (0/1).", ex: "Prédire la réussite (Oui/Non)." }
-            }
-        },
-        q16: {
-            question: "Combien de variables explicatives as-tu ?",
-            options: [
-                { text: "Une seule", result: "res_linear_reg_simple", recap: "1 X" },
-                { text: "Plusieurs", next: "q17", recap: "Plusieurs X" }
-            ],
-            help: {
-                title: "Nombre de Prédicteurs",
-                optionA: { title: "Un seul", desc: "Une variable X impacte Y.", ex: "Études -> Salaire." },
-                optionB: { title: "Plusieurs", desc: "Un mélange de variables impacte Y.", ex: "Études + Expérience -> Salaire." }
-            }
-        },
-        q17: {
-            question: "As-tu des variables de contrôle à neutraliser ?",
-            options: [
-                { text: "Non", result: "res_linear_reg_multiple", recap: "Pas de contrôle" },
-                { text: "Oui, dont une covariable continue", result: "res_ancova", recap: "Covariable" },
-                { text: "Oui, et j'ai plusieurs variables dépendantes", result: "res_manova", recap: "Plusieurs Y" }
-            ],
-            help: {
-                title: "Complexité du Modèle",
-                optionA: { title: "Direct", desc: "Juste prédire Y à partir de plusieurs X.", ex: "Régression multiple." },
-                optionB: { title: "Contrôlé", desc: "Neutraliser une variable pour voir le vrai effet.", ex: "ANCOVA." },
-                optionC: { title: "Multivarié", desc: "Plusieurs résultats (Y) différents à la fois.", ex: "MANOVA." }
-            }
+                { text: "Oui", result: "res_ttest_paired", recap: "Normal" },
+                { text: "Non / Petit échantillon", result: "res_wilcoxon", recap: "Non-normal" }
+            ]
         },
 
-        // Branch 6: Vérifier un postulat
-        q19: {
-            question: "Quel postulat veux-tu vérifier ?",
+        compare_quanti_3_link: {
+            question: "Les groupes sont-ils indépendants ?",
             options: [
-                { text: "La normalité de mes données", result: "res_shapiro", recap: "Normalité" },
-                { text: "L'égalité des variances entre groupes", result: "res_levene", recap: "Homoscédasticité" },
-                { text: "Je veux savoir quelle alternative non-paramétrique utiliser", next: "q20", recap: "Alternative non-param" }
-            ],
-            help: {
-                title: "Choix du Postulat",
-                optionA: { title: "Normalité", desc: "Est-ce que mes données suivent la loi normale ?", ex: "Test de Shapiro-Wilk." },
-                optionB: { title: "Variances", desc: "Est-ce que l'étalement est le même partout ?", ex: "Test de Levene." },
-                optionC: { title: "Secours", desc: "Vers quel test se tourner si les règles sont cassées ?", ex: "L'alternative Rank-based." }
-            }
+                { text: "Indépendants", next: "compare_quanti_3_ind_norm", recap: "Indépendants" },
+                { text: "Mesures répétées (Appariés)", next: "compare_quanti_3_paired_norm", recap: "Répétés" }
+            ]
         },
-        q20: {
-            question: "Quel test paramétrique voulais-tu utiliser ?",
+
+        compare_quanti_3_ind_norm: {
+            question: "Les conditions de l'ANOVA sont-elles remplies ?",
             options: [
-                { text: "Test t indépendant", result: "res_mann_whitney", recap: "vs Test t indé" },
-                { text: "Test t apparié", result: "res_wilcoxon", recap: "vs Test t apparié" },
-                { text: "ANOVA", result: "res_kruskal_wallis", recap: "vs ANOVA" }
-            ],
-            help: {
-                title: "Test d'origine",
-                optionA: { title: "T Indépendant", desc: "Tu voulais comparer deux groupes distincts.", ex: "Secours : Mann-Whitney." },
-                optionB: { title: "T Apparié", desc: "Tu voulais comparer avant/après.", ex: "Secours : Wilcoxon." },
-                optionC: { title: "ANOVA", desc: "Tu voulais comparer 3+ groupes.", ex: "Secours : Kruskal-Wallis." }
-            }
+                { text: "Oui", result: "res_anova", recap: "ANOVA classique" },
+                { text: "Non", result: "res_kruskal_wallis", recap: "Kruskal-Wallis" }
+            ]
+        },
+
+        compare_quanti_3_paired_norm: {
+            question: "Les conditions de l'ANOVA répétée sont-elles remplies ?",
+            options: [
+                { text: "Oui", result: "res_anova_repeated", recap: "ANOVA répétée" },
+                { text: "Non", result: "res_friedman", recap: "Friedman" }
+            ]
+        },
+
+        // Compare Quali
+        compare_quali_groups: {
+            question: "Voulez-vous vérifier l'adéquation à une théorie ou l'indépendance entre deux variables ?",
+            options: [
+                { text: "Adéquation (1 variable vs théorie)", result: "res_chi2_fit", recap: "Adéquation" },
+                { text: "Indépendance (Lien entre 2 variables)", next: "compare_quali_ind_size", recap: "Indépendance" }
+            ]
+        },
+
+        compare_quali_ind_size: {
+            question: "Vos effectifs théoriques sont-ils suffisants ?",
+            options: [
+                { text: "Oui (Toutes les cases > 5)", result: "res_chi2", recap: "Chi-deux" },
+                { text: "Non (Cases < 5)", result: "res_fisher", recap: "Fisher" }
+            ]
+        },
+
+        // --- BRANCH: RELATION ---
+        link_goal: {
+            question: "De quel type sont vos deux variables ?",
+            options: [
+                { text: "Deux Quantitatives (Numériques)", next: "link_quanti_norm", recap: "2 Quanti" },
+                { text: "Deux Qualitatives (Catégories)", next: "compare_quali_ind_size", recap: "2 Quali" },
+                { text: "Une Quanti + Une Quali", next: "compare_quanti_groups", recap: "Quanti x Quali" }
+            ]
+        },
+
+        link_quanti_norm: {
+            question: "La relation est-elle linéaire et les données normales ?",
+            options: [
+                { text: "Oui", result: "res_pearson", recap: "Pearson" },
+                { text: "Non / Rangs", result: "res_spearman", recap: "Spearman" }
+            ]
+        },
+
+        // --- BRANCH: PREDIRE ---
+        predict_goal: {
+            question: "Que cherchez-vous à prédire (VD) ?",
+            options: [
+                { text: "Un nombre (ex: Revenu, temps)", next: "predict_quanti_count", recap: "Y Numérique" },
+                { text: "Un état / binaire (ex: Succès/Échec)", next: "predict_quali_count", recap: "Y Binaire" }
+            ]
+        },
+
+        predict_quanti_count: {
+            question: "Combien de variables prédisent votre résultat ?",
+            options: [
+                { text: "Une seule", result: "res_linear_reg_simple", recap: "Unique predictor" },
+                { text: "Plusieurs", next: "predict_quanti_mult_type", recap: "Multiple predictors" }
+            ]
+        },
+
+        predict_quanti_mult_type: {
+            question: "Voulez-vous contrôler une variable parasite ?",
+            options: [
+                { text: "Oui (Analyse de covariance)", result: "res_ancova", recap: "ANCOVA" },
+                { text: "Non (Régression multiple standard)", result: "res_linear_reg_multiple", recap: "Régression multiple" },
+                { text: "J'ai plusieurs variables de résultats (VD)", result: "res_manova", recap: "MANOVA" }
+            ]
+        },
+
+        predict_quali_count: {
+            question: "Combien de catégories possède votre VD ?",
+            options: [
+                { text: "2 (Binaire)", result: "res_logistic_reg", recap: "Logistique Binaire" },
+                { text: "3 ou plus", result: "res_multinomial_reg", recap: "Logistique Multinomiale" }
+            ]
+        },
+
+        // --- BRANCH: DESCRIRE (Preserved simple logic) ---
+        desc_goal: {
+            question: "Quel type de variable décrivez-vous ?",
+            options: [
+                { text: "Quantitative", next: "desc_quanti_detail", recap: "Quanti" },
+                { text: "Qualitative", result: "res_tri_plat", recap: "Quali" }
+            ]
+        },
+        desc_quanti_detail: {
+            question: "Que voulez-vous résumer ?",
+            options: [
+                { text: "Centre et dispersion", result: "res_tendance_centrale", recap: "Stats" },
+                { text: "La distribution (forme)", result: "res_visu_quanti", recap: "Visu" }
+            ]
+        },
+
+        // --- BRANCH: POSTULATS ---
+        check_goal: {
+            question: "Que voulez-vous vérifier ?",
+            options: [
+                { text: "Normalité", result: "res_shapiro", recap: "Normalité" },
+                { text: "Égalité des variances", result: "res_levene", recap: "Homoscédasticité" }
+            ]
         },
 
         // --- RÉSULTATS ---
@@ -287,7 +211,7 @@ const quizData = {
             isResult: true,
             testName: "Variance / Écart-type / Quantiles",
             text: "L'<strong>Écart-type</strong> est le standard pour la dispersion. Utilise les <strong>Quantiles</strong> (quartiles) pour des distributions non-normales.",
-            expert: "loi-normale",
+            expert: "stat-ecart-type",
             targetId: "stat-ecart-type"
         },
         res_visu_quanti: {
@@ -308,15 +232,15 @@ const quizData = {
             isResult: true,
             testName: "Tri à plat",
             text: "Le tri à plat résume les effectifs et les pourcentages pour chaque catégorie de ta variable.",
-            expert: "stat_mode",
-            targetId: "chapitre-3"
+            expert: "tri-plat",
+            targetId: "tri-plat"
         },
         res_visu_quali: {
             isResult: true,
             testName: "Barres / Camembert",
             text: "Le <strong>Diagramme en barres</strong> est plus lisible pour comparer des fréquences. Le <strong>Camembert</strong> est utile pour visualiser des parts d'un tout.",
-            expert: "stat_mode",
-            targetId: "chapitre-3"
+            expert: "tri-plat",
+            targetId: "tri-plat"
         },
         res_ttest_paired: {
             isResult: true,
@@ -336,7 +260,7 @@ const quizData = {
             isResult: true,
             testName: "Test t indépendant (Student)",
             text: "Compare les moyennes de deux groupes distincts (ex: Hommes vs Femmes) quand les variances sont égales.",
-            expert: "test_ttest",
+            expert: "test-ttest",
             targetId: "test-ttest"
         },
         res_welch: {
@@ -420,14 +344,14 @@ const quizData = {
             isResult: true,
             testName: "Régression Logistique",
             text: "Utilisée pour prédire une variable binaire (Oui/Non) à partir d'un ou plusieurs prédicteurs.",
-            expert: "test_manova",
-            targetId: "test-manova"
+            expert: "reg-logistique",
+            targetId: "reg-logistique"
         },
         res_linear_reg_simple: {
             isResult: true,
             testName: "Régression Linéaire Simple",
             text: "Modélise la relation entre une variable dépendante and une seule variable explicative.",
-            expert: "test_pearson",
+            expert: "test-cor",
             targetId: "test-cor"
         },
         res_linear_reg_multiple: {
@@ -465,466 +389,386 @@ const quizData = {
     },
     en: {
         start: {
-            question: "What is your analysis goal?",
+            question: "What is your main goal?",
             options: [
-                { text: "Describe my data", next: "q2", recap: "Description" },
-                { text: "Compare groups", next: "q5", recap: "Group comparison" },
-                { text: "Study a relationship between two variables", next: "q10", recap: "Relationship" },
-                { text: "Predict a variable from others", next: "q15", recap: "Prediction" },
-                { text: "Verify a statistical assumption", next: "q19", recap: "Assumption check" }
+                { text: "Compare groups", next: "compare_goal", recap: "Comparison" },
+                { text: "Study a relationship", next: "link_goal", recap: "Relationship" },
+                { text: "Predict an outcome", next: "predict_goal", recap: "Prediction" },
+                { text: "Describe data", next: "desc_goal", recap: "Description" },
+                { text: "Verify an assumption", next: "check_goal", recap: "Verification" }
             ],
             help: {
-                title: "Choosing your goal",
-                optionA: { title: "Describe", desc: "You want to summarize your data (mean, frequencies) without looking for complex links.", ex: "What is the average age of my group?" },
-                optionB: { title: "Compare", desc: "You want to know if two groups (e.g., Men/Women) differ on a criterion.", ex: "Do women sleep more than men?" },
-                optionC: { title: "Relationship", desc: "You want to see if two variables evolve together (e.g., Height and Weight).", ex: "The taller you are, the heavier you are?" },
-                optionD: { title: "Predict", desc: "You want to model a relationship to predict a future outcome (Regression).", ex: "Can I predict salary from years of education?" },
-                optionE: { title: "Assumption", desc: "You want to ensure your data follows mathematical rules (Normality, Homogeneity).", ex: "Does my data follow a normal distribution?" }
+                title: "Determining the goal",
+                optionA: { title: "Compare", desc: "Check if a factor (e.g., treatment) creates a difference between groups.", ex: "Is drug A more effective than drug B?" },
+                optionB: { title: "Relationship", desc: "See if two variables vary together without necessarily implying causation.", ex: "Is height linked to weight?" },
+                optionC: { title: "Predict", desc: "Use one or more variables to estimate the value of another.", ex: "Predict exam success based on study time." }
             }
         },
 
-        // Branch 1: Describe my data
-        q2: {
-            question: "What type of variable do you want to describe?",
+        // --- BRANCH: COMPARE ---
+        compare_goal: {
+            question: "What is the nature of your outcome variable (DV)?",
             options: [
-                { text: "Quantitative variable (continuous)", next: "q3", recap: "Quanti" },
-                { text: "Qualitative variable (categorical)", next: "q4", recap: "Quali" }
+                { text: "Numerical / Scale (e.g., Score, time)", next: "compare_quanti_groups", recap: "Numerical DV" },
+                { text: "Categorical / Nominal (e.g., Yes/No, Type)", next: "compare_quali_groups", recap: "Categorical DV" }
             ],
             help: {
-                title: "Variable Types",
-                optionA: { title: "Quantitative", desc: "Measurable or countable numbers.", ex: "Age, temperature, exam score." },
-                optionB: { title: "Qualitative", desc: "Categories or labels.", ex: "Gender, blood type, favorite color." }
-            }
-        },
-        q3: {
-            question: "What do you want to calculate?",
-            options: [
-                { text: "Central tendency", result: "res_tendance_centrale", recap: "Central tendency" },
-                { text: "Dispersion", result: "res_dispersion", recap: "Dispersion" },
-                { text: "Visualize distribution", result: "res_visu_quanti", recap: "Visualization" },
-                { text: "Estimate value in population", result: "res_intervalle_confiance", recap: "Estimation" }
-            ],
-            help: {
-                title: "What to measure?",
-                optionA: { title: "Central tendency", desc: "The 'center' of your data.", ex: "The class average." },
-                optionB: { title: "Dispersion", desc: "Whether your data is tight or spread out.", ex: "The standard deviation of results." },
-                optionC: { title: "Distribution", desc: "The 'shape' of your data.", ex: "Histogram or Boxplot." },
-                optionD: { title: "Population", desc: "Generalize your sample to everyone.", ex: "Confidence interval." }
-            }
-        },
-        q4: {
-            question: "What do you want to do?",
-            options: [
-                { text: "Summarize frequencies", result: "res_tri_plat", recap: "Frequencies" },
-                { text: "Visualize", result: "res_visu_quali", recap: "Visualization" }
-            ],
-            help: {
-                title: "Describing categories",
-                optionA: { title: "Frequencies", desc: "Count how many are in each group.", ex: "30% Women, 70% Men." },
-                optionB: { title: "Visualize", desc: "Make a simple chart.", ex: "Bar chart or pie chart." }
+                title: "DV Nature",
+                optionA: { title: "Numerical", desc: "Your result is a continuous measure or a score.", ex: "Anxiety score, Reaction time." },
+                optionB: { title: "Categorical", desc: "Your result is a state or a category.", ex: "Success/Failure, Choice A/B/C." }
             }
         },
 
-        // Branch 2: Compare groups (Quali x Quanti)
-        q5: {
-            question: "How many groups are you comparing?",
+        // Compare Quanti
+        compare_quanti_groups: {
+            question: "How many groups or conditions are you comparing?",
             options: [
-                { text: "2 groups", next: "q6", recap: "2 groups" },
-                { text: "3 or more groups", next: "q9", recap: "3+ groups" }
+                { text: "2 groups / measures", next: "compare_quanti_2_link", recap: "2 groups" },
+                { text: "3 or more groups", next: "compare_quanti_3_link", recap: "3+ groups" }
+            ]
+        },
+
+        compare_quanti_2_link: {
+            question: "Are the groups independent or paired?",
+            options: [
+                { text: "Independent (different individuals)", next: "compare_quanti_2_ind_norm", recap: "Independent" },
+                { text: "Paired (same individuals / pairs)", next: "compare_quanti_2_paired_norm", recap: "Paired" }
             ],
             help: {
-                title: "Number of groups",
-                optionA: { title: "2 groups", desc: "Simple comparison between two entities.", ex: "Girls vs Boys." },
-                optionB: { title: "3+ groups", desc: "Multiple comparison between several entities.", ex: "France vs UK vs USA." }
+                title: "Group dependency",
+                optionA: { title: "Independent", desc: "Different people in each group.", ex: "Men vs Women." },
+                optionB: { title: "Paired", desc: "The same people measured twice.", ex: "Before Treatment vs After Treatment." }
             }
         },
-        q6: {
-            question: "Are your measures paired? (e.g., same individual measured twice)",
+
+        compare_quanti_2_ind_norm: {
+            question: "Are the normality and homoscedasticity conditions met?",
             options: [
-                { text: "Yes", next: "q7", recap: "Paired" },
-                { text: "No", next: "q8", recap: "Independent" }
+                { text: "Yes (Parametric Test)", result: "res_ttest_ind", recap: "Parametric" },
+                { text: "No / I don't know", next: "compare_quanti_2_ind_nonparam", recap: "Uncertainty" }
             ],
             help: {
-                title: "Link between measures",
-                optionA: { title: "Paired", desc: "The same people are tested multiple times.", ex: "Weight before diet vs Weight after diet." },
-                optionB: { title: "Independent", desc: "Two totally different groups of people.", ex: "Group A (drug) vs Group B (placebo)." }
+                title: "Application conditions",
+                optionA: { title: "Normality", desc: "Bell-shaped distribution and similar variances.", ex: "Shapiro > .05 and Levene > .05" }
             }
         },
-        q7: {
-            question: "Does your data follow a normal distribution? (or n > 30)",
+
+        compare_quanti_2_ind_nonparam: {
+            question: "Do you want a robust (non-parametric) alternative?",
             options: [
-                { text: "Yes", result: "res_ttest_paired", recap: "Normality OK" },
-                { text: "No", result: "res_wilcoxon", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Normal Distribution",
-                optionA: { title: "Normality OK", desc: "Your data forms a bell curve.", ex: "Shapiro-Wilk p > .05" },
-                optionB: { title: "Non-normal", desc: "Your data is skewed or very dispersed.", ex: "Shapiro-Wilk p < .05" }
-            }
+                { text: "Yes, use ranks", result: "res_mann_whitney", recap: "Non-parametric" },
+                { text: "No, test with correction (Welch)", result: "res_welch", recap: "Welch Correction" }
+            ]
         },
-        q8: {
-            question: "Are the variances of the groups equal?",
-            options: [
-                { text: "Yes (or I don't know)", result: "res_ttest_ind", recap: "Equal variances" },
-                { text: "No", result: "res_welch", recap: "Unequal variances" },
-                { text: "I don't know if my data is normal", next: "q8b", recap: "Normality uncertainty" }
-            ],
-            help: {
-                title: "Equality of Variances",
-                optionA: { title: "Equal", desc: "Both groups have similar spread.", ex: "Levene's test p > .05" },
-                optionB: { title: "Unequal", desc: "One group is much more 'spread out' than the other.", ex: "Levene's test p < .05" },
-                optionC: { title: "Uncertainty", desc: "If you haven't tested normality yet.", ex: "Help me check normality first." }
-            }
-        },
-        q8b: {
+
+        compare_quanti_2_paired_norm: {
             question: "Does your data follow a normal distribution?",
             options: [
-                { text: "Yes", result: "res_ttest_ind_welch", recap: "Normality OK" },
-                { text: "No", result: "res_mann_whitney", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Normal Distribution",
-                optionA: { title: "Normality OK", desc: "Symmetrical bell curve.", ex: "Required for t-test." },
-                optionB: { title: "Non-normal", desc: "Irregular distribution or sample < 30.", ex: "Use Mann-Whitney (non-parametric)." }
-            }
-        },
-        q9: {
-            question: "Does your data follow a normal distribution?",
-            options: [
-                { text: "Yes", result: "res_anova", recap: "Normality OK" },
-                { text: "No", result: "res_kruskal_wallis", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Normal Distribution",
-                optionA: { title: "Normality OK", desc: "Symmetrical central tendency.", ex: "Required for ANOVA." },
-                optionB: { title: "Non-normal", desc: "Asymmetrical samples.", ex: "Use Kruskal-Wallis (non-parametric)." }
-            }
+                { text: "Yes", result: "res_ttest_paired", recap: "Normal" },
+                { text: "No / Small sample", result: "res_wilcoxon", recap: "Non-normal" }
+            ]
         },
 
-        // Branch 3: Compare proportions (Quali x Quali)
-        q10: {
-            question: "Are both your variables qualitative?",
+        compare_quanti_3_link: {
+            question: "Are the groups independent?",
             options: [
-                { text: "Yes", next: "q11", recap: "Quali x Quali" },
-                { text: "No (one quanti and one quali)", next: "q5", recap: "Quanti x Quali" },
-                { text: "No (two quanti)", next: "q13", recap: "Quanti x Quanti" }
-            ],
-            help: {
-                title: "Link Type",
-                optionA: { title: "Quali x Quali", desc: "Do two categories influence each other?", ex: "Link between job and satisfaction (Yes/No)." },
-                optionB: { title: "Quanti x Quali", desc: "Does a mean change according to a category?", ex: "Average salary by Degree." },
-                optionC: { title: "Quanti x Quanti", desc: "Do two numbers evolve together?", ex: "Link between consumption and price." }
-            }
-        },
-        q11: {
-            question: "What is your sample size?",
-            options: [
-                { text: "Large (all cells > 5)", next: "q12", recap: "Large sample" },
-                { text: "Small (at least one cell ≤ 5)", result: "res_fisher", recap: "Small sample" }
-            ],
-            help: {
-                title: "Cell Count",
-                optionA: { title: "Large", desc: "Your groups are large enough for χ².", ex: "All table cells > 5." },
-                optionB: { title: "Small", desc: "Sample too small for χ².", ex: "One empty cell or < 5 individuals." }
-            }
-        },
-        q12: {
-            question: "What do you want to measure?",
-            options: [
-                { text: "Whether there is an association", result: "res_chi2", recap: "Association" },
-                { text: "The strength of the association", result: "res_cramer_v", recap: "Strength" },
-                { text: "Both", result: "res_chi2_cramer", recap: "Both" }
-            ],
-            help: {
-                title: "Significance vs Strength",
-                optionA: { title: "Association", desc: "Is there a real link or is it due to chance?", ex: "χ² test." },
-                optionB: { title: "Strength", desc: "Is the link weak or powerful?", ex: "Cramer's V (0 to 1)." },
-                optionC: { title: "Both", desc: "Prove the link AND measure its importance.", ex: "χ² + Cramer's V." }
-            }
+                { text: "Independent", next: "compare_quanti_3_ind_norm", recap: "Independent" },
+                { text: "Repeated measures (Paired)", next: "compare_quanti_3_paired_norm", recap: "Repeated" }
+            ]
         },
 
-        // Branch 4: Study a relationship (Quanti x Quanti)
-        q13: {
-            question: "What do you want to do?",
+        compare_quanti_3_ind_norm: {
+            question: "Are the ANOVA conditions met?",
             options: [
-                { text: "Measure the strength of the link", next: "q14", recap: "Intensity" },
-                { text: "Explain or predict a variable", next: "q15", recap: "Prediction" }
-            ],
-            help: {
-                title: "Correlation vs Regression",
-                optionA: { title: "Link Strength", desc: "Do they move together?", ex: "Correlation (Pearson)." },
-                optionB: { title: "Predict", desc: "Calculate Y value if I know X.", ex: "Linear regression." }
-            }
-        },
-        q14: {
-            question: "Is your data normal and without outliers?",
-            options: [
-                { text: "Yes", result: "res_pearson", recap: "Normality OK" },
-                { text: "No", result: "res_spearman", recap: "Non-normal" }
-            ],
-            help: {
-                title: "Normal Distribution",
-                optionA: { title: "Normality OK", desc: "The relationship forms a straight line.", ex: "Pearson correlation." },
-                optionB: { title: "Non-normal", desc: "The relationship is curved or non-normal.", ex: "Spearman correlation." }
-            }
+                { text: "Yes", result: "res_anova", recap: "Classic ANOVA" },
+                { text: "No", result: "res_kruskal_wallis", recap: "Kruskal-Wallis" }
+            ]
         },
 
-        // Branch 5: Predict / Explain
-        q15: {
-            question: "Is your variable to explain (dependent) ...?",
+        compare_quanti_3_paired_norm: {
+            question: "Are the Repeated Measures ANOVA conditions met?",
             options: [
-                { text: "Continuous (e.g., score, age, income)", next: "q16", recap: "Y Continuous" },
-                { text: "Binary (e.g., success/failure, yes/no)", result: "res_logistic_reg", recap: "Y Binary" }
-            ],
-            help: {
-                title: "Dependent Variable (Y)",
-                optionA: { title: "Continuous", desc: "What you want to explain is a number.", ex: "Predict sales (in $)." },
-                optionB: { title: "Binary", desc: "What you want to explain is a choice (0/1).", ex: "Predict success (Yes/No)." }
-            }
-        },
-        q16: {
-            question: "How many explanatory variables do you have?",
-            options: [
-                { text: "Only one", result: "res_linear_reg_simple", recap: "1 X" },
-                { text: "Several", next: "q17", recap: "Several X" }
-            ],
-            help: {
-                title: "Number of Predictors",
-                optionA: { title: "Only one", desc: "One variable X impacts Y.", ex: "Education -> Salary." },
-                optionB: { title: "Several", desc: "A mix of variables impacts Y.", ex: "Education + Experience -> Salary." }
-            }
-        },
-        q17: {
-            question: "Do you have control variables to neutralize?",
-            options: [
-                { text: "No", result: "res_linear_reg_multiple", recap: "No control" },
-                { text: "Yes, including a continuous covariate", result: "res_ancova", recap: "Covariate" },
-                { text: "Yes, and I have several dependent variables", result: "res_manova", recap: "Several Y" }
-            ],
-            help: {
-                title: "Model Complexity",
-                optionA: { title: "Direct", desc: "Just predict Y from several X.", ex: "Multiple regression." },
-                optionB: { title: "Controlled", desc: "Neutralize a variable to see the real effect.", ex: "ANCOVA." },
-                optionC: { title: "Multivariate", desc: "Several different results (Y) at once.", ex: "MANOVA." }
-            }
+                { text: "Yes", result: "res_anova_repeated", recap: "Repeated ANOVA" },
+                { text: "No", result: "res_friedman", recap: "Friedman" }
+            ]
         },
 
-        // Branch 6: Verify an assumption
-        q19: {
-            question: "Which assumption do you want to verify?",
+        // Compare Quali
+        compare_quali_groups: {
+            question: "Do you want to check fit to a theory or independence between two variables?",
             options: [
-                { text: "Normality of my data", result: "res_shapiro", recap: "Normality" },
-                { text: "Equality of variances between groups", result: "res_levene", recap: "Homoscedasticity" },
-                { text: "I want to know which non-parametric alternative to use", next: "q20", recap: "Non-param alternative" }
-            ],
-            help: {
-                title: "Assumption Choice",
-                optionA: { title: "Normality", desc: "Does my data follow a normal distribution?", ex: "Shapiro-Wilk test." },
-                optionB: { title: "Variances", desc: "Is the spread the same everywhere?", ex: "Levene's test." },
-                optionC: { title: "Safety test", desc: "Which test to use if rules are broken?", ex: "Rank-based alternative." }
-            }
+                { text: "Fit (1 variable vs theory)", result: "res_chi2_fit", recap: "Goodness-of-fit" },
+                { text: "Independence (Link between 2 variables)", next: "compare_quali_ind_size", recap: "Independence" }
+            ]
         },
-        q20: {
-            question: "Which parametric test did you want to use?",
+
+        compare_quali_ind_size: {
+            question: "Are your theoretical counts sufficient?",
             options: [
-                { text: "Independent t-test", result: "res_mann_whitney", recap: "vs Indep t-test" },
-                { text: "Paired t-test", result: "res_wilcoxon", recap: "vs Paired t-test" },
-                { text: "ANOVA", result: "res_kruskal_wallis", recap: "vs ANOVA" }
-            ],
-            help: {
-                title: "Original Test",
-                optionA: { title: "T Indep", desc: "You wanted to compare two distinct groups.", ex: "Safety: Mann-Whitney." },
-                optionB: { title: "T Paired", desc: "You wanted to compare before/after.", ex: "Safety: Wilcoxon." },
-                optionC: { title: "ANOVA", desc: "You wanted to compare 3+ groups.", ex: "Safety: Kruskal-Wallis." }
-            }
+                { text: "Yes (All cells > 5)", result: "res_chi2", recap: "Chi-Square" },
+                { text: "No (Cells < 5)", result: "res_fisher", recap: "Fisher" }
+            ]
+        },
+
+        // --- BRANCH: RELATION ---
+        link_goal: {
+            question: "What type are your two variables?",
+            options: [
+                { text: "Two Quantitative (Numerical)", next: "link_quanti_norm", recap: "2 Quanti" },
+                { text: "Two Qualitative (Categories)", next: "compare_quali_ind_size", recap: "2 Quali" },
+                { text: "One Quanti + One Quali", next: "compare_quanti_groups", recap: "Quanti x Quali" }
+            ]
+        },
+
+        link_quanti_norm: {
+            question: "Is the relationship linear and data normal?",
+            options: [
+                { text: "Yes", result: "res_pearson", recap: "Pearson" },
+                { text: "No / Ranks", result: "res_spearman", recap: "Spearman" }
+            ]
+        },
+
+        // --- BRANCH: PREDICT ---
+        predict_goal: {
+            question: "What are you trying to predict (DV)?",
+            options: [
+                { text: "A number (e.g., Income, time)", next: "predict_quanti_count", recap: "Numerical Y" },
+                { text: "A state / binary (e.g., Success/Failure)", next: "predict_quali_count", recap: "Binary Y" }
+            ]
+        },
+
+        predict_quanti_count: {
+            question: "How many variables predict your outcome?",
+            options: [
+                { text: "Only one", result: "res_linear_reg_simple", recap: "Unique predictor" },
+                { text: "Several", next: "predict_quanti_mult_type", recap: "Multiple predictors" }
+            ]
+        },
+
+        predict_quanti_mult_type: {
+            question: "Do you want to control a parasitic variable?",
+            options: [
+                { text: "Yes (Analysis of Covariance)", result: "res_ancova", recap: "ANCOVA" },
+                { text: "No (Standard Multiple Regression)", result: "res_linear_reg_multiple", recap: "Multiple regression" },
+                { text: "I have several outcome variables (DVs)", result: "res_manova", recap: "MANOVA" }
+            ]
+        },
+
+        predict_quali_count: {
+            question: "How many categories does your DV have?",
+            options: [
+                { text: "2 (Binary)", result: "res_logistic_reg", recap: "Binary Logistic" },
+                { text: "3 or more", result: "res_multinomial_reg", recap: "Multinomial Logistic" }
+            ]
+        },
+
+        // --- BRANCH: DESCRIRE ---
+        desc_goal: {
+            question: "What type of variable are you describing?",
+            options: [
+                { text: "Quantitative", next: "desc_quanti_detail", recap: "Quanti" },
+                { text: "Qualitative", result: "res_tri_plat", recap: "Quali" }
+            ]
+        },
+        desc_quanti_detail: {
+            question: "What do you want to summarize?",
+            options: [
+                { text: "Center and dispersion", result: "res_tendance_centrale", recap: "Stats" },
+                { text: "The distribution (shape)", result: "res_visu_quanti", recap: "Visu" }
+            ]
+        },
+
+        // --- BRANCH: ASSUMPTIONS ---
+        check_goal: {
+            question: "What do you want to check?",
+            options: [
+                { text: "Normality", result: "res_shapiro", recap: "Normality" },
+                { text: "Equality of variances", result: "res_levene", recap: "Homoscedasticity" }
+            ]
         },
 
         // --- RESULTS ---
         res_tendance_centrale: {
             isResult: true,
-            testName: "Mean / Median / Mode",
-            text: "Use <strong>Mean</strong> for normal data, <strong>Median</strong> for skewed or ordinal data, and <strong>Mode</strong> for categories.",
-            expert: "loi-normale",
-            targetId: "stat-moyenne"
+            testName: "Central Tendency Measures",
+            text: "Use Mean, Median, and Mode to summarize the center of your data.",
+            expert: "indicateurs-position"
         },
         res_dispersion: {
             isResult: true,
-            testName: "Variance / Standard Deviation / Quantiles",
-            text: "<strong>Standard Deviation</strong> is the standard for dispersion. Use <strong>Quantiles</strong> (quartiles) for non-normal distributions.",
-            expert: "loi-normale",
+            testName: "Dispersion Measures",
+            text: "Standard Deviation, Variance, and Range show how spread out your data is.",
+            expert: "stat-ecart-type",
             targetId: "stat-ecart-type"
         },
         res_visu_quanti: {
             isResult: true,
-            testName: "Histogram / Boxplot",
-            text: "The <strong>Histogram</strong> shows the distribution's shape. The <strong>Boxplot</strong> is ideal for spotting outliers.",
-            expert: "loi-normale",
-            targetId: "chapitre-3"
-        },
-        res_intervalle_confiance: {
-            isResult: true,
-            testName: "Confidence Interval",
-            text: "Allows estimating the area where the true population mean lies with a given probability (often 95%).",
-            expert: "loi-normale",
-            targetId: "stat-moyenne"
-        },
-        res_tri_plat: {
-            isResult: true,
-            testName: "Frequencies / Crosstabs",
-            text: "Summarizes counts and percentages for each category of your variable.",
-            expert: "stat_mode",
-            targetId: "chapitre-3"
+            testName: "Quantitative Visualization",
+            text: "Use Histograms and Boxplots to see the distribution of your numbers.",
+            expert: "organisation-donnees"
         },
         res_visu_quali: {
             isResult: true,
-            testName: "Bar charts / Pie charts",
-            text: "<strong>Bar charts</strong> are clearer for comparing frequencies. <strong>Pie charts</strong> are useful for visualizing parts of a whole.",
-            expert: "stat_mode",
-            targetId: "chapitre-3"
+            testName: "Qualitative Visualization",
+            text: "Use Bar Charts or Pie Charts to visualize categories.",
+            expert: "organisation-donnees"
         },
-        res_ttest_paired: {
+        res_tri_plat: {
             isResult: true,
-            testName: "Paired t-test (Student)",
-            text: "Used to compare two means on the same individuals (e.g., Before/After).",
-            expert: "test_ttest_paired",
-            targetId: "test-ttest"
-        },
-        res_wilcoxon: {
-            isResult: true,
-            testName: "Wilcoxon Test",
-            text: "The non-parametric alternative to the paired t-test, for non-normal data.",
-            expert: "test_wilcoxon",
-            targetId: "test-mann"
+            testName: "Flat Sorting (Frequencies)",
+            text: "Summarize categories by counting their occurrences (Counts and Percentages).",
+            expert: "organisation-donnees"
         },
         res_ttest_ind: {
             isResult: true,
-            testName: "Independent t-test (Student)",
-            text: "Compares means of two distinct groups (e.g., Men vs Women) when variances are equal.",
-            expert: "test_ttest",
+            testName: "Independent Samples T-Test",
+            text: "Compares the means of two independent groups.",
+            expert: "test-ttest",
             targetId: "test-ttest"
         },
         res_welch: {
             isResult: true,
-            testName: "Welch's Test",
-            text: "A variant of Student's t-test to use when group variances are unequal.",
-            expert: "test_ttest",
+            testName: "Welch's T-Test",
+            text: "T-test variant for groups with unequal variances.",
+            expert: "test-ttest",
             targetId: "test-ttest"
         },
-        res_ttest_ind_welch: {
+        res_ttest_paired: {
             isResult: true,
-            testName: "Indep t-test / Welch",
-            text: "Your data is normal. Use the classic t-test (Student) if variances are equal, otherwise Welch's test.",
-            expert: "test_ttest",
+            testName: "Paired Samples T-Test",
+            text: "Compares means for the same group at two different times.",
+            expert: "test-ttest",
             targetId: "test-ttest"
         },
         res_mann_whitney: {
             isResult: true,
             testName: "Mann-Whitney U Test",
-            text: "The non-parametric alternative to the independent t-test for non-normal data or small samples.",
-            expert: "test_mann",
+            text: "Non-parametric alternative to the independent T-test (based on ranks).",
+            expert: "test-mann",
+            targetId: "test-mann"
+        },
+        res_wilcoxon: {
+            isResult: true,
+            testName: "Wilcoxon Signed-Rank Test",
+            text: "Non-parametric alternative to the paired T-test.",
+            expert: "test-mann",
             targetId: "test-mann"
         },
         res_anova: {
             isResult: true,
-            testName: "One-way ANOVA",
-            text: "Compares the means of 3 or more groups.",
-            expert: "test_anova",
+            testName: "One-Way ANOVA",
+            text: "Compares the means of 3 or more independent groups.",
+            expert: "test-anova",
+            targetId: "test-anova"
+        },
+        res_anova_repeated: {
+            isResult: true,
+            testName: "Repeated Measures ANOVA",
+            text: "Compares 3 or more means for the same subjects over time.",
+            expert: "test-anova",
             targetId: "test-anova"
         },
         res_kruskal_wallis: {
             isResult: true,
-            testName: "Kruskal-Wallis",
-            text: "The non-parametric alternative to ANOVA when data is not normal.",
-            expert: "test_kruskal",
+            testName: "Kruskal-Wallis H Test",
+            text: "Non-parametric alternative to ANOVA for 3 or more groups.",
+            expert: "test-kruskal",
             targetId: "test-kruskal"
+        },
+        res_friedman: {
+            isResult: true,
+            testName: "Friedman Test",
+            text: "Non-parametric alternative to Repeated Measures ANOVA.",
+            expert: "test-kruskal",
+            targetId: "test-kruskal"
+        },
+        res_chi2: {
+            isResult: true,
+            testName: "Chi-Square Independence Test",
+            text: "Checks if there is a link between two categorical variables.",
+            expert: "test-chi2",
+            targetId: "test-chi2"
+        },
+        res_chi2_fit: {
+            isResult: true,
+            testName: "Chi-Square Goodness-of-Fit",
+            text: "Checks if the distribution of a variable matches a theoretical distribution.",
+            expert: "test-chi2",
+            targetId: "test-chi2"
         },
         res_fisher: {
             isResult: true,
             testName: "Fisher's Exact Test",
-            text: "Use to cross two qualitative variables when sample sizes are small (at least one cell ≤ 5).",
-            expert: "test_chi2",
-            targetId: "test-chi2"
-        },
-        res_chi2: {
-            isResult: true,
-            testName: "Chi-Square Test (χ²)",
-            text: "Tests independence between two qualitative variables on large samples.",
-            expert: "test_chi2",
-            targetId: "test-chi2"
-        },
-        res_cramer_v: {
-            isResult: true,
-            testName: "Cramer's V",
-            text: "Indicates the strength of association between two qualitative variables after a Chi-Square test.",
-            expert: "test_chi2",
-            targetId: "test-chi2"
-        },
-        res_chi2_cramer: {
-            isResult: true,
-            testName: "Chi-Square + Cramer's V",
-            text: "Cross the data, calculate Chi-Square for significance and Cramer's V for strength.",
-            expert: "test_chi2",
+            text: "Independence test for very small samples (cells < 5).",
+            expert: "test-chi2",
             targetId: "test-chi2"
         },
         res_pearson: {
             isResult: true,
             testName: "Pearson Correlation (r)",
-            text: "Measures the strength of the linear link between two normal quantitative variables.",
-            expert: "test_pearson",
+            text: "Measures the linear relationship between two normal quantitative variables.",
+            expert: "test-pearson",
             targetId: "test-cor"
         },
         res_spearman: {
             isResult: true,
             testName: "Spearman Correlation (ρ)",
-            text: "Measures the link between two quantitative (or ordinal) variables without assuming normality.",
-            expert: "test_spearman",
+            text: "Measures the link based on ranks, without assuming normality.",
+            expert: "test-spearman",
             targetId: "test-spearman"
         },
         res_logistic_reg: {
             isResult: true,
-            testName: "Logistic Regression",
-            text: "Used to predict a binary variable (Yes/No) from one or more predictors.",
-            expert: "test_manova",
+            testName: "Binary Logistic Regression",
+            text: "Predicts a binary outcome (Yes/No) from one or more variables.",
+            expert: "reg-logistique",
+            targetId: "reg-logistique"
+        },
+        res_multinomial_reg: {
+            isResult: true,
+            testName: "Multinomial Logistic Regression",
+            text: "Predicts an outcome with 3 or more categories.",
+            expert: "test-manova",
             targetId: "test-manova"
         },
         res_linear_reg_simple: {
             isResult: true,
             testName: "Simple Linear Regression",
-            text: "Models the relationship between a dependent variable and a single explanatory variable.",
-            expert: "test_pearson",
+            text: "Models Y using a single predictor X.",
+            expert: "test-pearson",
             targetId: "test-cor"
         },
         res_linear_reg_multiple: {
             isResult: true,
             testName: "Multiple Linear Regression",
-            text: "Models the relationship between a dependent variable and several explanatory variables.",
-            expert: "test_manova"
+            text: "Models Y using several predictors.",
+            expert: "test-manova"
         },
         res_ancova: {
             isResult: true,
             testName: "ANCOVA",
-            text: "Compares groups while neutralizing the effect of a continuous parasitic variable.",
-            expert: "test_ancova",
+            text: "Compares groups while controlling for a continuous covariate.",
+            expert: "test-ancova",
             targetId: "test-ancova"
         },
         res_manova: {
             isResult: true,
             testName: "MANOVA",
-            text: "Analyzes the effect of independent variables on several dependent variables simultaneously.",
-            expert: "test_manova",
+            text: "Analyzes the effect on several outcome variables simultaneously.",
+            expert: "test-manova",
             targetId: "test-manova"
         },
         res_shapiro: {
             isResult: true,
             testName: "Shapiro-Wilk Test",
-            text: "The standard test to check if a sample follows a normal distribution.",
+            text: "Verifies if the data follows a normal distribution.",
             expert: "loi-normale"
         },
         res_levene: {
             isResult: true,
             testName: "Levene's Test",
-            text: "Checks for equality of variances (homoscedasticity) between different groups.",
-            expert: "test_anova"
+            text: "Verifies if the variances are equal (homoscedasticity).",
+            expert: "test-anova"
         }
     }
 };
