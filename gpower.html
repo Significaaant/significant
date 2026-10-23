@@ -29,16 +29,27 @@
         </div>
     </div>
 
-    <!-- =============== NAV =============== -->
-    <nav class="navbar" role="navigation" aria-label="Navigation principale">
-        <a href="index.html" class="logo" aria-label="Significant — Accueil">significant <span>stats</span></a>
-        <div class="nav-links">
-            <a href="index.html" data-i18n="nav-accueil">Accueil</a>
-            <a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a>
-            <a href="methodo.html#gpower" class="active" data-i18n="nav-methodo">Méthodo</a>
-            <a href="theory.html" data-i18n="nav-fiches">Fiches</a>
-            <a href="about.html" data-i18n="nav-about">À propos</a>
-            <button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button>
+    <!-- =============== NAVIGATION =============== -->
+    <nav class="site-nav" role="navigation" aria-label="Navigation principale">
+        <div class="nav-inner">
+            <a href="index.html" class="site-wordmark" aria-label="Significant — Accueil">significant</a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+
+            <ul class="nav-links" id="nav-links" role="list">
+                <li><a href="index.html" data-i18n="nav-accueil">Accueil</a></li>
+                <li><a href="index.html#quiz" data-i18n="nav-quiz">Quiz</a></li>
+                <li><a href="methodo.html#gpower" class="active" data-i18n="nav-methodo">Méthodo</a></li>
+                <li><a href="theory.html" data-i18n="nav-fiches">Fiches</a></li>
+                <li><a href="about.html" data-i18n="nav-about">À propos</a></li>
+                <li><button id="lang-toggle" class="lang-btn" aria-label="Changer de langue">EN</button></li>
+            </ul>
         </div>
     </nav>
 

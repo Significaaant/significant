@@ -92,5 +92,5 @@ Thanks to Pyodide, the Python codebase executes natively on client browsers with
 ## 👩‍💻 Author & Contact
 
 **Chaïma Moghrani**  
-- Portfolio / CV : [Consulter en ligne](cv.html)  
+- LinkedIn : [linkedin.com/in/chaima-moghrani](https://www.linkedin.com/in/chaima-moghrani/)  
 - GitHub : [@Significaaant](https://github.com/Significaaant)

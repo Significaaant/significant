@@ -7,6 +7,7 @@ const uiTranslations = {
         "nav-glossaire": "Glossaire",
         "nav-accueil": "Accueil",
         "nav-about": "À propos",
+        "nav-cv": "CV",
         "hell-title-lead": "Bienvenue dans l'enfer des",
         "hell-title-word": "statistiques",
         "hell-subtitle": "Vous êtes perdu(e) ? Pas de panique. Grâce à ce site vous pouvez vous sortir d'affaire.",
@@ -419,7 +420,7 @@ const uiTranslations = {
         "about-aesthetic-title": "Une interface sobre et lisible",
         "about-aesthetic-text": "Nous croyons qu'on apprend mieux dans un bel environnement. C'est pourquoi chaque section possède son propre univers visuel (Fresh Mint, Ruby Sol, Pastel Pink) pour aider votre cerveau à compartimenter les connaissances.",
         "about-creator-title": "La créatrice",
-        "about-creator-text": "Passionnée par l'intersection entre les données et la pédagogie, j'ai conçu ce projet pour rendre l'analyse statistique plus humaine et accessible. Mon nom est Chaïma, j'ai un master de psychologie et de sociologie des réseaux.",
+        "about-creator-text": "Passionnée par l'intersection entre les données et la pédagogie, j'ai conçu ce projet pour rendre l'analyse statistique plus accessible, claire et humaine pour tous les étudiants et chercheurs.",
         "error-code": "404",
         "error-title": "Page introuvable",
         "error-desc": "La ressource ou la fiche méthodologique demandée n'existe pas ou a été déplacée.",
@@ -437,6 +438,7 @@ const uiTranslations = {
         "nav-glossaire": "Glossary",
         "nav-accueil": "Home",
         "nav-about": "About",
+        "nav-cv": "Resume",
         "hell-title-lead": "Welcome to the inferno of",
         "hell-title-word": "statistics",
         "hell-subtitle": "Feeling lost? Don't panic. With this guide, you can successfully find your way out.",
@@ -826,7 +828,7 @@ const uiTranslations = {
         "gpower-param-power": "Power (1-β)",
         "gpower-param-es": "Effect size d/f/r",
         "about-creator-title": "The Creator",
-        "about-creator-text": "Passionate about the intersection of data and pedagogy, I designed this project to make statistical analysis more human and accessible. My name is Chaïma, I hold master's degrees in Psychology and Network Sociology.",
+        "about-creator-text": "Passionate about the intersection of data and pedagogy, I designed this project to make statistical analysis more intuitive, accessible, and welcoming for students and researchers.",
     }
 };
 
